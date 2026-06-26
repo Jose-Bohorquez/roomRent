@@ -32,28 +32,28 @@
       <table class="table table-hover align-middle" aria-describedby="page-heading">
         <thead class="table-light">
           <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
-            <th scope="col" jhiSortBy="titulo" style="min-width:200px">
+            <th scope="col" jhiSortBy="titulo" style="min-width: 200px">
               <div class="d-flex align-items-center gap-1">
                 <span jhiTranslate="roomApp.publicacionInmueble.titulo">Título</span>
                 <fa-icon class="p-1" icon="sort" />
               </div>
             </th>
-            <th scope="col" jhiSortBy="canonArriendo" style="min-width:120px">
+            <th scope="col" jhiSortBy="canonArriendo" style="min-width: 120px">
               <div class="d-flex align-items-center gap-1">
                 <span jhiTranslate="roomApp.publicacionInmueble.canonArriendo">Canon / mes</span>
                 <fa-icon class="p-1" icon="sort" />
               </div>
             </th>
-            <th scope="col" jhiSortBy="estado" style="min-width:110px">
+            <th scope="col" jhiSortBy="estado" style="min-width: 110px">
               <div class="d-flex align-items-center gap-1">
                 <span jhiTranslate="roomApp.publicacionInmueble.estado">Estado</span>
                 <fa-icon class="p-1" icon="sort" />
               </div>
             </th>
-            <th scope="col" style="min-width:180px">
+            <th scope="col" style="min-width: 180px">
               <span>Inmueble / Dirección</span>
             </th>
-            <th scope="col" jhiSortBy="fechaDisponible" style="min-width:130px">
+            <th scope="col" jhiSortBy="fechaDisponible" style="min-width: 130px">
               <div class="d-flex align-items-center gap-1">
                 <span jhiTranslate="roomApp.publicacionInmueble.fechaDisponible">Disponible</span>
                 <fa-icon class="p-1" icon="sort" />
@@ -65,33 +65,32 @@
         <tbody>
           @for (pub of publicacionInmuebles(); track trackId(pub)) {
             <tr data-cy="entityTable">
-
               <!-- Título -->
               <td>
                 <a [routerLink]="['/publicacion-inmueble', pub.id, 'view']" class="fw-semibold text-dark text-decoration-none">
                   {{ pub.titulo || '—' }}
                 </a>
                 @if (pub.descripcion) {
-                  <div class="text-muted small text-truncate" style="max-width:260px">{{ pub.descripcion }}</div>
+                  <div class="text-muted small text-truncate" style="max-width: 260px">{{ pub.descripcion }}</div>
                 }
               </td>
 
               <!-- Canon de arriendo -->
-              <td class="fw-semibold" style="color:#b45309">
-                {{ pub.canonArriendo != null ? ('$' + (pub.canonArriendo | number:'1.0-0')) : '—' }}
+              <td class="fw-semibold" style="color: #b45309">
+                {{ pub.canonArriendo !== null ? '$' + (pub.canonArriendo | number: '1.0-0') : '—' }}
               </td>
 
               <!-- Estado — badge con color semántico -->
               <td>
                 @switch (pub.estado) {
                   @case ('PUBLICADO') {
-                    <span class="badge rounded-pill" style="background:#b45309">PUBLICADO</span>
+                    <span class="badge rounded-pill" style="background: #b45309">PUBLICADO</span>
                   }
                   @case ('BORRADOR') {
                     <span class="badge rounded-pill bg-secondary">BORRADOR</span>
                   }
                   @case ('PAUSADO') {
-                    <span class="badge rounded-pill" style="background:#78716c">PAUSADO</span>
+                    <span class="badge rounded-pill" style="background: #78716c">PAUSADO</span>
                   }
                   @case ('ARRENDADO') {
                     <span class="badge rounded-pill bg-success">ARRENDADO</span>
@@ -112,7 +111,7 @@
                     {{ pub.inmueble.nombre || pub.inmueble.id }}
                   </a>
                   @if (pub.inmueble.direccion) {
-                    <div class="text-muted small text-truncate" style="max-width:200px">{{ pub.inmueble.direccion }}</div>
+                    <div class="text-muted small text-truncate" style="max-width: 200px">{{ pub.inmueble.direccion }}</div>
                   }
                 } @else {
                   <span class="text-muted small">—</span>
@@ -127,10 +126,20 @@
               <!-- Acciones -->
               <td class="text-end">
                 <div class="btn-group btn-group-sm">
-                  <a [routerLink]="['/publicacion-inmueble', pub.id, 'view']" class="btn btn-outline-secondary" data-cy="entityDetailsButton" title="Ver">
+                  <a
+                    [routerLink]="['/publicacion-inmueble', pub.id, 'view']"
+                    class="btn btn-outline-secondary"
+                    data-cy="entityDetailsButton"
+                    title="Ver"
+                  >
                     <fa-icon icon="eye" />
                   </a>
-                  <a [routerLink]="['/publicacion-inmueble', pub.id, 'edit']" class="btn btn-outline-primary" data-cy="entityEditButton" title="Editar">
+                  <a
+                    [routerLink]="['/publicacion-inmueble', pub.id, 'edit']"
+                    class="btn btn-outline-primary"
+                    data-cy="entityEditButton"
+                    title="Editar"
+                  >
                     <fa-icon icon="pencil-alt" />
                   </a>
                   <button type="button" (click)="delete(pub)" class="btn btn-outline-danger" data-cy="entityDeleteButton" title="Eliminar">
@@ -138,7 +147,6 @@
                   </button>
                 </div>
               </td>
-
             </tr>
           }
         </tbody>
