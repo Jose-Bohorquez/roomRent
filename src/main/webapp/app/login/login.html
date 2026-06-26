@@ -1,0 +1,76 @@
+<div class="login-page">
+  <div class="container py-5">
+    <div class="row justify-content-center align-items-center min-vh-75">
+      <div class="col-lg-5 col-md-7 col-sm-10">
+        <div class="card shadow border-0 rounded-4">
+          <div class="card-body p-4 p-md-5">
+            <div class="text-center mb-4">
+              <h1 class="fw-bold mb-2" data-cy="loginTitle" jhiTranslate="login.title">Iniciar sesión</h1>
+              <p class="text-muted mb-0">Accede a Room Rent y continúa con tu proceso.</p>
+            </div>
+
+            @if (authenticationError()) {
+            <div class="alert alert-danger rounded-3" data-cy="loginError" jhiTranslate="login.messages.error.authentication">
+              <strong>Inicio de sesión fallido.</strong> Verifica tus credenciales e intenta nuevamente.
+            </div>
+            }
+
+            <form class="form" (ngSubmit)="login()" [formGroup]="loginForm">
+              <div class="mb-3">
+                <label class="form-label fw-semibold" for="username" jhiTranslate="global.form.username.label">Usuario</label>
+                <input
+                  type="text"
+                  class="form-control form-control-lg"
+                  name="username"
+                  id="username"
+                  placeholder="{{ 'global.form.username.placeholder' | translate }}"
+                  formControlName="username"
+                  data-cy="username"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-semibold" for="password" jhiTranslate="login.form.password">Contraseña</label>
+                <input
+                  type="password"
+                  class="form-control form-control-lg"
+                  name="password"
+                  id="password"
+                  placeholder="{{ 'login.form.password.placeholder' | translate }}"
+                  formControlName="password"
+                  data-cy="password"
+                />
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" formControlName="rememberMe" />
+                  <label class="form-check-label" for="rememberMe" jhiTranslate="login.form.rememberme">
+                    Recordarme
+                  </label>
+                </div>
+
+                <a class="small text-decoration-none" routerLink="/account/reset/request" data-cy="forgetYourPasswordSelector">
+                  ¿Olvidaste tu contraseña?
+                </a>
+              </div>
+
+              <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-primary btn-lg rounded-3" data-cy="submit" jhiTranslate="login.form.button">
+                  Ingresar
+                </button>
+              </div>
+            </form>
+
+            <div class="text-center pt-3 border-top">
+              <span class="text-muted" jhiTranslate="global.messages.info.register.noaccount">¿Aún no tienes una cuenta?</span>
+              <a class="ms-1 fw-semibold text-decoration-none" routerLink="/account/register" jhiTranslate="global.messages.info.register.link">
+                Crear cuenta
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

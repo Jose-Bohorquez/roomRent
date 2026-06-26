@@ -1,0 +1,72 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (visitaProgramada(); as visitaProgramadaRef) {
+      <div>
+        <h2 data-cy="visitaProgramadaDetailsHeading">
+          <span jhiTranslate="roomApp.visitaProgramada.detail.title">Visita Programada</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ visitaProgramadaRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.visitaProgramada.fechaSolicitada">Fecha Solicitada</span></dt>
+          <dd>
+            <span>{{ visitaProgramadaRef.fechaSolicitada | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.visitaProgramada.fechaConfirmada">Fecha Confirmada</span></dt>
+          <dd>
+            <span>{{ visitaProgramadaRef.fechaConfirmada | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.visitaProgramada.notas">Notas</span></dt>
+          <dd>
+            <span>{{ visitaProgramadaRef.notas }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.visitaProgramada.estado">Estado</span></dt>
+          <dd>
+            <span [jhiTranslate]="'roomApp.EstadoVisita.' + (visitaProgramadaRef.estado ?? 'null')">{{
+              { null: '', SOLICITADA: 'SOLICITADA', CONFIRMADA: 'CONFIRMADA', CANCELADA: 'CANCELADA', FINALIZADA: 'FINALIZADA' }[
+                visitaProgramadaRef.estado ?? 'null'
+              ]
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.visitaProgramada.visitante">Visitante</span></dt>
+          <dd>
+            @if (visitaProgramada()!.visitante) {
+              <div>
+                <a [routerLink]="['/perfil-usuario', visitaProgramada()!.visitante?.id, 'view']">{{
+                  visitaProgramadaRef.visitante?.primerNombre
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="roomApp.visitaProgramada.solicitud">Solicitud</span></dt>
+          <dd>
+            @if (visitaProgramada()!.solicitud) {
+              <div>
+                <a [routerLink]="['/solicitud-arriendo', visitaProgramada()!.solicitud?.id, 'view']">{{
+                  visitaProgramadaRef.solicitud?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/visita-programada', visitaProgramadaRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

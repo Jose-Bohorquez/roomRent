@@ -1,0 +1,320 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-publicacion-inmueble-heading"
+        data-cy="PublicacionInmuebleCreateUpdateHeading"
+        jhiTranslate="roomApp.publicacionInmueble.home.createOrEditLabel"
+      >
+        Crear o editar Publicacion Inmueble
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let tituloRef = editForm.get('titulo')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_titulo" jhiTranslate="roomApp.publicacionInmueble.titulo">Titulo</label>
+          <input type="text" class="form-control" name="titulo" id="field_titulo" data-cy="titulo" formControlName="titulo" />
+          @if (tituloRef.invalid && (tituloRef.dirty || tituloRef.touched)) {
+            <div>
+              @if (editForm.get('titulo')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_descripcion" jhiTranslate="roomApp.publicacionInmueble.descripcion">Descripcion</label>
+          <textarea
+            class="form-control"
+            name="descripcion"
+            id="field_descripcion"
+            data-cy="descripcion"
+            formControlName="descripcion"
+          ></textarea>
+        </div>
+
+        @let canonArriendoRef = editForm.get('canonArriendo')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_canonArriendo" jhiTranslate="roomApp.publicacionInmueble.canonArriendo"
+            >Canon Arriendo</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="canonArriendo"
+            id="field_canonArriendo"
+            data-cy="canonArriendo"
+            formControlName="canonArriendo"
+          />
+          @if (canonArriendoRef.invalid && (canonArriendoRef.dirty || canonArriendoRef.touched)) {
+            <div>
+              @if (editForm.get('canonArriendo')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('canonArriendo')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Este campo debe ser un número.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_deposito" jhiTranslate="roomApp.publicacionInmueble.deposito">Deposito</label>
+          <input type="number" class="form-control" name="deposito" id="field_deposito" data-cy="deposito" formControlName="deposito" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_requisitos" jhiTranslate="roomApp.publicacionInmueble.requisitos">Requisitos</label>
+          <textarea
+            class="form-control"
+            name="requisitos"
+            id="field_requisitos"
+            data-cy="requisitos"
+            formControlName="requisitos"
+          ></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_seguroRequerido" jhiTranslate="roomApp.publicacionInmueble.seguroRequerido"
+            >Seguro Requerido</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="seguroRequerido"
+            id="field_seguroRequerido"
+            data-cy="seguroRequerido"
+            formControlName="seguroRequerido"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_datacreditoRequerido" jhiTranslate="roomApp.publicacionInmueble.datacreditoRequerido"
+            >Datacredito Requerido</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="datacreditoRequerido"
+            id="field_datacreditoRequerido"
+            data-cy="datacreditoRequerido"
+            formControlName="datacreditoRequerido"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fechaDisponible" jhiTranslate="roomApp.publicacionInmueble.fechaDisponible"
+            >Fecha Disponible</label
+          >
+          <div class="input-group">
+            <input
+              id="field_fechaDisponible"
+              data-cy="fechaDisponible"
+              type="text"
+              class="form-control"
+              name="fechaDisponible"
+              ngbDatepicker
+              #fechaDisponibleDp="ngbDatepicker"
+              formControlName="fechaDisponible"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaDisponibleDp.toggle()"><fa-icon icon="calendar-alt" /></button>
+          </div>
+        </div>
+
+        @let estadoRef = editForm.get('estado')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_estado" jhiTranslate="roomApp.publicacionInmueble.estado">Estado</label>
+          <select class="form-control" name="estado" formControlName="estado" id="field_estado" data-cy="estado">
+            <option [ngValue]="null">{{ 'roomApp.EstadoPublicacion.null' | translate }}</option>
+            @for (estadoPublicacion of estadoPublicacionValues; track $index) {
+              <option [value]="estadoPublicacion">{{ 'roomApp.EstadoPublicacion.' + estadoPublicacion | translate }}</option>
+            }
+          </select>
+          @if (estadoRef.invalid && (estadoRef.dirty || estadoRef.touched)) {
+            <div>
+              @if (editForm.get('estado')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let permiteRoomiesRef = editForm.get('permiteRoomies')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_permiteRoomies" jhiTranslate="roomApp.publicacionInmueble.permiteRoomies"
+            >Permite Roomies</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="permiteRoomies"
+            id="field_permiteRoomies"
+            data-cy="permiteRoomies"
+            formControlName="permiteRoomies"
+          />
+          @if (permiteRoomiesRef.invalid && (permiteRoomiesRef.dirty || permiteRoomiesRef.touched)) {
+            <div>
+              @if (editForm.get('permiteRoomies')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let aceptaMascotasRef = editForm.get('aceptaMascotas')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_aceptaMascotas" jhiTranslate="roomApp.publicacionInmueble.aceptaMascotas"
+            >Acepta Mascotas</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="aceptaMascotas"
+            id="field_aceptaMascotas"
+            data-cy="aceptaMascotas"
+            formControlName="aceptaMascotas"
+          />
+          @if (aceptaMascotasRef.invalid && (aceptaMascotasRef.dirty || aceptaMascotasRef.touched)) {
+            <div>
+              @if (editForm.get('aceptaMascotas')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let permiteFumadoresRef = editForm.get('permiteFumadores')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_permiteFumadores" jhiTranslate="roomApp.publicacionInmueble.permiteFumadores"
+            >Permite Fumadores</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="permiteFumadores"
+            id="field_permiteFumadores"
+            data-cy="permiteFumadores"
+            formControlName="permiteFumadores"
+          />
+          @if (permiteFumadoresRef.invalid && (permiteFumadoresRef.dirty || permiteFumadoresRef.touched)) {
+            <div>
+              @if (editForm.get('permiteFumadores')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let permiteNinosRef = editForm.get('permiteNinos')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_permiteNinos" jhiTranslate="roomApp.publicacionInmueble.permiteNinos">Permite Ninos</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="permiteNinos"
+            id="field_permiteNinos"
+            data-cy="permiteNinos"
+            formControlName="permiteNinos"
+          />
+          @if (permiteNinosRef.invalid && (permiteNinosRef.dirty || permiteNinosRef.touched)) {
+            <div>
+              @if (editForm.get('permiteNinos')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let permiteVisitasRef = editForm.get('permiteVisitas')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_permiteVisitas" jhiTranslate="roomApp.publicacionInmueble.permiteVisitas"
+            >Permite Visitas</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="permiteVisitas"
+            id="field_permiteVisitas"
+            data-cy="permiteVisitas"
+            formControlName="permiteVisitas"
+          />
+          @if (permiteVisitasRef.invalid && (permiteVisitasRef.dirty || permiteVisitasRef.touched)) {
+            <div>
+              @if (editForm.get('permiteVisitas')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let permiteParejasRef = editForm.get('permiteParejas')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_permiteParejas" jhiTranslate="roomApp.publicacionInmueble.permiteParejas"
+            >Permite Parejas</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="permiteParejas"
+            id="field_permiteParejas"
+            data-cy="permiteParejas"
+            formControlName="permiteParejas"
+          />
+          @if (permiteParejasRef.invalid && (permiteParejasRef.dirty || permiteParejasRef.touched)) {
+            <div>
+              @if (editForm.get('permiteParejas')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_inmueble" jhiTranslate="roomApp.publicacionInmueble.inmueble">Inmueble</label>
+          <select
+            class="form-control"
+            id="field_inmueble"
+            data-cy="inmueble"
+            name="inmueble"
+            formControlName="inmueble"
+            [compareWith]="compareInmueble"
+          >
+            <option [ngValue]="null"></option>
+            @for (inmuebleOption of inmueblesSharedCollection(); track $index) {
+              <option [ngValue]="inmuebleOption">{{ inmuebleOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

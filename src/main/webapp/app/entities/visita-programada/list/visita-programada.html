@@ -1,0 +1,150 @@
+<div>
+  <h2 id="page-heading" data-cy="VisitaProgramadaHeading">
+    <span jhiTranslate="roomApp.visitaProgramada.home.title">Visita Programadas</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
+        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
+        <span jhiTranslate="roomApp.visitaProgramada.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-visita-programada"
+        [routerLink]="['/visita-programada/new']"
+      >
+        <fa-icon icon="plus" />
+        <span jhiTranslate="roomApp.visitaProgramada.home.createLabel">Crear nuevo Visita Programada</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  @if (visitaProgramadas().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="roomApp.visitaProgramada.home.notFound">Ningún Visita Programadas encontrado</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="fechaSolicitada">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.visitaProgramada.fechaSolicitada">Fecha Solicitada</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="fechaConfirmada">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.visitaProgramada.fechaConfirmada">Fecha Confirmada</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="notas">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.visitaProgramada.notas">Notas</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="estado">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.visitaProgramada.estado">Estado</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="visitante.primerNombre">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.visitaProgramada.visitante">Visitante</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="solicitud.id">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.visitaProgramada.solicitud">Solicitud</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (visitaProgramada of visitaProgramadas(); track trackId(visitaProgramada)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/visita-programada', visitaProgramada.id, 'view']">{{ visitaProgramada.id }}</a>
+              </td>
+              <td>{{ visitaProgramada.fechaSolicitada | formatMediumDatetime }}</td>
+              <td>{{ visitaProgramada.fechaConfirmada | formatMediumDatetime }}</td>
+              <td>{{ visitaProgramada.notas }}</td>
+              <td [jhiTranslate]="'roomApp.EstadoVisita.' + (visitaProgramada.estado ?? 'null')">
+                {{
+                  { null: '', SOLICITADA: 'SOLICITADA', CONFIRMADA: 'CONFIRMADA', CANCELADA: 'CANCELADA', FINALIZADA: 'FINALIZADA' }[
+                    visitaProgramada.estado ?? 'null'
+                  ]
+                }}
+              </td>
+              <td>
+                @if (visitaProgramada.visitante) {
+                  <div>
+                    <a [routerLink]="['/perfil-usuario', visitaProgramada.visitante.id, 'view']">{{
+                      visitaProgramada.visitante.primerNombre
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (visitaProgramada.solicitud) {
+                  <div>
+                    <a [routerLink]="['/solicitud-arriendo', visitaProgramada.solicitud.id, 'view']">{{ visitaProgramada.solicitud.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/visita-programada', visitaProgramada.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/visita-programada', visitaProgramada.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(visitaProgramada)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

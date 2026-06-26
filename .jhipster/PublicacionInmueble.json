@@ -1,0 +1,98 @@
+{
+  "annotations": {
+    "changelogDate": "20260618002301"
+  },
+  "applications": ["room"],
+  "fields": [
+    {
+      "fieldName": "titulo",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "TextBlob"
+    },
+    {
+      "fieldName": "canonArriendo",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "deposito",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "requisitos",
+      "fieldType": "TextBlob"
+    },
+    {
+      "fieldName": "seguroRequerido",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "datacreditoRequerido",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "fechaDisponible",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "EstadoPublicacion",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "BORRADOR,PUBLICADO,PAUSADO,ARRENDADO,FINALIZADO"
+    },
+    {
+      "fieldName": "permiteRoomies",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "aceptaMascotas",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "permiteFumadores",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "permiteNinos",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "permiteVisitas",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "permiteParejas",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "PublicacionInmueble",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "solicitudArriendo",
+      "otherEntityRelationshipName": "publicacion",
+      "relationshipName": "solicitudes",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "inmueble",
+      "otherEntityRelationshipName": "publicaciones",
+      "relationshipName": "inmueble",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

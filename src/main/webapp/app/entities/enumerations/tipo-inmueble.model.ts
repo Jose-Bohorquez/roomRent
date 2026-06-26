@@ -1,0 +1,15 @@
+export enum TipoInmueble {
+  APARTAMENTO = 'APARTAMENTO',
+
+  CASA = 'CASA',
+
+  HABITACION = 'HABITACION',
+
+  APARTAESTUDIO = 'APARTAESTUDIO',
+
+  LOCAL = 'LOCAL',
+
+  OFICINA = 'OFICINA',
+
+  OTRO = 'OTRO',
+}

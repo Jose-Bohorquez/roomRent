@@ -1,0 +1,75 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (solicitudRoomie(); as solicitudRoomieRef) {
+      <div>
+        <h2 data-cy="solicitudRoomieDetailsHeading"><span jhiTranslate="roomApp.solicitudRoomie.detail.title">Solicitud Roomie</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ solicitudRoomieRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.solicitudRoomie.mensaje">Mensaje</span></dt>
+          <dd>
+            <span>{{ solicitudRoomieRef.mensaje }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.solicitudRoomie.referencias">Referencias</span></dt>
+          <dd>
+            <span>{{ solicitudRoomieRef.referencias }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.solicitudRoomie.estado">Estado</span></dt>
+          <dd>
+            <span [jhiTranslate]="'roomApp.EstadoSolicitud.' + (solicitudRoomieRef.estado ?? 'null')">{{
+              {
+                null: '',
+                CREADA: 'CREADA',
+                EN_REVISION: 'EN_REVISION',
+                APROBADA: 'APROBADA',
+                RECHAZADA: 'RECHAZADA',
+                CANCELADA: 'CANCELADA',
+              }[solicitudRoomieRef.estado ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.solicitudRoomie.fechaCreacion">Fecha Creacion</span></dt>
+          <dd>
+            <span>{{ solicitudRoomieRef.fechaCreacion | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.solicitudRoomie.postulante">Postulante</span></dt>
+          <dd>
+            @if (solicitudRoomie()!.postulante) {
+              <div>
+                <a [routerLink]="['/perfil-usuario', solicitudRoomie()!.postulante?.id, 'view']">{{
+                  solicitudRoomieRef.postulante?.primerNombre
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="roomApp.solicitudRoomie.publicacionRoomie">Publicacion Roomie</span></dt>
+          <dd>
+            @if (solicitudRoomie()!.publicacionRoomie) {
+              <div>
+                <a [routerLink]="['/publicacion-roomie', solicitudRoomie()!.publicacionRoomie?.id, 'view']">{{
+                  solicitudRoomieRef.publicacionRoomie?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/solicitud-roomie', solicitudRoomieRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

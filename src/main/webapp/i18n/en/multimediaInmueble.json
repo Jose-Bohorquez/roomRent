@@ -1,0 +1,28 @@
+{
+  "roomApp": {
+    "multimediaInmueble": {
+      "home": {
+        "title": "Multimedia Inmuebles",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Multimedia Inmueble",
+        "createOrEditLabel": "Create or edit a Multimedia Inmueble",
+        "notFound": "No Multimedia Inmuebles found"
+      },
+      "created": "A new Multimedia Inmueble is created with identifier {{ param }}",
+      "updated": "A Multimedia Inmueble is updated with identifier {{ param }}",
+      "deleted": "A Multimedia Inmueble is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Multimedia Inmueble {{ id }}?"
+      },
+      "detail": {
+        "title": "Multimedia Inmueble"
+      },
+      "id": "ID",
+      "urlMedia": "Url Media",
+      "tipoMedia": "Tipo Media",
+      "principal": "Principal",
+      "titulo": "Titulo",
+      "inmueble": "Inmueble"
+    }
+  }
+}

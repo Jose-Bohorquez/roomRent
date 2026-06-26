@@ -1,0 +1,105 @@
+{
+  "annotations": {
+    "changelogDate": "20260618002201"
+  },
+  "applications": ["room"],
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "direccion",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "ciudad",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "localidad",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "barrio",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "latitud",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "longitud",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "tipoInmueble",
+      "fieldType": "TipoInmueble",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "APARTAMENTO,CASA,HABITACION,APARTAESTUDIO,LOCAL,OFICINA,OTRO"
+    },
+    {
+      "fieldName": "areaMetrosCuadrados",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "numeroHabitaciones",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "numeroBanos",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "numeroParqueaderos",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "estrato",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "6",
+      "fieldValidateRulesMin": "1"
+    }
+  ],
+  "name": "Inmueble",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "publicacionInmueble",
+      "otherEntityRelationshipName": "inmueble",
+      "relationshipName": "publicaciones",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "multimediaInmueble",
+      "otherEntityRelationshipName": "inmueble",
+      "relationshipName": "multimedia",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "contratoArriendo",
+      "otherEntityRelationshipName": "inmueble",
+      "relationshipName": "contratos",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "perfilUsuario",
+      "otherEntityRelationshipName": "inmuebles",
+      "relationshipName": "propietario",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

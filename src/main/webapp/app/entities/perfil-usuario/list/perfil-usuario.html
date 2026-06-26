@@ -1,0 +1,320 @@
+<div>
+  <h2 id="page-heading" data-cy="PerfilUsuarioHeading">
+    <span jhiTranslate="roomApp.perfilUsuario.home.title">Perfil Usuarios</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
+        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
+        <span jhiTranslate="roomApp.perfilUsuario.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-perfil-usuario"
+        [routerLink]="['/perfil-usuario/new']"
+      >
+        <fa-icon icon="plus" />
+        <span jhiTranslate="roomApp.perfilUsuario.home.createLabel">Crear nuevo Perfil Usuario</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  @if (perfilUsuarios().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="roomApp.perfilUsuario.home.notFound">Ningún Perfil Usuarios encontrado</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="tipoDocumento">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.tipoDocumento">Tipo Documento</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="numeroDocumento">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.numeroDocumento">Numero Documento</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="primerNombre">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.primerNombre">Primer Nombre</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="segundoNombre">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.segundoNombre">Segundo Nombre</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="primerApellido">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.primerApellido">Primer Apellido</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="segundoApellido">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.segundoApellido">Segundo Apellido</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="fechaNacimiento">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.fechaNacimiento">Fecha Nacimiento</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="genero">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.genero">Genero</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="telefono">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.telefono">Telefono</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="direccionActual">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.direccionActual">Direccion Actual</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="ciudad">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.ciudad">Ciudad</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="barrio">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.barrio">Barrio</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="profesion">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.profesion">Profesion</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="ocupacion">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.ocupacion">Ocupacion</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="empresaTrabajo">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.empresaTrabajo">Empresa Trabajo</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="universidad">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.universidad">Universidad</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="biografia">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.biografia">Biografia</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="intereses">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.intereses">Intereses</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="tieneMascotas">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.tieneMascotas">Tiene Mascotas</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="fumador">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.fumador">Fumador</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="verificado">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.verificado">Verificado</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="habilitadoRoomie">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.habilitadoRoomie">Habilitado Roomie</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="estado">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.estado">Estado</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="fechaCreacion">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.fechaCreacion">Fecha Creacion</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="usuario.login">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.perfilUsuario.usuario">Usuario</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (perfilUsuario of perfilUsuarios(); track trackId(perfilUsuario)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/perfil-usuario', perfilUsuario.id, 'view']">{{ perfilUsuario.id }}</a>
+              </td>
+              <td [jhiTranslate]="'roomApp.TipoDocumento.' + (perfilUsuario.tipoDocumento ?? 'null')">
+                {{
+                  { null: '', CC: 'CC', CE: 'CE', TI: 'TI', PASSPORT: 'PASSPORT', NIT: 'NIT', OTRO: 'OTRO' }[
+                    perfilUsuario.tipoDocumento ?? 'null'
+                  ]
+                }}
+              </td>
+              <td>{{ perfilUsuario.numeroDocumento }}</td>
+              <td>{{ perfilUsuario.primerNombre }}</td>
+              <td>{{ perfilUsuario.segundoNombre }}</td>
+              <td>{{ perfilUsuario.primerApellido }}</td>
+              <td>{{ perfilUsuario.segundoApellido }}</td>
+              <td>{{ perfilUsuario.fechaNacimiento | formatMediumDate }}</td>
+              <td [jhiTranslate]="'roomApp.Genero.' + (perfilUsuario.genero ?? 'null')">
+                {{
+                  { null: '', MASCULINO: 'MASCULINO', FEMENINO: 'FEMENINO', OTRO: 'OTRO', PREFIERO_NO_DECIR: 'PREFIERO_NO_DECIR' }[
+                    perfilUsuario.genero ?? 'null'
+                  ]
+                }}
+              </td>
+              <td>{{ perfilUsuario.telefono }}</td>
+              <td>{{ perfilUsuario.direccionActual }}</td>
+              <td>{{ perfilUsuario.ciudad }}</td>
+              <td>{{ perfilUsuario.barrio }}</td>
+              <td>{{ perfilUsuario.profesion }}</td>
+              <td>{{ perfilUsuario.ocupacion }}</td>
+              <td>{{ perfilUsuario.empresaTrabajo }}</td>
+              <td>{{ perfilUsuario.universidad }}</td>
+              <td>{{ perfilUsuario.biografia }}</td>
+              <td>{{ perfilUsuario.intereses }}</td>
+              <td>{{ perfilUsuario.tieneMascotas }}</td>
+              <td>{{ perfilUsuario.fumador }}</td>
+              <td>{{ perfilUsuario.verificado }}</td>
+              <td>{{ perfilUsuario.habilitadoRoomie }}</td>
+              <td [jhiTranslate]="'roomApp.EstadoUsuario.' + (perfilUsuario.estado ?? 'null')">
+                {{
+                  {
+                    null: '',
+                    PENDIENTE_VERIFICACION: 'PENDIENTE_VERIFICACION',
+                    ACTIVO: 'ACTIVO',
+                    INACTIVO: 'INACTIVO',
+                    SUSPENDIDO: 'SUSPENDIDO',
+                    BLOQUEADO: 'BLOQUEADO',
+                    BANEADO: 'BANEADO',
+                  }[perfilUsuario.estado ?? 'null']
+                }}
+              </td>
+              <td>{{ perfilUsuario.fechaCreacion | formatMediumDatetime }}</td>
+              <td>
+                {{ perfilUsuario.usuario?.login }}
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/perfil-usuario', perfilUsuario.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a [routerLink]="['/perfil-usuario', perfilUsuario.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(perfilUsuario)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (perfilUsuarios().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page(), totalItems: totalItems(), itemsPerPage: itemsPerPage() }" />
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems()"
+          [page]="page()"
+          [pageSize]="itemsPerPage()"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        />
+      </div>
+    </div>
+  }
+</div>

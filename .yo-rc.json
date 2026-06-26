@@ -1,0 +1,34 @@
+{
+  "generator-jhipster": {
+    "applicationType": "monolith",
+    "authenticationType": "jwt",
+    "baseName": "room",
+    "buildTool": "maven",
+    "clientFramework": "angular",
+    "databaseType": "mongodb",
+    "devDatabaseType": "mongodb",
+    "enableTranslation": true,
+    "entities": [
+      "PerfilUsuario",
+      "DocumentoUsuario",
+      "Inmueble",
+      "PublicacionInmueble",
+      "MultimediaInmueble",
+      "SolicitudArriendo",
+      "VisitaProgramada",
+      "ContratoArriendo",
+      "PublicacionRoomie",
+      "SolicitudRoomie",
+      "Calificacion"
+    ],
+    "jhipsterVersion": "9.1.0",
+    "jwtSecretKey": "M2MzMWJjN2E2ZDNiMDRkZWZmYjRmZGY4MmVlNzMyOWFmYWI2ZTc3ZDUxZThhMDQzOGUwOGU4YTU3MWQ5ZjBkYTU3NTM1ZWFlMmVkNGRlMmQxNDA2ZmExMWYwZWNiYjdjMDQ3YmU4MTlmODc2ZGYzNGQ0NDQxMDUxYjdiNGVhNjE=",
+    "languages": ["es", "en"],
+    "lastLiquibaseTimestamp": 1781742601000,
+    "monorepository": true,
+    "nativeLanguage": "es",
+    "packageName": "com.roomrent.app",
+    "prodDatabaseType": "mongodb",
+    "skipCommitHook": true
+  }
+}

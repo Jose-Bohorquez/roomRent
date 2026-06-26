@@ -1,0 +1,185 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-documento-usuario-heading"
+        data-cy="DocumentoUsuarioCreateUpdateHeading"
+        jhiTranslate="roomApp.documentoUsuario.home.createOrEditLabel"
+      >
+        Crear o editar Documento Usuario
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let tipoDocumentoRef = editForm.get('tipoDocumento')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_tipoDocumento" jhiTranslate="roomApp.documentoUsuario.tipoDocumento">Tipo Documento</label>
+          <select
+            class="form-control"
+            name="tipoDocumento"
+            formControlName="tipoDocumento"
+            id="field_tipoDocumento"
+            data-cy="tipoDocumento"
+          >
+            <option [ngValue]="null">{{ 'roomApp.TipoDocumento.null' | translate }}</option>
+            @for (tipoDocumento of tipoDocumentoValues; track $index) {
+              <option [value]="tipoDocumento">{{ 'roomApp.TipoDocumento.' + tipoDocumento | translate }}</option>
+            }
+          </select>
+          @if (tipoDocumentoRef.invalid && (tipoDocumentoRef.dirty || tipoDocumentoRef.touched)) {
+            <div>
+              @if (editForm.get('tipoDocumento')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let nombreDocumentoRef = editForm.get('nombreDocumento')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_nombreDocumento" jhiTranslate="roomApp.documentoUsuario.nombreDocumento"
+            >Nombre Documento</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="nombreDocumento"
+            id="field_nombreDocumento"
+            data-cy="nombreDocumento"
+            formControlName="nombreDocumento"
+          />
+          @if (nombreDocumentoRef.invalid && (nombreDocumentoRef.dirty || nombreDocumentoRef.touched)) {
+            <div>
+              @if (editForm.get('nombreDocumento')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let urlArchivoRef = editForm.get('urlArchivo')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_urlArchivo" jhiTranslate="roomApp.documentoUsuario.urlArchivo">Url Archivo</label>
+          <input
+            type="text"
+            class="form-control"
+            name="urlArchivo"
+            id="field_urlArchivo"
+            data-cy="urlArchivo"
+            formControlName="urlArchivo"
+          />
+          @if (urlArchivoRef.invalid && (urlArchivoRef.dirty || urlArchivoRef.touched)) {
+            <div>
+              @if (editForm.get('urlArchivo')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_tipoMime" jhiTranslate="roomApp.documentoUsuario.tipoMime">Tipo Mime</label>
+          <input type="text" class="form-control" name="tipoMime" id="field_tipoMime" data-cy="tipoMime" formControlName="tipoMime" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_tamanoArchivo" jhiTranslate="roomApp.documentoUsuario.tamanoArchivo">Tamano Archivo</label>
+          <input
+            type="number"
+            class="form-control"
+            name="tamanoArchivo"
+            id="field_tamanoArchivo"
+            data-cy="tamanoArchivo"
+            formControlName="tamanoArchivo"
+          />
+        </div>
+
+        @let fechaCargaRef = editForm.get('fechaCarga')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_fechaCarga" jhiTranslate="roomApp.documentoUsuario.fechaCarga">Fecha Carga</label>
+          <div class="d-flex">
+            <input
+              id="field_fechaCarga"
+              data-cy="fechaCarga"
+              type="datetime-local"
+              class="form-control"
+              name="fechaCarga"
+              formControlName="fechaCarga"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (fechaCargaRef.invalid && (fechaCargaRef.dirty || fechaCargaRef.touched)) {
+            <div>
+              @if (editForm.get('fechaCarga')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('fechaCarga')?.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Este campo debe ser una fecha y hora.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_aprobado" jhiTranslate="roomApp.documentoUsuario.aprobado">Aprobado</label>
+          <input type="checkbox" class="form-check" name="aprobado" id="field_aprobado" data-cy="aprobado" formControlName="aprobado" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_observaciones" jhiTranslate="roomApp.documentoUsuario.observaciones">Observaciones</label>
+          <textarea
+            class="form-control"
+            name="observaciones"
+            id="field_observaciones"
+            data-cy="observaciones"
+            formControlName="observaciones"
+          ></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_perfilUsuario" jhiTranslate="roomApp.documentoUsuario.perfilUsuario">Perfil Usuario</label>
+          <select
+            class="form-control"
+            id="field_perfilUsuario"
+            data-cy="perfilUsuario"
+            name="perfilUsuario"
+            formControlName="perfilUsuario"
+            [compareWith]="comparePerfilUsuario"
+          >
+            <option [ngValue]="null"></option>
+            @for (perfilUsuarioOption of perfilUsuariosSharedCollection(); track $index) {
+              <option [ngValue]="perfilUsuarioOption">{{ perfilUsuarioOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

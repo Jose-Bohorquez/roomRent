@@ -1,0 +1,40 @@
+{
+  "roomApp": {
+    "publicacionInmueble": {
+      "home": {
+        "title": "Publicacion Inmuebles",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Publicacion Inmueble",
+        "createOrEditLabel": "Create or edit a Publicacion Inmueble",
+        "notFound": "No Publicacion Inmuebles found"
+      },
+      "created": "A new Publicacion Inmueble is created with identifier {{ param }}",
+      "updated": "A Publicacion Inmueble is updated with identifier {{ param }}",
+      "deleted": "A Publicacion Inmueble is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Publicacion Inmueble {{ id }}?"
+      },
+      "detail": {
+        "title": "Publicacion Inmueble"
+      },
+      "id": "ID",
+      "titulo": "Titulo",
+      "descripcion": "Descripcion",
+      "canonArriendo": "Canon Arriendo",
+      "deposito": "Deposito",
+      "requisitos": "Requisitos",
+      "seguroRequerido": "Seguro Requerido",
+      "datacreditoRequerido": "Datacredito Requerido",
+      "fechaDisponible": "Fecha Disponible",
+      "estado": "Estado",
+      "permiteRoomies": "Permite Roomies",
+      "aceptaMascotas": "Acepta Mascotas",
+      "permiteFumadores": "Permite Fumadores",
+      "permiteNinos": "Permite Ninos",
+      "permiteVisitas": "Permite Visitas",
+      "permiteParejas": "Permite Parejas",
+      "solicitudes": "Solicitudes",
+      "inmueble": "Inmueble"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "annotations": {
+    "changelogDate": "20260618002401"
+  },
+  "applications": ["room"],
+  "fields": [
+    {
+      "fieldName": "urlMedia",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "tipoMedia",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "principal",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "titulo",
+      "fieldType": "String"
+    }
+  ],
+  "name": "MultimediaInmueble",
+  "relationships": [
+    {
+      "otherEntityName": "inmueble",
+      "otherEntityRelationshipName": "multimedia",
+      "relationshipName": "inmueble",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

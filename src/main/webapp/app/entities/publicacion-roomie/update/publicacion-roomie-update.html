@@ -1,0 +1,216 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-publicacion-roomie-heading"
+        data-cy="PublicacionRoomieCreateUpdateHeading"
+        jhiTranslate="roomApp.publicacionRoomie.home.createOrEditLabel"
+      >
+        Crear o editar Publicacion Roomie
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let tituloRef = editForm.get('titulo')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_titulo" jhiTranslate="roomApp.publicacionRoomie.titulo">Titulo</label>
+          <input type="text" class="form-control" name="titulo" id="field_titulo" data-cy="titulo" formControlName="titulo" />
+          @if (tituloRef.invalid && (tituloRef.dirty || tituloRef.touched)) {
+            <div>
+              @if (editForm.get('titulo')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let nombreHabitacionRef = editForm.get('nombreHabitacion')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_nombreHabitacion" jhiTranslate="roomApp.publicacionRoomie.nombreHabitacion"
+            >Nombre Habitacion</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="nombreHabitacion"
+            id="field_nombreHabitacion"
+            data-cy="nombreHabitacion"
+            formControlName="nombreHabitacion"
+          />
+          @if (nombreHabitacionRef.invalid && (nombreHabitacionRef.dirty || nombreHabitacionRef.touched)) {
+            <div>
+              @if (editForm.get('nombreHabitacion')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let valorMensualRef = editForm.get('valorMensual')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_valorMensual" jhiTranslate="roomApp.publicacionRoomie.valorMensual">Valor Mensual</label>
+          <input
+            type="number"
+            class="form-control"
+            name="valorMensual"
+            id="field_valorMensual"
+            data-cy="valorMensual"
+            formControlName="valorMensual"
+          />
+          @if (valorMensualRef.invalid && (valorMensualRef.dirty || valorMensualRef.touched)) {
+            <div>
+              @if (editForm.get('valorMensual')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('valorMensual')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Este campo debe ser un número.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_serviciosIncluidos" jhiTranslate="roomApp.publicacionRoomie.serviciosIncluidos"
+            >Servicios Incluidos</label
+          >
+          <textarea
+            class="form-control"
+            name="serviciosIncluidos"
+            id="field_serviciosIncluidos"
+            data-cy="serviciosIncluidos"
+            formControlName="serviciosIncluidos"
+          ></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_espaciosCompartidos" jhiTranslate="roomApp.publicacionRoomie.espaciosCompartidos"
+            >Espacios Compartidos</label
+          >
+          <textarea
+            class="form-control"
+            name="espaciosCompartidos"
+            id="field_espaciosCompartidos"
+            data-cy="espaciosCompartidos"
+            formControlName="espaciosCompartidos"
+          ></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_generoPreferido" jhiTranslate="roomApp.publicacionRoomie.generoPreferido"
+            >Genero Preferido</label
+          >
+          <select
+            class="form-control"
+            name="generoPreferido"
+            formControlName="generoPreferido"
+            id="field_generoPreferido"
+            data-cy="generoPreferido"
+          >
+            <option [ngValue]="null">{{ 'roomApp.Genero.null' | translate }}</option>
+            @for (genero of generoValues; track $index) {
+              <option [value]="genero">{{ 'roomApp.Genero.' + genero | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fechaDisponible" jhiTranslate="roomApp.publicacionRoomie.fechaDisponible"
+            >Fecha Disponible</label
+          >
+          <div class="input-group">
+            <input
+              id="field_fechaDisponible"
+              data-cy="fechaDisponible"
+              type="text"
+              class="form-control"
+              name="fechaDisponible"
+              ngbDatepicker
+              #fechaDisponibleDp="ngbDatepicker"
+              formControlName="fechaDisponible"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaDisponibleDp.toggle()"><fa-icon icon="calendar-alt" /></button>
+          </div>
+        </div>
+
+        @let estadoRef = editForm.get('estado')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_estado" jhiTranslate="roomApp.publicacionRoomie.estado">Estado</label>
+          <select class="form-control" name="estado" formControlName="estado" id="field_estado" data-cy="estado">
+            <option [ngValue]="null">{{ 'roomApp.EstadoPublicacion.null' | translate }}</option>
+            @for (estadoPublicacion of estadoPublicacionValues; track $index) {
+              <option [value]="estadoPublicacion">{{ 'roomApp.EstadoPublicacion.' + estadoPublicacion | translate }}</option>
+            }
+          </select>
+          @if (estadoRef.invalid && (estadoRef.dirty || estadoRef.touched)) {
+            <div>
+              @if (editForm.get('estado')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_arrendatario" jhiTranslate="roomApp.publicacionRoomie.arrendatario">Arrendatario</label>
+          <select
+            class="form-control"
+            id="field_arrendatario"
+            data-cy="arrendatario"
+            name="arrendatario"
+            formControlName="arrendatario"
+            [compareWith]="comparePerfilUsuario"
+          >
+            <option [ngValue]="null"></option>
+            @for (perfilUsuarioOption of perfilUsuariosSharedCollection(); track $index) {
+              <option [ngValue]="perfilUsuarioOption">{{ perfilUsuarioOption.primerNombre }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_inmueble" jhiTranslate="roomApp.publicacionRoomie.inmueble">Inmueble</label>
+          <select
+            class="form-control"
+            id="field_inmueble"
+            data-cy="inmueble"
+            name="inmueble"
+            formControlName="inmueble"
+            [compareWith]="compareInmueble"
+          >
+            <option [ngValue]="null"></option>
+            @for (inmuebleOption of inmueblesSharedCollection(); track $index) {
+              <option [ngValue]="inmuebleOption">{{ inmuebleOption.nombre }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

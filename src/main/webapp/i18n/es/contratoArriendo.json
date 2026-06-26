@@ -1,0 +1,34 @@
+{
+  "roomApp": {
+    "contratoArriendo": {
+      "home": {
+        "title": "Contrato Arriendos",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Contrato Arriendo",
+        "createOrEditLabel": "Crear o editar Contrato Arriendo",
+        "notFound": "Ningún Contrato Arriendos encontrado"
+      },
+      "created": "Un nuevo Contrato Arriendo ha sido creado con el identificador {{ param }}",
+      "updated": "Un Contrato Arriendo ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Contrato Arriendo ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Contrato Arriendo {{ id }}?"
+      },
+      "detail": {
+        "title": "Contrato Arriendo"
+      },
+      "id": "ID",
+      "numeroContrato": "Numero Contrato",
+      "urlContratoDigital": "Url Contrato Digital",
+      "fechaInicio": "Fecha Inicio",
+      "fechaFin": "Fecha Fin",
+      "valorMensual": "Valor Mensual",
+      "valorDeposito": "Valor Deposito",
+      "estado": "Estado",
+      "fechaFirma": "Fecha Firma",
+      "arrendador": "Arrendador",
+      "arrendatario": "Arrendatario",
+      "inmueble": "Inmueble"
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "annotations": {
+    "changelogDate": "20260618002801"
+  },
+  "applications": ["room"],
+  "fields": [
+    {
+      "fieldName": "titulo",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "nombreHabitacion",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valorMensual",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "serviciosIncluidos",
+      "fieldType": "TextBlob"
+    },
+    {
+      "fieldName": "espaciosCompartidos",
+      "fieldType": "TextBlob"
+    },
+    {
+      "fieldName": "generoPreferido",
+      "fieldType": "Genero",
+      "fieldValues": "MASCULINO,FEMENINO,OTRO,PREFIERO_NO_DECIR"
+    },
+    {
+      "fieldName": "fechaDisponible",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "EstadoPublicacion",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "BORRADOR,PUBLICADO,PAUSADO,ARRENDADO,FINALIZADO"
+    }
+  ],
+  "name": "PublicacionRoomie",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "solicitudRoomie",
+      "otherEntityRelationshipName": "publicacionRoomie",
+      "relationshipName": "solicitudes",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "primerNombre",
+      "otherEntityName": "perfilUsuario",
+      "relationshipName": "arrendatario",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nombre",
+      "otherEntityName": "inmueble",
+      "relationshipName": "inmueble",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

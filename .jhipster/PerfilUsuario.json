@@ -1,0 +1,146 @@
+{
+  "annotations": {
+    "changelogDate": "20260618002001"
+  },
+  "applications": ["room"],
+  "fields": [
+    {
+      "fieldName": "tipoDocumento",
+      "fieldType": "TipoDocumento",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "CC,CE,TI,PASSPORT,NIT,OTRO"
+    },
+    {
+      "fieldName": "numeroDocumento",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "primerNombre",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "segundoNombre",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "primerApellido",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "segundoApellido",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fechaNacimiento",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "genero",
+      "fieldType": "Genero",
+      "fieldValues": "MASCULINO,FEMENINO,OTRO,PREFIERO_NO_DECIR"
+    },
+    {
+      "fieldName": "telefono",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "direccionActual",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ciudad",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "barrio",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "profesion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ocupacion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "empresaTrabajo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "universidad",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "biografia",
+      "fieldType": "TextBlob"
+    },
+    {
+      "fieldName": "intereses",
+      "fieldType": "TextBlob"
+    },
+    {
+      "fieldName": "tieneMascotas",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "fumador",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "verificado",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "habilitadoRoomie",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "EstadoUsuario",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "PENDIENTE_VERIFICACION,ACTIVO,INACTIVO,SUSPENDIDO,BLOQUEADO,BANEADO"
+    },
+    {
+      "fieldName": "fechaCreacion",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "PerfilUsuario",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "relationshipName": "usuario",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one",
+      "relationshipWithBuiltInEntity": true
+    },
+    {
+      "otherEntityName": "documentoUsuario",
+      "otherEntityRelationshipName": "perfilUsuario",
+      "relationshipName": "documentos",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "inmueble",
+      "otherEntityRelationshipName": "propietario",
+      "relationshipName": "inmuebles",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

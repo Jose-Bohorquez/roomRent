@@ -1,0 +1,109 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (publicacionInmueble(); as publicacionInmuebleRef) {
+      <div>
+        <h2 data-cy="publicacionInmuebleDetailsHeading">
+          <span jhiTranslate="roomApp.publicacionInmueble.detail.title">Publicacion Inmueble</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ publicacionInmuebleRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionInmueble.titulo">Titulo</span></dt>
+          <dd>
+            <span>{{ publicacionInmuebleRef.titulo }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionInmueble.descripcion">Descripcion</span></dt>
+          <dd>
+            <span>{{ publicacionInmuebleRef.descripcion }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionInmueble.canonArriendo">Canon Arriendo</span></dt>
+          <dd>
+            <span>{{ publicacionInmuebleRef.canonArriendo }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionInmueble.deposito">Deposito</span></dt>
+          <dd>
+            <span>{{ publicacionInmuebleRef.deposito }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionInmueble.requisitos">Requisitos</span></dt>
+          <dd>
+            <span>{{ publicacionInmuebleRef.requisitos }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionInmueble.seguroRequerido">Seguro Requerido</span></dt>
+          <dd>
+            <span>{{ publicacionInmuebleRef.seguroRequerido }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionInmueble.datacreditoRequerido">Datacredito Requerido</span></dt>
+          <dd>
+            <span>{{ publicacionInmuebleRef.datacreditoRequerido }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionInmueble.fechaDisponible">Fecha Disponible</span></dt>
+          <dd>
+            <span>{{ publicacionInmuebleRef.fechaDisponible | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionInmueble.estado">Estado</span></dt>
+          <dd>
+            <span [jhiTranslate]="'roomApp.EstadoPublicacion.' + (publicacionInmuebleRef.estado ?? 'null')">{{
+              {
+                null: '',
+                BORRADOR: 'BORRADOR',
+                PUBLICADO: 'PUBLICADO',
+                PAUSADO: 'PAUSADO',
+                ARRENDADO: 'ARRENDADO',
+                FINALIZADO: 'FINALIZADO',
+              }[publicacionInmuebleRef.estado ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionInmueble.permiteRoomies">Permite Roomies</span></dt>
+          <dd>
+            <span>{{ publicacionInmuebleRef.permiteRoomies }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionInmueble.aceptaMascotas">Acepta Mascotas</span></dt>
+          <dd>
+            <span>{{ publicacionInmuebleRef.aceptaMascotas }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionInmueble.permiteFumadores">Permite Fumadores</span></dt>
+          <dd>
+            <span>{{ publicacionInmuebleRef.permiteFumadores }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionInmueble.permiteNinos">Permite Ninos</span></dt>
+          <dd>
+            <span>{{ publicacionInmuebleRef.permiteNinos }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionInmueble.permiteVisitas">Permite Visitas</span></dt>
+          <dd>
+            <span>{{ publicacionInmuebleRef.permiteVisitas }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionInmueble.permiteParejas">Permite Parejas</span></dt>
+          <dd>
+            <span>{{ publicacionInmuebleRef.permiteParejas }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionInmueble.inmueble">Inmueble</span></dt>
+          <dd>
+            @if (publicacionInmueble()!.inmueble) {
+              <div>
+                <a [routerLink]="['/inmueble', publicacionInmueble()!.inmueble?.id, 'view']">{{ publicacionInmuebleRef.inmueble?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/publicacion-inmueble', publicacionInmuebleRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

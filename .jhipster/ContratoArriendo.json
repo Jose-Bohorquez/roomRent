@@ -1,0 +1,73 @@
+{
+  "annotations": {
+    "changelogDate": "20260618002701"
+  },
+  "applications": ["room"],
+  "fields": [
+    {
+      "fieldName": "numeroContrato",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "urlContratoDigital",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fechaInicio",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaFin",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valorMensual",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valorDeposito",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "EstadoContrato",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "BORRADOR,PENDIENTE_FIRMA,VIGENTE,FINALIZADO,CANCELADO"
+    },
+    {
+      "fieldName": "fechaFirma",
+      "fieldType": "Instant"
+    }
+  ],
+  "name": "ContratoArriendo",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "primerNombre",
+      "otherEntityName": "perfilUsuario",
+      "relationshipName": "arrendador",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "primerNombre",
+      "otherEntityName": "perfilUsuario",
+      "relationshipName": "arrendatario",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "inmueble",
+      "otherEntityRelationshipName": "contratos",
+      "relationshipName": "inmueble",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

@@ -1,0 +1,11 @@
+export enum EstadoPublicacion {
+  BORRADOR = 'BORRADOR',
+
+  PUBLICADO = 'PUBLICADO',
+
+  PAUSADO = 'PAUSADO',
+
+  ARRENDADO = 'ARRENDADO',
+
+  FINALIZADO = 'FINALIZADO',
+}

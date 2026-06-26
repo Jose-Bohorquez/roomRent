@@ -1,0 +1,37 @@
+/* ── Hero section ── */
+.rr-hero {
+  background: linear-gradient(135deg, #1c1917 55%, #292524 100%);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+/* ── Hero card (glassmorphism sutil) ── */
+.rr-hero-card {
+  box-shadow: none !important;
+  backdrop-filter: blur(8px);
+}
+
+/* ── Feature cards ── */
+.rr-feature-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+}
+
+/* ── Hipster image (legacy, mantener por si se usa) ── */
+.hipster {
+  display: inline-block;
+  width: 347px;
+  height: 497px;
+  background: url('../../content/images/jhipster_family_member_3.svg') no-repeat center top;
+  background-size: contain;
+}
+
+@media only screen and (min-resolution: 192dpi) {
+  .hipster {
+    background: url('../../content/images/jhipster_family_member_3.svg') no-repeat center top;
+    background-size: contain;
+  }
+}

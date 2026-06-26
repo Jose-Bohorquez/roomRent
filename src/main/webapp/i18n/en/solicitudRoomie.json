@@ -1,0 +1,29 @@
+{
+  "roomApp": {
+    "solicitudRoomie": {
+      "home": {
+        "title": "Solicitud Roomies",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Solicitud Roomie",
+        "createOrEditLabel": "Create or edit a Solicitud Roomie",
+        "notFound": "No Solicitud Roomies found"
+      },
+      "created": "A new Solicitud Roomie is created with identifier {{ param }}",
+      "updated": "A Solicitud Roomie is updated with identifier {{ param }}",
+      "deleted": "A Solicitud Roomie is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Solicitud Roomie {{ id }}?"
+      },
+      "detail": {
+        "title": "Solicitud Roomie"
+      },
+      "id": "ID",
+      "mensaje": "Mensaje",
+      "referencias": "Referencias",
+      "estado": "Estado",
+      "fechaCreacion": "Fecha Creacion",
+      "postulante": "Postulante",
+      "publicacionRoomie": "Publicacion Roomie"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "roomApp": {
+    "documentoUsuario": {
+      "home": {
+        "title": "Documento Usuarios",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Documento Usuario",
+        "createOrEditLabel": "Crear o editar Documento Usuario",
+        "notFound": "Ningún Documento Usuarios encontrado"
+      },
+      "created": "Un nuevo Documento Usuario ha sido creado con el identificador {{ param }}",
+      "updated": "Un Documento Usuario ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Documento Usuario ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Documento Usuario {{ id }}?"
+      },
+      "detail": {
+        "title": "Documento Usuario"
+      },
+      "id": "ID",
+      "tipoDocumento": "Tipo Documento",
+      "nombreDocumento": "Nombre Documento",
+      "urlArchivo": "Url Archivo",
+      "tipoMime": "Tipo Mime",
+      "tamanoArchivo": "Tamano Archivo",
+      "fechaCarga": "Fecha Carga",
+      "aprobado": "Aprobado",
+      "observaciones": "Observaciones",
+      "perfilUsuario": "Perfil Usuario"
+    }
+  }
+}

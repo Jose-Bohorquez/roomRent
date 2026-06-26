@@ -1,0 +1,58 @@
+{
+  "annotations": {
+    "changelogDate": "20260618002101"
+  },
+  "applications": ["room"],
+  "fields": [
+    {
+      "fieldName": "tipoDocumento",
+      "fieldType": "TipoDocumento",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "CC,CE,TI,PASSPORT,NIT,OTRO"
+    },
+    {
+      "fieldName": "nombreDocumento",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "urlArchivo",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "tipoMime",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tamanoArchivo",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "fechaCarga",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "aprobado",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "observaciones",
+      "fieldType": "TextBlob"
+    }
+  ],
+  "name": "DocumentoUsuario",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "perfilUsuario",
+      "otherEntityRelationshipName": "documentos",
+      "relationshipName": "perfilUsuario",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

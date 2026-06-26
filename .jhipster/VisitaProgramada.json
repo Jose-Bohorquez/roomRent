@@ -1,0 +1,46 @@
+{
+  "annotations": {
+    "changelogDate": "20260618002601"
+  },
+  "applications": ["room"],
+  "fields": [
+    {
+      "fieldName": "fechaSolicitada",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaConfirmada",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "notas",
+      "fieldType": "TextBlob"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "EstadoVisita",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "SOLICITADA,CONFIRMADA,CANCELADA,FINALIZADA"
+    }
+  ],
+  "name": "VisitaProgramada",
+  "relationships": [
+    {
+      "otherEntityField": "primerNombre",
+      "otherEntityName": "perfilUsuario",
+      "relationshipName": "visitante",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "solicitudArriendo",
+      "otherEntityRelationshipName": "visitas",
+      "relationshipName": "solicitud",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

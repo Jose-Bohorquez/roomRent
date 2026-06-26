@@ -1,0 +1,40 @@
+{
+  "roomApp": {
+    "inmueble": {
+      "home": {
+        "title": "Inmuebles",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Inmueble",
+        "createOrEditLabel": "Create or edit a Inmueble",
+        "notFound": "No Inmuebles found"
+      },
+      "created": "A new Inmueble is created with identifier {{ param }}",
+      "updated": "A Inmueble is updated with identifier {{ param }}",
+      "deleted": "A Inmueble is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Inmueble {{ id }}?"
+      },
+      "detail": {
+        "title": "Inmueble"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "direccion": "Direccion",
+      "ciudad": "Ciudad",
+      "localidad": "Localidad",
+      "barrio": "Barrio",
+      "latitud": "Latitud",
+      "longitud": "Longitud",
+      "tipoInmueble": "Tipo Inmueble",
+      "areaMetrosCuadrados": "Area Metros Cuadrados",
+      "numeroHabitaciones": "Numero Habitaciones",
+      "numeroBanos": "Numero Banos",
+      "numeroParqueaderos": "Numero Parqueaderos",
+      "estrato": "Estrato",
+      "publicaciones": "Publicaciones",
+      "multimedia": "Multimedia",
+      "contratos": "Contratos",
+      "propietario": "Propietario"
+    }
+  }
+}

@@ -1,0 +1,248 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-contrato-arriendo-heading"
+        data-cy="ContratoArriendoCreateUpdateHeading"
+        jhiTranslate="roomApp.contratoArriendo.home.createOrEditLabel"
+      >
+        Crear o editar Contrato Arriendo
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let numeroContratoRef = editForm.get('numeroContrato')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_numeroContrato" jhiTranslate="roomApp.contratoArriendo.numeroContrato"
+            >Numero Contrato</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="numeroContrato"
+            id="field_numeroContrato"
+            data-cy="numeroContrato"
+            formControlName="numeroContrato"
+          />
+          @if (numeroContratoRef.invalid && (numeroContratoRef.dirty || numeroContratoRef.touched)) {
+            <div>
+              @if (editForm.get('numeroContrato')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_urlContratoDigital" jhiTranslate="roomApp.contratoArriendo.urlContratoDigital"
+            >Url Contrato Digital</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="urlContratoDigital"
+            id="field_urlContratoDigital"
+            data-cy="urlContratoDigital"
+            formControlName="urlContratoDigital"
+          />
+        </div>
+
+        @let fechaInicioRef = editForm.get('fechaInicio')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_fechaInicio" jhiTranslate="roomApp.contratoArriendo.fechaInicio">Fecha Inicio</label>
+          <div class="input-group">
+            <input
+              id="field_fechaInicio"
+              data-cy="fechaInicio"
+              type="text"
+              class="form-control"
+              name="fechaInicio"
+              ngbDatepicker
+              #fechaInicioDp="ngbDatepicker"
+              formControlName="fechaInicio"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaInicioDp.toggle()"><fa-icon icon="calendar-alt" /></button>
+          </div>
+          @if (fechaInicioRef.invalid && (fechaInicioRef.dirty || fechaInicioRef.touched)) {
+            <div>
+              @if (editForm.get('fechaInicio')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let fechaFinRef = editForm.get('fechaFin')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_fechaFin" jhiTranslate="roomApp.contratoArriendo.fechaFin">Fecha Fin</label>
+          <div class="input-group">
+            <input
+              id="field_fechaFin"
+              data-cy="fechaFin"
+              type="text"
+              class="form-control"
+              name="fechaFin"
+              ngbDatepicker
+              #fechaFinDp="ngbDatepicker"
+              formControlName="fechaFin"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaFinDp.toggle()"><fa-icon icon="calendar-alt" /></button>
+          </div>
+          @if (fechaFinRef.invalid && (fechaFinRef.dirty || fechaFinRef.touched)) {
+            <div>
+              @if (editForm.get('fechaFin')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let valorMensualRef = editForm.get('valorMensual')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_valorMensual" jhiTranslate="roomApp.contratoArriendo.valorMensual">Valor Mensual</label>
+          <input
+            type="number"
+            class="form-control"
+            name="valorMensual"
+            id="field_valorMensual"
+            data-cy="valorMensual"
+            formControlName="valorMensual"
+          />
+          @if (valorMensualRef.invalid && (valorMensualRef.dirty || valorMensualRef.touched)) {
+            <div>
+              @if (editForm.get('valorMensual')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('valorMensual')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Este campo debe ser un número.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_valorDeposito" jhiTranslate="roomApp.contratoArriendo.valorDeposito">Valor Deposito</label>
+          <input
+            type="number"
+            class="form-control"
+            name="valorDeposito"
+            id="field_valorDeposito"
+            data-cy="valorDeposito"
+            formControlName="valorDeposito"
+          />
+        </div>
+
+        @let estadoRef = editForm.get('estado')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_estado" jhiTranslate="roomApp.contratoArriendo.estado">Estado</label>
+          <select class="form-control" name="estado" formControlName="estado" id="field_estado" data-cy="estado">
+            <option [ngValue]="null">{{ 'roomApp.EstadoContrato.null' | translate }}</option>
+            @for (estadoContrato of estadoContratoValues; track $index) {
+              <option [value]="estadoContrato">{{ 'roomApp.EstadoContrato.' + estadoContrato | translate }}</option>
+            }
+          </select>
+          @if (estadoRef.invalid && (estadoRef.dirty || estadoRef.touched)) {
+            <div>
+              @if (editForm.get('estado')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fechaFirma" jhiTranslate="roomApp.contratoArriendo.fechaFirma">Fecha Firma</label>
+          <div class="d-flex">
+            <input
+              id="field_fechaFirma"
+              data-cy="fechaFirma"
+              type="datetime-local"
+              class="form-control"
+              name="fechaFirma"
+              formControlName="fechaFirma"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_arrendador" jhiTranslate="roomApp.contratoArriendo.arrendador">Arrendador</label>
+          <select
+            class="form-control"
+            id="field_arrendador"
+            data-cy="arrendador"
+            name="arrendador"
+            formControlName="arrendador"
+            [compareWith]="comparePerfilUsuario"
+          >
+            <option [ngValue]="null"></option>
+            @for (perfilUsuarioOption of perfilUsuariosSharedCollection(); track $index) {
+              <option [ngValue]="perfilUsuarioOption">{{ perfilUsuarioOption.primerNombre }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_arrendatario" jhiTranslate="roomApp.contratoArriendo.arrendatario">Arrendatario</label>
+          <select
+            class="form-control"
+            id="field_arrendatario"
+            data-cy="arrendatario"
+            name="arrendatario"
+            formControlName="arrendatario"
+            [compareWith]="comparePerfilUsuario"
+          >
+            <option [ngValue]="null"></option>
+            @for (perfilUsuarioOption of perfilUsuariosSharedCollection(); track $index) {
+              <option [ngValue]="perfilUsuarioOption">{{ perfilUsuarioOption.primerNombre }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_inmueble" jhiTranslate="roomApp.contratoArriendo.inmueble">Inmueble</label>
+          <select
+            class="form-control"
+            id="field_inmueble"
+            data-cy="inmueble"
+            name="inmueble"
+            formControlName="inmueble"
+            [compareWith]="compareInmueble"
+          >
+            <option [ngValue]="null"></option>
+            @for (inmuebleOption of inmueblesSharedCollection(); track $index) {
+              <option [ngValue]="inmuebleOption">{{ inmuebleOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

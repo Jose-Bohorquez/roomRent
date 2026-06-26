@@ -1,0 +1,12 @@
+{
+  "roomApp": {
+    "EstadoPublicacion": {
+      "null": "",
+      "BORRADOR": "BORRADOR",
+      "PUBLICADO": "PUBLICADO",
+      "PAUSADO": "PAUSADO",
+      "ARRENDADO": "ARRENDADO",
+      "FINALIZADO": "FINALIZADO"
+    }
+  }
+}

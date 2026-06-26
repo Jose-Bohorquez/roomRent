@@ -1,0 +1,129 @@
+<div>
+  <h2 id="page-heading" data-cy="MultimediaInmuebleHeading">
+    <span jhiTranslate="roomApp.multimediaInmueble.home.title">Multimedia Inmuebles</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
+        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
+        <span jhiTranslate="roomApp.multimediaInmueble.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-multimedia-inmueble"
+        [routerLink]="['/multimedia-inmueble/new']"
+      >
+        <fa-icon icon="plus" />
+        <span jhiTranslate="roomApp.multimediaInmueble.home.createLabel">Crear nuevo Multimedia Inmueble</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  @if (multimediaInmuebles().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="roomApp.multimediaInmueble.home.notFound">Ningún Multimedia Inmuebles encontrado</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="urlMedia">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.multimediaInmueble.urlMedia">Url Media</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="tipoMedia">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.multimediaInmueble.tipoMedia">Tipo Media</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="principal">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.multimediaInmueble.principal">Principal</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="titulo">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.multimediaInmueble.titulo">Titulo</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="inmueble.id">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.multimediaInmueble.inmueble">Inmueble</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (multimediaInmueble of multimediaInmuebles(); track trackId(multimediaInmueble)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/multimedia-inmueble', multimediaInmueble.id, 'view']">{{ multimediaInmueble.id }}</a>
+              </td>
+              <td>{{ multimediaInmueble.urlMedia }}</td>
+              <td>{{ multimediaInmueble.tipoMedia }}</td>
+              <td>{{ multimediaInmueble.principal }}</td>
+              <td>{{ multimediaInmueble.titulo }}</td>
+              <td>
+                @if (multimediaInmueble.inmueble) {
+                  <div>
+                    <a [routerLink]="['/inmueble', multimediaInmueble.inmueble.id, 'view']">{{ multimediaInmueble.inmueble.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/multimedia-inmueble', multimediaInmueble.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/multimedia-inmueble', multimediaInmueble.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(multimediaInmueble)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

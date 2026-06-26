@@ -1,0 +1,101 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (contratoArriendo(); as contratoArriendoRef) {
+      <div>
+        <h2 data-cy="contratoArriendoDetailsHeading">
+          <span jhiTranslate="roomApp.contratoArriendo.detail.title">Contrato Arriendo</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ contratoArriendoRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.contratoArriendo.numeroContrato">Numero Contrato</span></dt>
+          <dd>
+            <span>{{ contratoArriendoRef.numeroContrato }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.contratoArriendo.urlContratoDigital">Url Contrato Digital</span></dt>
+          <dd>
+            <span>{{ contratoArriendoRef.urlContratoDigital }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.contratoArriendo.fechaInicio">Fecha Inicio</span></dt>
+          <dd>
+            <span>{{ contratoArriendoRef.fechaInicio | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.contratoArriendo.fechaFin">Fecha Fin</span></dt>
+          <dd>
+            <span>{{ contratoArriendoRef.fechaFin | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.contratoArriendo.valorMensual">Valor Mensual</span></dt>
+          <dd>
+            <span>{{ contratoArriendoRef.valorMensual }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.contratoArriendo.valorDeposito">Valor Deposito</span></dt>
+          <dd>
+            <span>{{ contratoArriendoRef.valorDeposito }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.contratoArriendo.estado">Estado</span></dt>
+          <dd>
+            <span [jhiTranslate]="'roomApp.EstadoContrato.' + (contratoArriendoRef.estado ?? 'null')">{{
+              {
+                null: '',
+                BORRADOR: 'BORRADOR',
+                PENDIENTE_FIRMA: 'PENDIENTE_FIRMA',
+                VIGENTE: 'VIGENTE',
+                FINALIZADO: 'FINALIZADO',
+                CANCELADO: 'CANCELADO',
+              }[contratoArriendoRef.estado ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.contratoArriendo.fechaFirma">Fecha Firma</span></dt>
+          <dd>
+            <span>{{ contratoArriendoRef.fechaFirma | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.contratoArriendo.arrendador">Arrendador</span></dt>
+          <dd>
+            @if (contratoArriendo()!.arrendador) {
+              <div>
+                <a [routerLink]="['/perfil-usuario', contratoArriendo()!.arrendador?.id, 'view']">{{
+                  contratoArriendoRef.arrendador?.primerNombre
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="roomApp.contratoArriendo.arrendatario">Arrendatario</span></dt>
+          <dd>
+            @if (contratoArriendo()!.arrendatario) {
+              <div>
+                <a [routerLink]="['/perfil-usuario', contratoArriendo()!.arrendatario?.id, 'view']">{{
+                  contratoArriendoRef.arrendatario?.primerNombre
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="roomApp.contratoArriendo.inmueble">Inmueble</span></dt>
+          <dd>
+            @if (contratoArriendo()!.inmueble) {
+              <div>
+                <a [routerLink]="['/inmueble', contratoArriendo()!.inmueble?.id, 'view']">{{ contratoArriendoRef.inmueble?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/contrato-arriendo', contratoArriendoRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

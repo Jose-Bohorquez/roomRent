@@ -1,0 +1,31 @@
+{
+  "roomApp": {
+    "calificacion": {
+      "home": {
+        "title": "Calificacions",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Calificacion",
+        "createOrEditLabel": "Create or edit a Calificacion",
+        "notFound": "No Calificacions found"
+      },
+      "created": "A new Calificacion is created with identifier {{ param }}",
+      "updated": "A Calificacion is updated with identifier {{ param }}",
+      "deleted": "A Calificacion is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Calificacion {{ id }}?"
+      },
+      "detail": {
+        "title": "Calificacion"
+      },
+      "id": "ID",
+      "tipoCalificacion": "Tipo Calificacion",
+      "puntaje": "Puntaje",
+      "comentario": "Comentario",
+      "fechaCreacion": "Fecha Creacion",
+      "visible": "Visible",
+      "autor": "Autor",
+      "calificado": "Calificado",
+      "contrato": "Contrato"
+    }
+  }
+}

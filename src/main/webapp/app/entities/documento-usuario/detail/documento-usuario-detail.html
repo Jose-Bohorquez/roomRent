@@ -1,0 +1,78 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (documentoUsuario(); as documentoUsuarioRef) {
+      <div>
+        <h2 data-cy="documentoUsuarioDetailsHeading">
+          <span jhiTranslate="roomApp.documentoUsuario.detail.title">Documento Usuario</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ documentoUsuarioRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.documentoUsuario.tipoDocumento">Tipo Documento</span></dt>
+          <dd>
+            <span [jhiTranslate]="'roomApp.TipoDocumento.' + (documentoUsuarioRef.tipoDocumento ?? 'null')">{{
+              { null: '', CC: 'CC', CE: 'CE', TI: 'TI', PASSPORT: 'PASSPORT', NIT: 'NIT', OTRO: 'OTRO' }[
+                documentoUsuarioRef.tipoDocumento ?? 'null'
+              ]
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.documentoUsuario.nombreDocumento">Nombre Documento</span></dt>
+          <dd>
+            <span>{{ documentoUsuarioRef.nombreDocumento }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.documentoUsuario.urlArchivo">Url Archivo</span></dt>
+          <dd>
+            <span>{{ documentoUsuarioRef.urlArchivo }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.documentoUsuario.tipoMime">Tipo Mime</span></dt>
+          <dd>
+            <span>{{ documentoUsuarioRef.tipoMime }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.documentoUsuario.tamanoArchivo">Tamano Archivo</span></dt>
+          <dd>
+            <span>{{ documentoUsuarioRef.tamanoArchivo }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.documentoUsuario.fechaCarga">Fecha Carga</span></dt>
+          <dd>
+            <span>{{ documentoUsuarioRef.fechaCarga | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.documentoUsuario.aprobado">Aprobado</span></dt>
+          <dd>
+            <span>{{ documentoUsuarioRef.aprobado }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.documentoUsuario.observaciones">Observaciones</span></dt>
+          <dd>
+            <span>{{ documentoUsuarioRef.observaciones }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.documentoUsuario.perfilUsuario">Perfil Usuario</span></dt>
+          <dd>
+            @if (documentoUsuario()!.perfilUsuario) {
+              <div>
+                <a [routerLink]="['/perfil-usuario', documentoUsuario()!.perfilUsuario?.id, 'view']">{{
+                  documentoUsuarioRef.perfilUsuario?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/documento-usuario', documentoUsuarioRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

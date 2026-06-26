@@ -1,0 +1,30 @@
+{
+  "roomApp": {
+    "solicitudArriendo": {
+      "home": {
+        "title": "Solicitud Arriendos",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Solicitud Arriendo",
+        "createOrEditLabel": "Crear o editar Solicitud Arriendo",
+        "notFound": "Ningún Solicitud Arriendos encontrado"
+      },
+      "created": "Un nuevo Solicitud Arriendo ha sido creado con el identificador {{ param }}",
+      "updated": "Un Solicitud Arriendo ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Solicitud Arriendo ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Solicitud Arriendo {{ id }}?"
+      },
+      "detail": {
+        "title": "Solicitud Arriendo"
+      },
+      "id": "ID",
+      "mensaje": "Mensaje",
+      "aceptaTerminos": "Acepta Terminos",
+      "estado": "Estado",
+      "fechaCreacion": "Fecha Creacion",
+      "visitas": "Visitas",
+      "arrendatario": "Arrendatario",
+      "publicacion": "Publicacion"
+    }
+  }
+}

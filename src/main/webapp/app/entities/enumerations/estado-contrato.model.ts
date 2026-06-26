@@ -1,0 +1,11 @@
+export enum EstadoContrato {
+  BORRADOR = 'BORRADOR',
+
+  PENDIENTE_FIRMA = 'PENDIENTE_FIRMA',
+
+  VIGENTE = 'VIGENTE',
+
+  FINALIZADO = 'FINALIZADO',
+
+  CANCELADO = 'CANCELADO',
+}

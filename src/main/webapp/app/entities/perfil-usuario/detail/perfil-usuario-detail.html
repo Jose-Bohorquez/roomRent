@@ -1,0 +1,148 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (perfilUsuario(); as perfilUsuarioRef) {
+      <div>
+        <h2 data-cy="perfilUsuarioDetailsHeading"><span jhiTranslate="roomApp.perfilUsuario.detail.title">Perfil Usuario</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.tipoDocumento">Tipo Documento</span></dt>
+          <dd>
+            <span [jhiTranslate]="'roomApp.TipoDocumento.' + (perfilUsuarioRef.tipoDocumento ?? 'null')">{{
+              { null: '', CC: 'CC', CE: 'CE', TI: 'TI', PASSPORT: 'PASSPORT', NIT: 'NIT', OTRO: 'OTRO' }[
+                perfilUsuarioRef.tipoDocumento ?? 'null'
+              ]
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.numeroDocumento">Numero Documento</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.numeroDocumento }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.primerNombre">Primer Nombre</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.primerNombre }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.segundoNombre">Segundo Nombre</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.segundoNombre }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.primerApellido">Primer Apellido</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.primerApellido }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.segundoApellido">Segundo Apellido</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.segundoApellido }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.fechaNacimiento">Fecha Nacimiento</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.fechaNacimiento | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.genero">Genero</span></dt>
+          <dd>
+            <span [jhiTranslate]="'roomApp.Genero.' + (perfilUsuarioRef.genero ?? 'null')">{{
+              { null: '', MASCULINO: 'MASCULINO', FEMENINO: 'FEMENINO', OTRO: 'OTRO', PREFIERO_NO_DECIR: 'PREFIERO_NO_DECIR' }[
+                perfilUsuarioRef.genero ?? 'null'
+              ]
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.telefono">Telefono</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.telefono }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.direccionActual">Direccion Actual</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.direccionActual }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.ciudad">Ciudad</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.ciudad }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.barrio">Barrio</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.barrio }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.profesion">Profesion</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.profesion }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.ocupacion">Ocupacion</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.ocupacion }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.empresaTrabajo">Empresa Trabajo</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.empresaTrabajo }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.universidad">Universidad</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.universidad }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.biografia">Biografia</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.biografia }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.intereses">Intereses</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.intereses }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.tieneMascotas">Tiene Mascotas</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.tieneMascotas }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.fumador">Fumador</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.fumador }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.verificado">Verificado</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.verificado }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.habilitadoRoomie">Habilitado Roomie</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.habilitadoRoomie }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.estado">Estado</span></dt>
+          <dd>
+            <span [jhiTranslate]="'roomApp.EstadoUsuario.' + (perfilUsuarioRef.estado ?? 'null')">{{
+              {
+                null: '',
+                PENDIENTE_VERIFICACION: 'PENDIENTE_VERIFICACION',
+                ACTIVO: 'ACTIVO',
+                INACTIVO: 'INACTIVO',
+                SUSPENDIDO: 'SUSPENDIDO',
+                BLOQUEADO: 'BLOQUEADO',
+                BANEADO: 'BANEADO',
+              }[perfilUsuarioRef.estado ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.fechaCreacion">Fecha Creacion</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.fechaCreacion | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.perfilUsuario.usuario">Usuario</span></dt>
+          <dd>
+            <span>{{ perfilUsuarioRef.usuario?.login }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/perfil-usuario', perfilUsuarioRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

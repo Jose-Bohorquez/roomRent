@@ -1,0 +1,86 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (calificacion(); as calificacionRef) {
+      <div>
+        <h2 data-cy="calificacionDetailsHeading"><span jhiTranslate="roomApp.calificacion.detail.title">Calificacion</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ calificacionRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.calificacion.tipoCalificacion">Tipo Calificacion</span></dt>
+          <dd>
+            <span [jhiTranslate]="'roomApp.TipoCalificacion.' + (calificacionRef.tipoCalificacion ?? 'null')">{{
+              {
+                null: '',
+                ARRENDADOR_A_ARRENDATARIO: 'ARRENDADOR_A_ARRENDATARIO',
+                ARRENDATARIO_A_ARRENDADOR: 'ARRENDATARIO_A_ARRENDADOR',
+                ARRENDATARIO_A_ROOMIE: 'ARRENDATARIO_A_ROOMIE',
+                ROOMIE_A_ARRENDATARIO: 'ROOMIE_A_ARRENDATARIO',
+              }[calificacionRef.tipoCalificacion ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.calificacion.puntaje">Puntaje</span></dt>
+          <dd>
+            <span>{{ calificacionRef.puntaje }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.calificacion.comentario">Comentario</span></dt>
+          <dd>
+            <span>{{ calificacionRef.comentario }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.calificacion.fechaCreacion">Fecha Creacion</span></dt>
+          <dd>
+            <span>{{ calificacionRef.fechaCreacion | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.calificacion.visible">Visible</span></dt>
+          <dd>
+            <span>{{ calificacionRef.visible }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.calificacion.autor">Autor</span></dt>
+          <dd>
+            @if (calificacion()!.autor) {
+              <div>
+                <a [routerLink]="['/perfil-usuario', calificacion()!.autor?.id, 'view']">{{ calificacionRef.autor?.primerNombre }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="roomApp.calificacion.calificado">Calificado</span></dt>
+          <dd>
+            @if (calificacion()!.calificado) {
+              <div>
+                <a [routerLink]="['/perfil-usuario', calificacion()!.calificado?.id, 'view']">{{
+                  calificacionRef.calificado?.primerNombre
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="roomApp.calificacion.contrato">Contrato</span></dt>
+          <dd>
+            @if (calificacion()!.contrato) {
+              <div>
+                <a [routerLink]="['/contrato-arriendo', calificacion()!.contrato?.id, 'view']">{{
+                  calificacionRef.contrato?.numeroContrato
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/calificacion', calificacionRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

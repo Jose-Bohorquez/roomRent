@@ -1,0 +1,9 @@
+export enum EstadoVisita {
+  SOLICITADA = 'SOLICITADA',
+
+  CONFIRMADA = 'CONFIRMADA',
+
+  CANCELADA = 'CANCELADA',
+
+  FINALIZADA = 'FINALIZADA',
+}

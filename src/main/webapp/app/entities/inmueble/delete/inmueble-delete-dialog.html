@@ -1,0 +1,24 @@
+@if (inmueble) {
+  <form name="deleteForm" (ngSubmit)="confirmDelete(inmueble.id!)">
+    <div class="modal-header">
+      <h4 class="modal-title" data-cy="inmuebleDeleteDialogHeading" jhiTranslate="entity.delete.title">Confirmar operación de borrado</h4>
+    </div>
+
+    <div class="modal-body">
+      <jhi-alert-error />
+      <p id="jhi-delete-inmueble-heading" jhiTranslate="roomApp.inmueble.delete.question" [translateValues]="{ id: inmueble.id }">
+        ¿Seguro que quiere eliminar Inmueble {{ inmueble.id }}?
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+        <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+      </button>
+
+      <button id="jhi-confirm-delete-inmueble" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+        <fa-icon icon="times" />&nbsp;<span jhiTranslate="entity.action.delete">Eliminar</span>
+      </button>
+    </div>
+  </form>
+}

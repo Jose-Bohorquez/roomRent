@@ -1,0 +1,62 @@
+{
+  "annotations": {
+    "changelogDate": "20260618003001"
+  },
+  "applications": ["room"],
+  "fields": [
+    {
+      "fieldName": "tipoCalificacion",
+      "fieldType": "TipoCalificacion",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "ARRENDADOR_A_ARRENDATARIO,ARRENDATARIO_A_ARRENDADOR,ARRENDATARIO_A_ROOMIE,ROOMIE_A_ARRENDATARIO"
+    },
+    {
+      "fieldName": "puntaje",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min", "max"],
+      "fieldValidateRulesMax": "5",
+      "fieldValidateRulesMin": "1"
+    },
+    {
+      "fieldName": "comentario",
+      "fieldType": "TextBlob"
+    },
+    {
+      "fieldName": "fechaCreacion",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "visible",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Calificacion",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "primerNombre",
+      "otherEntityName": "perfilUsuario",
+      "relationshipName": "autor",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "primerNombre",
+      "otherEntityName": "perfilUsuario",
+      "relationshipName": "calificado",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "numeroContrato",
+      "otherEntityName": "contratoArriendo",
+      "relationshipName": "contrato",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

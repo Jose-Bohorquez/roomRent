@@ -1,0 +1,34 @@
+{
+  "roomApp": {
+    "publicacionRoomie": {
+      "home": {
+        "title": "Publicacion Roomies",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Publicacion Roomie",
+        "createOrEditLabel": "Crear o editar Publicacion Roomie",
+        "notFound": "Ningún Publicacion Roomies encontrado"
+      },
+      "created": "Un nuevo Publicacion Roomie ha sido creado con el identificador {{ param }}",
+      "updated": "Un Publicacion Roomie ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Publicacion Roomie ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Publicacion Roomie {{ id }}?"
+      },
+      "detail": {
+        "title": "Publicacion Roomie"
+      },
+      "id": "ID",
+      "titulo": "Titulo",
+      "nombreHabitacion": "Nombre Habitacion",
+      "valorMensual": "Valor Mensual",
+      "serviciosIncluidos": "Servicios Incluidos",
+      "espaciosCompartidos": "Espacios Compartidos",
+      "generoPreferido": "Genero Preferido",
+      "fechaDisponible": "Fecha Disponible",
+      "estado": "Estado",
+      "solicitudes": "Solicitudes",
+      "arrendatario": "Arrendatario",
+      "inmueble": "Inmueble"
+    }
+  }
+}

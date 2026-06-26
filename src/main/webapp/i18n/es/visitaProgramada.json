@@ -1,0 +1,29 @@
+{
+  "roomApp": {
+    "visitaProgramada": {
+      "home": {
+        "title": "Visita Programadas",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Visita Programada",
+        "createOrEditLabel": "Crear o editar Visita Programada",
+        "notFound": "Ningún Visita Programadas encontrado"
+      },
+      "created": "Un nuevo Visita Programada ha sido creado con el identificador {{ param }}",
+      "updated": "Un Visita Programada ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Visita Programada ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Visita Programada {{ id }}?"
+      },
+      "detail": {
+        "title": "Visita Programada"
+      },
+      "id": "ID",
+      "fechaSolicitada": "Fecha Solicitada",
+      "fechaConfirmada": "Fecha Confirmada",
+      "notas": "Notas",
+      "estado": "Estado",
+      "visitante": "Visitante",
+      "solicitud": "Solicitud"
+    }
+  }
+}

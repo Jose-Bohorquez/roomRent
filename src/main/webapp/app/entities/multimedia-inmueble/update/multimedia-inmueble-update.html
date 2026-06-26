@@ -1,0 +1,101 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-multimedia-inmueble-heading"
+        data-cy="MultimediaInmuebleCreateUpdateHeading"
+        jhiTranslate="roomApp.multimediaInmueble.home.createOrEditLabel"
+      >
+        Crear o editar Multimedia Inmueble
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let urlMediaRef = editForm.get('urlMedia')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_urlMedia" jhiTranslate="roomApp.multimediaInmueble.urlMedia">Url Media</label>
+          <input type="text" class="form-control" name="urlMedia" id="field_urlMedia" data-cy="urlMedia" formControlName="urlMedia" />
+          @if (urlMediaRef.invalid && (urlMediaRef.dirty || urlMediaRef.touched)) {
+            <div>
+              @if (editForm.get('urlMedia')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let tipoMediaRef = editForm.get('tipoMedia')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_tipoMedia" jhiTranslate="roomApp.multimediaInmueble.tipoMedia">Tipo Media</label>
+          <input type="text" class="form-control" name="tipoMedia" id="field_tipoMedia" data-cy="tipoMedia" formControlName="tipoMedia" />
+          @if (tipoMediaRef.invalid && (tipoMediaRef.dirty || tipoMediaRef.touched)) {
+            <div>
+              @if (editForm.get('tipoMedia')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let principalRef = editForm.get('principal')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_principal" jhiTranslate="roomApp.multimediaInmueble.principal">Principal</label>
+          <input type="checkbox" class="form-check" name="principal" id="field_principal" data-cy="principal" formControlName="principal" />
+          @if (principalRef.invalid && (principalRef.dirty || principalRef.touched)) {
+            <div>
+              @if (editForm.get('principal')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_titulo" jhiTranslate="roomApp.multimediaInmueble.titulo">Titulo</label>
+          <input type="text" class="form-control" name="titulo" id="field_titulo" data-cy="titulo" formControlName="titulo" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_inmueble" jhiTranslate="roomApp.multimediaInmueble.inmueble">Inmueble</label>
+          <select
+            class="form-control"
+            id="field_inmueble"
+            data-cy="inmueble"
+            name="inmueble"
+            formControlName="inmueble"
+            [compareWith]="compareInmueble"
+          >
+            <option [ngValue]="null"></option>
+            @for (inmuebleOption of inmueblesSharedCollection(); track $index) {
+              <option [ngValue]="inmuebleOption">{{ inmuebleOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,145 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-visita-programada-heading"
+        data-cy="VisitaProgramadaCreateUpdateHeading"
+        jhiTranslate="roomApp.visitaProgramada.home.createOrEditLabel"
+      >
+        Crear o editar Visita Programada
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let fechaSolicitadaRef = editForm.get('fechaSolicitada')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_fechaSolicitada" jhiTranslate="roomApp.visitaProgramada.fechaSolicitada"
+            >Fecha Solicitada</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_fechaSolicitada"
+              data-cy="fechaSolicitada"
+              type="datetime-local"
+              class="form-control"
+              name="fechaSolicitada"
+              formControlName="fechaSolicitada"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (fechaSolicitadaRef.invalid && (fechaSolicitadaRef.dirty || fechaSolicitadaRef.touched)) {
+            <div>
+              @if (editForm.get('fechaSolicitada')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('fechaSolicitada')?.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Este campo debe ser una fecha y hora.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fechaConfirmada" jhiTranslate="roomApp.visitaProgramada.fechaConfirmada"
+            >Fecha Confirmada</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_fechaConfirmada"
+              data-cy="fechaConfirmada"
+              type="datetime-local"
+              class="form-control"
+              name="fechaConfirmada"
+              formControlName="fechaConfirmada"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_notas" jhiTranslate="roomApp.visitaProgramada.notas">Notas</label>
+          <textarea class="form-control" name="notas" id="field_notas" data-cy="notas" formControlName="notas"></textarea>
+        </div>
+
+        @let estadoRef = editForm.get('estado')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_estado" jhiTranslate="roomApp.visitaProgramada.estado">Estado</label>
+          <select class="form-control" name="estado" formControlName="estado" id="field_estado" data-cy="estado">
+            <option [ngValue]="null">{{ 'roomApp.EstadoVisita.null' | translate }}</option>
+            @for (estadoVisita of estadoVisitaValues; track $index) {
+              <option [value]="estadoVisita">{{ 'roomApp.EstadoVisita.' + estadoVisita | translate }}</option>
+            }
+          </select>
+          @if (estadoRef.invalid && (estadoRef.dirty || estadoRef.touched)) {
+            <div>
+              @if (editForm.get('estado')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_visitante" jhiTranslate="roomApp.visitaProgramada.visitante">Visitante</label>
+          <select
+            class="form-control"
+            id="field_visitante"
+            data-cy="visitante"
+            name="visitante"
+            formControlName="visitante"
+            [compareWith]="comparePerfilUsuario"
+          >
+            <option [ngValue]="null"></option>
+            @for (perfilUsuarioOption of perfilUsuariosSharedCollection(); track $index) {
+              <option [ngValue]="perfilUsuarioOption">{{ perfilUsuarioOption.primerNombre }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_solicitud" jhiTranslate="roomApp.visitaProgramada.solicitud">Solicitud</label>
+          <select
+            class="form-control"
+            id="field_solicitud"
+            data-cy="solicitud"
+            name="solicitud"
+            formControlName="solicitud"
+            [compareWith]="compareSolicitudArriendo"
+          >
+            <option [ngValue]="null"></option>
+            @for (solicitudArriendoOption of solicitudArriendosSharedCollection(); track $index) {
+              <option [ngValue]="solicitudArriendoOption">{{ solicitudArriendoOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

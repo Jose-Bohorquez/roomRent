@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (multimediaInmueble(); as multimediaInmuebleRef) {
+      <div>
+        <h2 data-cy="multimediaInmuebleDetailsHeading">
+          <span jhiTranslate="roomApp.multimediaInmueble.detail.title">Multimedia Inmueble</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ multimediaInmuebleRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.multimediaInmueble.urlMedia">Url Media</span></dt>
+          <dd>
+            <span>{{ multimediaInmuebleRef.urlMedia }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.multimediaInmueble.tipoMedia">Tipo Media</span></dt>
+          <dd>
+            <span>{{ multimediaInmuebleRef.tipoMedia }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.multimediaInmueble.principal">Principal</span></dt>
+          <dd>
+            <span>{{ multimediaInmuebleRef.principal }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.multimediaInmueble.titulo">Titulo</span></dt>
+          <dd>
+            <span>{{ multimediaInmuebleRef.titulo }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.multimediaInmueble.inmueble">Inmueble</span></dt>
+          <dd>
+            @if (multimediaInmueble()!.inmueble) {
+              <div>
+                <a [routerLink]="['/inmueble', multimediaInmueble()!.inmueble?.id, 'view']">{{ multimediaInmuebleRef.inmueble?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/multimedia-inmueble', multimediaInmuebleRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

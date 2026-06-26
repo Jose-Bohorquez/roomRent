@@ -1,0 +1,30 @@
+@if (contratoArriendo) {
+  <form name="deleteForm" (ngSubmit)="confirmDelete(contratoArriendo.id!)">
+    <div class="modal-header">
+      <h4 class="modal-title" data-cy="contratoArriendoDeleteDialogHeading" jhiTranslate="entity.delete.title">
+        Confirmar operación de borrado
+      </h4>
+    </div>
+
+    <div class="modal-body">
+      <jhi-alert-error />
+      <p
+        id="jhi-delete-contratoArriendo-heading"
+        jhiTranslate="roomApp.contratoArriendo.delete.question"
+        [translateValues]="{ id: contratoArriendo.id }"
+      >
+        ¿Seguro que quiere eliminar Contrato Arriendo {{ contratoArriendo.id }}?
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+        <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+      </button>
+
+      <button id="jhi-confirm-delete-contratoArriendo" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+        <fa-icon icon="times" />&nbsp;<span jhiTranslate="entity.action.delete">Eliminar</span>
+      </button>
+    </div>
+  </form>
+}

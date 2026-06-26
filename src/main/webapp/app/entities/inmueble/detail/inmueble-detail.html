@@ -1,0 +1,101 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (inmueble(); as inmuebleRef) {
+      <div>
+        <h2 data-cy="inmuebleDetailsHeading"><span jhiTranslate="roomApp.inmueble.detail.title">Inmueble</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ inmuebleRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.inmueble.nombre">Nombre</span></dt>
+          <dd>
+            <span>{{ inmuebleRef.nombre }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.inmueble.direccion">Direccion</span></dt>
+          <dd>
+            <span>{{ inmuebleRef.direccion }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.inmueble.ciudad">Ciudad</span></dt>
+          <dd>
+            <span>{{ inmuebleRef.ciudad }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.inmueble.localidad">Localidad</span></dt>
+          <dd>
+            <span>{{ inmuebleRef.localidad }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.inmueble.barrio">Barrio</span></dt>
+          <dd>
+            <span>{{ inmuebleRef.barrio }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.inmueble.latitud">Latitud</span></dt>
+          <dd>
+            <span>{{ inmuebleRef.latitud }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.inmueble.longitud">Longitud</span></dt>
+          <dd>
+            <span>{{ inmuebleRef.longitud }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.inmueble.tipoInmueble">Tipo Inmueble</span></dt>
+          <dd>
+            <span [jhiTranslate]="'roomApp.TipoInmueble.' + (inmuebleRef.tipoInmueble ?? 'null')">{{
+              {
+                null: '',
+                APARTAMENTO: 'APARTAMENTO',
+                CASA: 'CASA',
+                HABITACION: 'HABITACION',
+                APARTAESTUDIO: 'APARTAESTUDIO',
+                LOCAL: 'LOCAL',
+                OFICINA: 'OFICINA',
+                OTRO: 'OTRO',
+              }[inmuebleRef.tipoInmueble ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.inmueble.areaMetrosCuadrados">Area Metros Cuadrados</span></dt>
+          <dd>
+            <span>{{ inmuebleRef.areaMetrosCuadrados }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.inmueble.numeroHabitaciones">Numero Habitaciones</span></dt>
+          <dd>
+            <span>{{ inmuebleRef.numeroHabitaciones }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.inmueble.numeroBanos">Numero Banos</span></dt>
+          <dd>
+            <span>{{ inmuebleRef.numeroBanos }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.inmueble.numeroParqueaderos">Numero Parqueaderos</span></dt>
+          <dd>
+            <span>{{ inmuebleRef.numeroParqueaderos }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.inmueble.estrato">Estrato</span></dt>
+          <dd>
+            <span>{{ inmuebleRef.estrato }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.inmueble.propietario">Propietario</span></dt>
+          <dd>
+            @if (inmueble()!.propietario) {
+              <div>
+                <a [routerLink]="['/perfil-usuario', inmueble()!.propietario?.id, 'view']">{{ inmuebleRef.propietario?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/inmueble', inmuebleRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

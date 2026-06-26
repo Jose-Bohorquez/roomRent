@@ -1,0 +1,30 @@
+@if (documentoUsuario) {
+  <form name="deleteForm" (ngSubmit)="confirmDelete(documentoUsuario.id!)">
+    <div class="modal-header">
+      <h4 class="modal-title" data-cy="documentoUsuarioDeleteDialogHeading" jhiTranslate="entity.delete.title">
+        Confirmar operación de borrado
+      </h4>
+    </div>
+
+    <div class="modal-body">
+      <jhi-alert-error />
+      <p
+        id="jhi-delete-documentoUsuario-heading"
+        jhiTranslate="roomApp.documentoUsuario.delete.question"
+        [translateValues]="{ id: documentoUsuario.id }"
+      >
+        ¿Seguro que quiere eliminar Documento Usuario {{ documentoUsuario.id }}?
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+        <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+      </button>
+
+      <button id="jhi-confirm-delete-documentoUsuario" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+        <fa-icon icon="times" />&nbsp;<span jhiTranslate="entity.action.delete">Eliminar</span>
+      </button>
+    </div>
+  </form>
+}

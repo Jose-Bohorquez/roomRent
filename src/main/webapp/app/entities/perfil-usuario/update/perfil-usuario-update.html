@@ -1,0 +1,401 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-perfil-usuario-heading"
+        data-cy="PerfilUsuarioCreateUpdateHeading"
+        jhiTranslate="roomApp.perfilUsuario.home.createOrEditLabel"
+      >
+        Crear o editar Perfil Usuario
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let tipoDocumentoRef = editForm.get('tipoDocumento')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_tipoDocumento" jhiTranslate="roomApp.perfilUsuario.tipoDocumento">Tipo Documento</label>
+          <select
+            class="form-control"
+            name="tipoDocumento"
+            formControlName="tipoDocumento"
+            id="field_tipoDocumento"
+            data-cy="tipoDocumento"
+          >
+            <option [ngValue]="null">{{ 'roomApp.TipoDocumento.null' | translate }}</option>
+            @for (tipoDocumento of tipoDocumentoValues; track $index) {
+              <option [value]="tipoDocumento">{{ 'roomApp.TipoDocumento.' + tipoDocumento | translate }}</option>
+            }
+          </select>
+          @if (tipoDocumentoRef.invalid && (tipoDocumentoRef.dirty || tipoDocumentoRef.touched)) {
+            <div>
+              @if (editForm.get('tipoDocumento')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let numeroDocumentoRef = editForm.get('numeroDocumento')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_numeroDocumento" jhiTranslate="roomApp.perfilUsuario.numeroDocumento"
+            >Numero Documento</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="numeroDocumento"
+            id="field_numeroDocumento"
+            data-cy="numeroDocumento"
+            formControlName="numeroDocumento"
+          />
+          @if (numeroDocumentoRef.invalid && (numeroDocumentoRef.dirty || numeroDocumentoRef.touched)) {
+            <div>
+              @if (editForm.get('numeroDocumento')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let primerNombreRef = editForm.get('primerNombre')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_primerNombre" jhiTranslate="roomApp.perfilUsuario.primerNombre">Primer Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            name="primerNombre"
+            id="field_primerNombre"
+            data-cy="primerNombre"
+            formControlName="primerNombre"
+          />
+          @if (primerNombreRef.invalid && (primerNombreRef.dirty || primerNombreRef.touched)) {
+            <div>
+              @if (editForm.get('primerNombre')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_segundoNombre" jhiTranslate="roomApp.perfilUsuario.segundoNombre">Segundo Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            name="segundoNombre"
+            id="field_segundoNombre"
+            data-cy="segundoNombre"
+            formControlName="segundoNombre"
+          />
+        </div>
+
+        @let primerApellidoRef = editForm.get('primerApellido')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_primerApellido" jhiTranslate="roomApp.perfilUsuario.primerApellido">Primer Apellido</label>
+          <input
+            type="text"
+            class="form-control"
+            name="primerApellido"
+            id="field_primerApellido"
+            data-cy="primerApellido"
+            formControlName="primerApellido"
+          />
+          @if (primerApellidoRef.invalid && (primerApellidoRef.dirty || primerApellidoRef.touched)) {
+            <div>
+              @if (editForm.get('primerApellido')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_segundoApellido" jhiTranslate="roomApp.perfilUsuario.segundoApellido"
+            >Segundo Apellido</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="segundoApellido"
+            id="field_segundoApellido"
+            data-cy="segundoApellido"
+            formControlName="segundoApellido"
+          />
+        </div>
+
+        @let fechaNacimientoRef = editForm.get('fechaNacimiento')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_fechaNacimiento" jhiTranslate="roomApp.perfilUsuario.fechaNacimiento"
+            >Fecha Nacimiento</label
+          >
+          <div class="input-group">
+            <input
+              id="field_fechaNacimiento"
+              data-cy="fechaNacimiento"
+              type="text"
+              class="form-control"
+              name="fechaNacimiento"
+              ngbDatepicker
+              #fechaNacimientoDp="ngbDatepicker"
+              formControlName="fechaNacimiento"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaNacimientoDp.toggle()"><fa-icon icon="calendar-alt" /></button>
+          </div>
+          @if (fechaNacimientoRef.invalid && (fechaNacimientoRef.dirty || fechaNacimientoRef.touched)) {
+            <div>
+              @if (editForm.get('fechaNacimiento')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_genero" jhiTranslate="roomApp.perfilUsuario.genero">Genero</label>
+          <select class="form-control" name="genero" formControlName="genero" id="field_genero" data-cy="genero">
+            <option [ngValue]="null">{{ 'roomApp.Genero.null' | translate }}</option>
+            @for (genero of generoValues; track $index) {
+              <option [value]="genero">{{ 'roomApp.Genero.' + genero | translate }}</option>
+            }
+          </select>
+        </div>
+
+        @let telefonoRef = editForm.get('telefono')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_telefono" jhiTranslate="roomApp.perfilUsuario.telefono">Telefono</label>
+          <input type="text" class="form-control" name="telefono" id="field_telefono" data-cy="telefono" formControlName="telefono" />
+          @if (telefonoRef.invalid && (telefonoRef.dirty || telefonoRef.touched)) {
+            <div>
+              @if (editForm.get('telefono')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_direccionActual" jhiTranslate="roomApp.perfilUsuario.direccionActual"
+            >Direccion Actual</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="direccionActual"
+            id="field_direccionActual"
+            data-cy="direccionActual"
+            formControlName="direccionActual"
+          />
+        </div>
+
+        @let ciudadRef = editForm.get('ciudad')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_ciudad" jhiTranslate="roomApp.perfilUsuario.ciudad">Ciudad</label>
+          <input type="text" class="form-control" name="ciudad" id="field_ciudad" data-cy="ciudad" formControlName="ciudad" />
+          @if (ciudadRef.invalid && (ciudadRef.dirty || ciudadRef.touched)) {
+            <div>
+              @if (editForm.get('ciudad')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_barrio" jhiTranslate="roomApp.perfilUsuario.barrio">Barrio</label>
+          <input type="text" class="form-control" name="barrio" id="field_barrio" data-cy="barrio" formControlName="barrio" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_profesion" jhiTranslate="roomApp.perfilUsuario.profesion">Profesion</label>
+          <input type="text" class="form-control" name="profesion" id="field_profesion" data-cy="profesion" formControlName="profesion" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_ocupacion" jhiTranslate="roomApp.perfilUsuario.ocupacion">Ocupacion</label>
+          <input type="text" class="form-control" name="ocupacion" id="field_ocupacion" data-cy="ocupacion" formControlName="ocupacion" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_empresaTrabajo" jhiTranslate="roomApp.perfilUsuario.empresaTrabajo">Empresa Trabajo</label>
+          <input
+            type="text"
+            class="form-control"
+            name="empresaTrabajo"
+            id="field_empresaTrabajo"
+            data-cy="empresaTrabajo"
+            formControlName="empresaTrabajo"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_universidad" jhiTranslate="roomApp.perfilUsuario.universidad">Universidad</label>
+          <input
+            type="text"
+            class="form-control"
+            name="universidad"
+            id="field_universidad"
+            data-cy="universidad"
+            formControlName="universidad"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_biografia" jhiTranslate="roomApp.perfilUsuario.biografia">Biografia</label>
+          <textarea class="form-control" name="biografia" id="field_biografia" data-cy="biografia" formControlName="biografia"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_intereses" jhiTranslate="roomApp.perfilUsuario.intereses">Intereses</label>
+          <textarea class="form-control" name="intereses" id="field_intereses" data-cy="intereses" formControlName="intereses"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_tieneMascotas" jhiTranslate="roomApp.perfilUsuario.tieneMascotas">Tiene Mascotas</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="tieneMascotas"
+            id="field_tieneMascotas"
+            data-cy="tieneMascotas"
+            formControlName="tieneMascotas"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fumador" jhiTranslate="roomApp.perfilUsuario.fumador">Fumador</label>
+          <input type="checkbox" class="form-check" name="fumador" id="field_fumador" data-cy="fumador" formControlName="fumador" />
+        </div>
+
+        @let verificadoRef = editForm.get('verificado')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_verificado" jhiTranslate="roomApp.perfilUsuario.verificado">Verificado</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="verificado"
+            id="field_verificado"
+            data-cy="verificado"
+            formControlName="verificado"
+          />
+          @if (verificadoRef.invalid && (verificadoRef.dirty || verificadoRef.touched)) {
+            <div>
+              @if (editForm.get('verificado')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let habilitadoRoomieRef = editForm.get('habilitadoRoomie')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_habilitadoRoomie" jhiTranslate="roomApp.perfilUsuario.habilitadoRoomie"
+            >Habilitado Roomie</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="habilitadoRoomie"
+            id="field_habilitadoRoomie"
+            data-cy="habilitadoRoomie"
+            formControlName="habilitadoRoomie"
+          />
+          @if (habilitadoRoomieRef.invalid && (habilitadoRoomieRef.dirty || habilitadoRoomieRef.touched)) {
+            <div>
+              @if (editForm.get('habilitadoRoomie')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let estadoRef = editForm.get('estado')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_estado" jhiTranslate="roomApp.perfilUsuario.estado">Estado</label>
+          <select class="form-control" name="estado" formControlName="estado" id="field_estado" data-cy="estado">
+            <option [ngValue]="null">{{ 'roomApp.EstadoUsuario.null' | translate }}</option>
+            @for (estadoUsuario of estadoUsuarioValues; track $index) {
+              <option [value]="estadoUsuario">{{ 'roomApp.EstadoUsuario.' + estadoUsuario | translate }}</option>
+            }
+          </select>
+          @if (estadoRef.invalid && (estadoRef.dirty || estadoRef.touched)) {
+            <div>
+              @if (editForm.get('estado')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let fechaCreacionRef = editForm.get('fechaCreacion')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_fechaCreacion" jhiTranslate="roomApp.perfilUsuario.fechaCreacion">Fecha Creacion</label>
+          <div class="d-flex">
+            <input
+              id="field_fechaCreacion"
+              data-cy="fechaCreacion"
+              type="datetime-local"
+              class="form-control"
+              name="fechaCreacion"
+              formControlName="fechaCreacion"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (fechaCreacionRef.invalid && (fechaCreacionRef.dirty || fechaCreacionRef.touched)) {
+            <div>
+              @if (editForm.get('fechaCreacion')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('fechaCreacion')?.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Este campo debe ser una fecha y hora.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_usuario" jhiTranslate="roomApp.perfilUsuario.usuario">Usuario</label>
+          <select
+            class="form-control"
+            id="field_usuario"
+            data-cy="usuario"
+            name="usuario"
+            formControlName="usuario"
+            [compareWith]="compareUser"
+          >
+            <option [ngValue]="null"></option>
+            @for (userOption of usersSharedCollection(); track $index) {
+              <option [ngValue]="userOption">{{ userOption.login }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

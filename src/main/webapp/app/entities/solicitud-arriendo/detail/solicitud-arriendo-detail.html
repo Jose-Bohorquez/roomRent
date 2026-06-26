@@ -1,0 +1,77 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (solicitudArriendo(); as solicitudArriendoRef) {
+      <div>
+        <h2 data-cy="solicitudArriendoDetailsHeading">
+          <span jhiTranslate="roomApp.solicitudArriendo.detail.title">Solicitud Arriendo</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ solicitudArriendoRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.solicitudArriendo.mensaje">Mensaje</span></dt>
+          <dd>
+            <span>{{ solicitudArriendoRef.mensaje }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.solicitudArriendo.aceptaTerminos">Acepta Terminos</span></dt>
+          <dd>
+            <span>{{ solicitudArriendoRef.aceptaTerminos }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.solicitudArriendo.estado">Estado</span></dt>
+          <dd>
+            <span [jhiTranslate]="'roomApp.EstadoSolicitud.' + (solicitudArriendoRef.estado ?? 'null')">{{
+              {
+                null: '',
+                CREADA: 'CREADA',
+                EN_REVISION: 'EN_REVISION',
+                APROBADA: 'APROBADA',
+                RECHAZADA: 'RECHAZADA',
+                CANCELADA: 'CANCELADA',
+              }[solicitudArriendoRef.estado ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.solicitudArriendo.fechaCreacion">Fecha Creacion</span></dt>
+          <dd>
+            <span>{{ solicitudArriendoRef.fechaCreacion | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.solicitudArriendo.arrendatario">Arrendatario</span></dt>
+          <dd>
+            @if (solicitudArriendo()!.arrendatario) {
+              <div>
+                <a [routerLink]="['/perfil-usuario', solicitudArriendo()!.arrendatario?.id, 'view']">{{
+                  solicitudArriendoRef.arrendatario?.primerNombre
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="roomApp.solicitudArriendo.publicacion">Publicacion</span></dt>
+          <dd>
+            @if (solicitudArriendo()!.publicacion) {
+              <div>
+                <a [routerLink]="['/publicacion-inmueble', solicitudArriendo()!.publicacion?.id, 'view']">{{
+                  solicitudArriendoRef.publicacion?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/solicitud-arriendo', solicitudArriendoRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,11 @@
+{
+  "roomApp": {
+    "EstadoVisita": {
+      "null": "",
+      "SOLICITADA": "SOLICITADA",
+      "CONFIRMADA": "CONFIRMADA",
+      "CANCELADA": "CANCELADA",
+      "FINALIZADA": "FINALIZADA"
+    }
+  }
+}

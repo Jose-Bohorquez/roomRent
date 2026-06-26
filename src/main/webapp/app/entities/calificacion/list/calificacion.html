@@ -1,0 +1,186 @@
+<div>
+  <h2 id="page-heading" data-cy="CalificacionHeading">
+    <span jhiTranslate="roomApp.calificacion.home.title">Calificacions</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
+        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
+        <span jhiTranslate="roomApp.calificacion.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-calificacion"
+        [routerLink]="['/calificacion/new']"
+      >
+        <fa-icon icon="plus" />
+        <span jhiTranslate="roomApp.calificacion.home.createLabel">Crear nuevo Calificacion</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  @if (calificacions().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="roomApp.calificacion.home.notFound">Ningún Calificacions encontrado</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="tipoCalificacion">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.calificacion.tipoCalificacion">Tipo Calificacion</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="puntaje">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.calificacion.puntaje">Puntaje</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="comentario">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.calificacion.comentario">Comentario</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="fechaCreacion">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.calificacion.fechaCreacion">Fecha Creacion</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="visible">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.calificacion.visible">Visible</span>
+
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="autor.primerNombre">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.calificacion.autor">Autor</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="calificado.primerNombre">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.calificacion.calificado">Calificado</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="contrato.numeroContrato">
+              <div class="d-flex">
+                <span jhiTranslate="roomApp.calificacion.contrato">Contrato</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (calificacion of calificacions(); track trackId(calificacion)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/calificacion', calificacion.id, 'view']">{{ calificacion.id }}</a>
+              </td>
+              <td [jhiTranslate]="'roomApp.TipoCalificacion.' + (calificacion.tipoCalificacion ?? 'null')">
+                {{
+                  {
+                    null: '',
+                    ARRENDADOR_A_ARRENDATARIO: 'ARRENDADOR_A_ARRENDATARIO',
+                    ARRENDATARIO_A_ARRENDADOR: 'ARRENDATARIO_A_ARRENDADOR',
+                    ARRENDATARIO_A_ROOMIE: 'ARRENDATARIO_A_ROOMIE',
+                    ROOMIE_A_ARRENDATARIO: 'ROOMIE_A_ARRENDATARIO',
+                  }[calificacion.tipoCalificacion ?? 'null']
+                }}
+              </td>
+              <td>{{ calificacion.puntaje }}</td>
+              <td>{{ calificacion.comentario }}</td>
+              <td>{{ calificacion.fechaCreacion | formatMediumDatetime }}</td>
+              <td>{{ calificacion.visible }}</td>
+              <td>
+                @if (calificacion.autor) {
+                  <div>
+                    <a [routerLink]="['/perfil-usuario', calificacion.autor.id, 'view']">{{ calificacion.autor.primerNombre }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (calificacion.calificado) {
+                  <div>
+                    <a [routerLink]="['/perfil-usuario', calificacion.calificado.id, 'view']">{{ calificacion.calificado.primerNombre }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (calificacion.contrato) {
+                  <div>
+                    <a [routerLink]="['/contrato-arriendo', calificacion.contrato.id, 'view']">{{
+                      calificacion.contrato.numeroContrato
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/calificacion', calificacion.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a [routerLink]="['/calificacion', calificacion.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(calificacion)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (calificacions().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page(), totalItems: totalItems(), itemsPerPage: itemsPerPage() }" />
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems()"
+          [page]="page()"
+          [pageSize]="itemsPerPage()"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        />
+      </div>
+    </div>
+  }
+</div>

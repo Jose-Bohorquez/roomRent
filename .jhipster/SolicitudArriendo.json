@@ -1,0 +1,55 @@
+{
+  "annotations": {
+    "changelogDate": "20260618002501"
+  },
+  "applications": ["room"],
+  "fields": [
+    {
+      "fieldName": "mensaje",
+      "fieldType": "TextBlob"
+    },
+    {
+      "fieldName": "aceptaTerminos",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "EstadoSolicitud",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "CREADA,EN_REVISION,APROBADA,RECHAZADA,CANCELADA"
+    },
+    {
+      "fieldName": "fechaCreacion",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "SolicitudArriendo",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "visitaProgramada",
+      "otherEntityRelationshipName": "solicitud",
+      "relationshipName": "visitas",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "primerNombre",
+      "otherEntityName": "perfilUsuario",
+      "relationshipName": "arrendatario",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "publicacionInmueble",
+      "otherEntityRelationshipName": "solicitudes",
+      "relationshipName": "publicacion",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

@@ -1,0 +1,95 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (publicacionRoomie(); as publicacionRoomieRef) {
+      <div>
+        <h2 data-cy="publicacionRoomieDetailsHeading">
+          <span jhiTranslate="roomApp.publicacionRoomie.detail.title">Publicacion Roomie</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ publicacionRoomieRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionRoomie.titulo">Titulo</span></dt>
+          <dd>
+            <span>{{ publicacionRoomieRef.titulo }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionRoomie.nombreHabitacion">Nombre Habitacion</span></dt>
+          <dd>
+            <span>{{ publicacionRoomieRef.nombreHabitacion }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionRoomie.valorMensual">Valor Mensual</span></dt>
+          <dd>
+            <span>{{ publicacionRoomieRef.valorMensual }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionRoomie.serviciosIncluidos">Servicios Incluidos</span></dt>
+          <dd>
+            <span>{{ publicacionRoomieRef.serviciosIncluidos }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionRoomie.espaciosCompartidos">Espacios Compartidos</span></dt>
+          <dd>
+            <span>{{ publicacionRoomieRef.espaciosCompartidos }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionRoomie.generoPreferido">Genero Preferido</span></dt>
+          <dd>
+            <span [jhiTranslate]="'roomApp.Genero.' + (publicacionRoomieRef.generoPreferido ?? 'null')">{{
+              { null: '', MASCULINO: 'MASCULINO', FEMENINO: 'FEMENINO', OTRO: 'OTRO', PREFIERO_NO_DECIR: 'PREFIERO_NO_DECIR' }[
+                publicacionRoomieRef.generoPreferido ?? 'null'
+              ]
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionRoomie.fechaDisponible">Fecha Disponible</span></dt>
+          <dd>
+            <span>{{ publicacionRoomieRef.fechaDisponible | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionRoomie.estado">Estado</span></dt>
+          <dd>
+            <span [jhiTranslate]="'roomApp.EstadoPublicacion.' + (publicacionRoomieRef.estado ?? 'null')">{{
+              {
+                null: '',
+                BORRADOR: 'BORRADOR',
+                PUBLICADO: 'PUBLICADO',
+                PAUSADO: 'PAUSADO',
+                ARRENDADO: 'ARRENDADO',
+                FINALIZADO: 'FINALIZADO',
+              }[publicacionRoomieRef.estado ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionRoomie.arrendatario">Arrendatario</span></dt>
+          <dd>
+            @if (publicacionRoomie()!.arrendatario) {
+              <div>
+                <a [routerLink]="['/perfil-usuario', publicacionRoomie()!.arrendatario?.id, 'view']">{{
+                  publicacionRoomieRef.arrendatario?.primerNombre
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="roomApp.publicacionRoomie.inmueble">Inmueble</span></dt>
+          <dd>
+            @if (publicacionRoomie()!.inmueble) {
+              <div>
+                <a [routerLink]="['/inmueble', publicacionRoomie()!.inmueble?.id, 'view']">{{ publicacionRoomieRef.inmueble?.nombre }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/publicacion-roomie', publicacionRoomieRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

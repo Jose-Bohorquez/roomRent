@@ -1,0 +1,11 @@
+export enum EstadoSolicitud {
+  CREADA = 'CREADA',
+
+  EN_REVISION = 'EN_REVISION',
+
+  APROBADA = 'APROBADA',
+
+  RECHAZADA = 'RECHAZADA',
+
+  CANCELADA = 'CANCELADA',
+}

@@ -1,0 +1,50 @@
+{
+  "roomApp": {
+    "perfilUsuario": {
+      "home": {
+        "title": "Perfil Usuarios",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Perfil Usuario",
+        "createOrEditLabel": "Create or edit a Perfil Usuario",
+        "notFound": "No Perfil Usuarios found"
+      },
+      "created": "A new Perfil Usuario is created with identifier {{ param }}",
+      "updated": "A Perfil Usuario is updated with identifier {{ param }}",
+      "deleted": "A Perfil Usuario is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Perfil Usuario {{ id }}?"
+      },
+      "detail": {
+        "title": "Perfil Usuario"
+      },
+      "id": "ID",
+      "tipoDocumento": "Tipo Documento",
+      "numeroDocumento": "Numero Documento",
+      "primerNombre": "Primer Nombre",
+      "segundoNombre": "Segundo Nombre",
+      "primerApellido": "Primer Apellido",
+      "segundoApellido": "Segundo Apellido",
+      "fechaNacimiento": "Fecha Nacimiento",
+      "genero": "Genero",
+      "telefono": "Telefono",
+      "direccionActual": "Direccion Actual",
+      "ciudad": "Ciudad",
+      "barrio": "Barrio",
+      "profesion": "Profesion",
+      "ocupacion": "Ocupacion",
+      "empresaTrabajo": "Empresa Trabajo",
+      "universidad": "Universidad",
+      "biografia": "Biografia",
+      "intereses": "Intereses",
+      "tieneMascotas": "Tiene Mascotas",
+      "fumador": "Fumador",
+      "verificado": "Verificado",
+      "habilitadoRoomie": "Habilitado Roomie",
+      "estado": "Estado",
+      "fechaCreacion": "Fecha Creacion",
+      "usuario": "Usuario",
+      "documentos": "Documentos",
+      "inmuebles": "Inmuebles"
+    }
+  }
+}

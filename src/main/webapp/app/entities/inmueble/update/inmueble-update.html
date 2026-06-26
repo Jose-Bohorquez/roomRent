@@ -1,0 +1,246 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-inmueble-heading" data-cy="InmuebleCreateUpdateHeading" jhiTranslate="roomApp.inmueble.home.createOrEditLabel">
+        Crear o editar Inmueble
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let nombreRef = editForm.get('nombre')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_nombre" jhiTranslate="roomApp.inmueble.nombre">Nombre</label>
+          <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
+          @if (nombreRef.invalid && (nombreRef.dirty || nombreRef.touched)) {
+            <div>
+              @if (editForm.get('nombre')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let direccionRef = editForm.get('direccion')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_direccion" jhiTranslate="roomApp.inmueble.direccion">Direccion</label>
+          <input type="text" class="form-control" name="direccion" id="field_direccion" data-cy="direccion" formControlName="direccion" />
+          @if (direccionRef.invalid && (direccionRef.dirty || direccionRef.touched)) {
+            <div>
+              @if (editForm.get('direccion')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let ciudadRef = editForm.get('ciudad')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_ciudad" jhiTranslate="roomApp.inmueble.ciudad">Ciudad</label>
+          <input type="text" class="form-control" name="ciudad" id="field_ciudad" data-cy="ciudad" formControlName="ciudad" />
+          @if (ciudadRef.invalid && (ciudadRef.dirty || ciudadRef.touched)) {
+            <div>
+              @if (editForm.get('ciudad')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_localidad" jhiTranslate="roomApp.inmueble.localidad">Localidad</label>
+          <input type="text" class="form-control" name="localidad" id="field_localidad" data-cy="localidad" formControlName="localidad" />
+        </div>
+
+        @let barrioRef = editForm.get('barrio')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_barrio" jhiTranslate="roomApp.inmueble.barrio">Barrio</label>
+          <input type="text" class="form-control" name="barrio" id="field_barrio" data-cy="barrio" formControlName="barrio" />
+          @if (barrioRef.invalid && (barrioRef.dirty || barrioRef.touched)) {
+            <div>
+              @if (editForm.get('barrio')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_latitud" jhiTranslate="roomApp.inmueble.latitud">Latitud</label>
+          <input type="number" class="form-control" name="latitud" id="field_latitud" data-cy="latitud" formControlName="latitud" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_longitud" jhiTranslate="roomApp.inmueble.longitud">Longitud</label>
+          <input type="number" class="form-control" name="longitud" id="field_longitud" data-cy="longitud" formControlName="longitud" />
+        </div>
+
+        @let tipoInmuebleRef = editForm.get('tipoInmueble')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_tipoInmueble" jhiTranslate="roomApp.inmueble.tipoInmueble">Tipo Inmueble</label>
+          <select class="form-control" name="tipoInmueble" formControlName="tipoInmueble" id="field_tipoInmueble" data-cy="tipoInmueble">
+            <option [ngValue]="null">{{ 'roomApp.TipoInmueble.null' | translate }}</option>
+            @for (tipoInmueble of tipoInmuebleValues; track $index) {
+              <option [value]="tipoInmueble">{{ 'roomApp.TipoInmueble.' + tipoInmueble | translate }}</option>
+            }
+          </select>
+          @if (tipoInmuebleRef.invalid && (tipoInmuebleRef.dirty || tipoInmuebleRef.touched)) {
+            <div>
+              @if (editForm.get('tipoInmueble')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_areaMetrosCuadrados" jhiTranslate="roomApp.inmueble.areaMetrosCuadrados"
+            >Area Metros Cuadrados</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="areaMetrosCuadrados"
+            id="field_areaMetrosCuadrados"
+            data-cy="areaMetrosCuadrados"
+            formControlName="areaMetrosCuadrados"
+          />
+        </div>
+
+        @let numeroHabitacionesRef = editForm.get('numeroHabitaciones')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_numeroHabitaciones" jhiTranslate="roomApp.inmueble.numeroHabitaciones"
+            >Numero Habitaciones</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="numeroHabitaciones"
+            id="field_numeroHabitaciones"
+            data-cy="numeroHabitaciones"
+            formControlName="numeroHabitaciones"
+          />
+          @if (numeroHabitacionesRef.invalid && (numeroHabitacionesRef.dirty || numeroHabitacionesRef.touched)) {
+            <div>
+              @if (editForm.get('numeroHabitaciones')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('numeroHabitaciones')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Este campo debe ser un número.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let numeroBanosRef = editForm.get('numeroBanos')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_numeroBanos" jhiTranslate="roomApp.inmueble.numeroBanos">Numero Banos</label>
+          <input
+            type="number"
+            class="form-control"
+            name="numeroBanos"
+            id="field_numeroBanos"
+            data-cy="numeroBanos"
+            formControlName="numeroBanos"
+          />
+          @if (numeroBanosRef.invalid && (numeroBanosRef.dirty || numeroBanosRef.touched)) {
+            <div>
+              @if (editForm.get('numeroBanos')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Este campo es obligatorio.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('numeroBanos')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Este campo debe ser un número.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_numeroParqueaderos" jhiTranslate="roomApp.inmueble.numeroParqueaderos"
+            >Numero Parqueaderos</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="numeroParqueaderos"
+            id="field_numeroParqueaderos"
+            data-cy="numeroParqueaderos"
+            formControlName="numeroParqueaderos"
+          />
+        </div>
+
+        @let estratoRef = editForm.get('estrato')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_estrato" jhiTranslate="roomApp.inmueble.estrato">Estrato</label>
+          <input type="number" class="form-control" name="estrato" id="field_estrato" data-cy="estrato" formControlName="estrato" />
+          @if (estratoRef.invalid && (estratoRef.dirty || estratoRef.touched)) {
+            <div>
+              @if (editForm.get('estrato')?.errors?.min) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.min" [translateValues]="{ min: '1' }"
+                  >Este campo debe ser mayor que 1.</small
+                >
+              }
+              @if (editForm.get('estrato')?.errors?.max) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.max" [translateValues]="{ max: '6' }"
+                  >Este campo no puede ser mayor que 6.</small
+                >
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('estrato')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Este campo debe ser un número.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_propietario" jhiTranslate="roomApp.inmueble.propietario">Propietario</label>
+          <select
+            class="form-control"
+            id="field_propietario"
+            data-cy="propietario"
+            name="propietario"
+            formControlName="propietario"
+            [compareWith]="comparePerfilUsuario"
+          >
+            <option [ngValue]="null"></option>
+            @for (perfilUsuarioOption of perfilUsuariosSharedCollection(); track $index) {
+              <option [ngValue]="perfilUsuarioOption">{{ perfilUsuarioOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
