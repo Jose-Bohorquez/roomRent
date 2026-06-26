@@ -2,19 +2,15 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6 col-lg-5">
-
         <!-- Logo / marca -->
         <div class="text-center mb-4">
-          <span class="fw-black fs-3" style="color:#b45309; font-family:'Plus Jakarta Sans',sans-serif">
-            RoomRent
-          </span>
+          <span class="fw-black fs-3" style="color: #b45309; font-family: 'Plus Jakarta Sans', sans-serif"> RoomRent </span>
           <p class="text-muted small mt-1">Crea tu cuenta y empieza a explorar</p>
         </div>
 
         <!-- Card principal -->
-        <div class="card border-0 shadow-lg" style="border-radius:1rem">
+        <div class="card border-0 shadow-lg" style="border-radius: 1rem">
           <div class="card-body p-4 p-md-5">
-
             <h1 class="h4 fw-bold mb-4" data-cy="registerTitle" jhiTranslate="register.title">Registro</h1>
 
             <!-- Alertas -->
@@ -46,7 +42,6 @@
 
             @if (!success()) {
               <form name="form" (ngSubmit)="register()" [formGroup]="registerForm">
-
                 <!-- Usuario -->
                 <div class="mb-3">
                   <label class="form-label fw-medium small" for="login" jhiTranslate="global.form.username.label">Usuario</label>
@@ -63,16 +58,24 @@
                   @if (loginRef.invalid && (loginRef.dirty || loginRef.touched)) {
                     <div>
                       @if (loginRef?.errors?.required) {
-                        <small class="form-text text-danger" jhiTranslate="register.messages.validate.login.required">Su nombre de usuario es obligatorio.</small>
+                        <small class="form-text text-danger" jhiTranslate="register.messages.validate.login.required"
+                          >Su nombre de usuario es obligatorio.</small
+                        >
                       }
                       @if (loginRef?.errors?.minlength) {
-                        <small class="form-text text-danger" jhiTranslate="register.messages.validate.login.minlength">Mínimo 1 caracter.</small>
+                        <small class="form-text text-danger" jhiTranslate="register.messages.validate.login.minlength"
+                          >Mínimo 1 caracter.</small
+                        >
                       }
                       @if (loginRef?.errors?.maxlength) {
-                        <small class="form-text text-danger" jhiTranslate="register.messages.validate.login.maxlength">Máximo 50 caracteres.</small>
+                        <small class="form-text text-danger" jhiTranslate="register.messages.validate.login.maxlength"
+                          >Máximo 50 caracteres.</small
+                        >
                       }
                       @if (loginRef?.errors?.pattern) {
-                        <small class="form-text text-danger" jhiTranslate="register.messages.validate.login.pattern">Nombre de usuario no válido.</small>
+                        <small class="form-text text-danger" jhiTranslate="register.messages.validate.login.pattern"
+                          >Nombre de usuario no válido.</small
+                        >
                       }
                     </div>
                   }
@@ -94,16 +97,22 @@
                   @if (emailRef.invalid && (emailRef.dirty || emailRef.touched)) {
                     <div>
                       @if (emailRef?.errors?.required) {
-                        <small class="form-text text-danger" jhiTranslate="global.messages.validate.email.required">Se requiere un correo electrónico.</small>
+                        <small class="form-text text-danger" jhiTranslate="global.messages.validate.email.required"
+                          >Se requiere un correo electrónico.</small
+                        >
                       }
                       @if (emailRef?.errors?.invalid) {
                         <small class="form-text text-danger" jhiTranslate="global.messages.validate.email.invalid">Correo no válido.</small>
                       }
                       @if (emailRef?.errors?.minlength) {
-                        <small class="form-text text-danger" jhiTranslate="global.messages.validate.email.minlength">Mínimo 5 caracteres.</small>
+                        <small class="form-text text-danger" jhiTranslate="global.messages.validate.email.minlength"
+                          >Mínimo 5 caracteres.</small
+                        >
                       }
                       @if (emailRef?.errors?.maxlength) {
-                        <small class="form-text text-danger" jhiTranslate="global.messages.validate.email.maxlength">Máximo 50 caracteres.</small>
+                        <small class="form-text text-danger" jhiTranslate="global.messages.validate.email.maxlength"
+                          >Máximo 50 caracteres.</small
+                        >
                       }
                     </div>
                   }
@@ -111,7 +120,9 @@
 
                 <!-- Nueva contraseña -->
                 <div class="mb-3">
-                  <label class="form-label fw-medium small" for="password" jhiTranslate="global.form.newpassword.label">Nueva contraseña</label>
+                  <label class="form-label fw-medium small" for="password" jhiTranslate="global.form.newpassword.label"
+                    >Nueva contraseña</label
+                  >
                   <input
                     type="password"
                     class="form-control"
@@ -125,13 +136,19 @@
                   @if (passwordRef.invalid && (passwordRef.dirty || passwordRef.touched)) {
                     <div>
                       @if (passwordRef?.errors?.required) {
-                        <small class="form-text text-danger" jhiTranslate="global.messages.validate.newpassword.required">Se requiere una contraseña.</small>
+                        <small class="form-text text-danger" jhiTranslate="global.messages.validate.newpassword.required"
+                          >Se requiere una contraseña.</small
+                        >
                       }
                       @if (passwordRef?.errors?.minlength) {
-                        <small class="form-text text-danger" jhiTranslate="global.messages.validate.newpassword.minlength">Mínimo 4 caracteres.</small>
+                        <small class="form-text text-danger" jhiTranslate="global.messages.validate.newpassword.minlength"
+                          >Mínimo 4 caracteres.</small
+                        >
                       }
                       @if (passwordRef?.errors?.maxlength) {
-                        <small class="form-text text-danger" jhiTranslate="global.messages.validate.newpassword.maxlength">Máximo 50 caracteres.</small>
+                        <small class="form-text text-danger" jhiTranslate="global.messages.validate.newpassword.maxlength"
+                          >Máximo 50 caracteres.</small
+                        >
                       }
                     </div>
                   }
@@ -140,7 +157,9 @@
 
                 <!-- Confirmar contraseña -->
                 <div class="mb-4">
-                  <label class="form-label fw-medium small" for="confirmPassword" jhiTranslate="global.form.confirmpassword.label">Confirmar contraseña</label>
+                  <label class="form-label fw-medium small" for="confirmPassword" jhiTranslate="global.form.confirmpassword.label"
+                    >Confirmar contraseña</label
+                  >
                   <input
                     type="password"
                     class="form-control"
@@ -154,13 +173,19 @@
                   @if (confirmPasswordRef.invalid && (confirmPasswordRef.dirty || confirmPasswordRef.touched)) {
                     <div>
                       @if (confirmPasswordRef?.errors?.required) {
-                        <small class="form-text text-danger" jhiTranslate="global.messages.validate.confirmpassword.required">Confirme la contraseña.</small>
+                        <small class="form-text text-danger" jhiTranslate="global.messages.validate.confirmpassword.required"
+                          >Confirme la contraseña.</small
+                        >
                       }
                       @if (confirmPasswordRef?.errors?.minlength) {
-                        <small class="form-text text-danger" jhiTranslate="global.messages.validate.confirmpassword.minlength">Mínimo 4 caracteres.</small>
+                        <small class="form-text text-danger" jhiTranslate="global.messages.validate.confirmpassword.minlength"
+                          >Mínimo 4 caracteres.</small
+                        >
                       }
                       @if (confirmPasswordRef?.errors?.maxlength) {
-                        <small class="form-text text-danger" jhiTranslate="global.messages.validate.confirmpassword.maxlength">Máximo 50 caracteres.</small>
+                        <small class="form-text text-danger" jhiTranslate="global.messages.validate.confirmpassword.maxlength"
+                          >Máximo 50 caracteres.</small
+                        >
                       }
                     </div>
                   }
@@ -181,12 +206,10 @@
             <!-- Enlace login -->
             <div class="text-center mt-4">
               <span class="text-muted small">¿Ya tienes cuenta? </span>
-              <a routerLink="/login" class="small fw-semibold" style="color:#b45309">Inicia sesión</a>
+              <a routerLink="/login" class="small fw-semibold" style="color: #b45309">Inicia sesión</a>
             </div>
-
           </div>
         </div>
-
       </div>
     </div>
   </div>
