@@ -1,19 +1,36 @@
 {
   "home": {
-    "title": "¡Bienvenido, Java Hipster!",
-    "subtitle": "Esta es su página de inicio",
+    "title": "Encuentra inmuebles, habitaciones y roomies en un solo lugar",
+    "subtitle": "La plataforma de arriendos residenciales para Bogotá",
+    "badge": "PLATAFORMA DE ARRIENDOS · BOGOTÁ",
+    "description": "Room Rent conecta propietarios, arrendatarios y roomies con procesos claros, perfiles verificados y mejor organización del arriendo.",
+    "features": {
+      "title": "¿Qué puedes hacer?",
+      "publish": "Publicar inmuebles y habitaciones disponibles.",
+      "apply": "Postularte a espacios según tus necesidades.",
+      "manage": "Gestionar solicitudes, visitas y contratos.",
+      "find": "Encontrar personas compatibles para compartir."
+    },
+    "section": {
+      "trusted": "Perfiles confiables",
+      "trustedDesc": "Usuarios con información organizada para dar más confianza durante el proceso.",
+      "search": "Búsqueda más simple",
+      "searchDesc": "Explora inmuebles, habitaciones y opciones de convivencia desde una sola plataforma.",
+      "management": "Gestión centralizada",
+      "managementDesc": "Solicitudes, visitas, contratos y calificaciones en un flujo ordenado."
+    },
+    "cta": {
+      "register": "Crear cuenta",
+      "login": "Iniciar sesión"
+    },
     "logged": {
-      "message": "Está conectado como \"{{username}}\"."
-    },
-    "question": "Si tiene preguntas sobre JHipster:",
-    "link": {
-      "homepage": "Página de inicio de JHipster",
-      "stackoverflow": "JHipster en Stack Overflow",
-      "bugtracker": "JHipster seguimiento de errores",
-      "chat": "Sala de chat pública de JHipster",
-      "follow": "contacto @jhipster en Twitter"
-    },
-    "like": "Si te gusta JHipster, danos una estrella en",
-    "github": "GitHub"
+      "message": "Está conectado como \"{{username}}\".",
+      "quickAccess": "Acceso rápido",
+      "myProfile": "Mi Perfil",
+      "myProperties": "Mis Inmuebles",
+      "myApplications": "Mis Solicitudes",
+      "myContracts": "Mis Contratos",
+      "browse": "Explorar Publicaciones"
+    }
   }
 }

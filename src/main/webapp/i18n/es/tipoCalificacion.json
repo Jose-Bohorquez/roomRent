@@ -2,10 +2,10 @@
   "roomApp": {
     "TipoCalificacion": {
       "null": "",
-      "ARRENDADOR_A_ARRENDATARIO": "ARRENDADOR_A_ARRENDATARIO",
-      "ARRENDATARIO_A_ARRENDADOR": "ARRENDATARIO_A_ARRENDADOR",
-      "ARRENDATARIO_A_ROOMIE": "ARRENDATARIO_A_ROOMIE",
-      "ROOMIE_A_ARRENDATARIO": "ROOMIE_A_ARRENDATARIO"
+      "ARRENDADOR_A_ARRENDATARIO": "Arrendador → Arrendatario",
+      "ARRENDATARIO_A_ARRENDADOR": "Arrendatario → Arrendador",
+      "ARRENDATARIO_A_ROOMIE": "Arrendatario → Roomie",
+      "ROOMIE_A_ARRENDATARIO": "Roomie → Arrendatario"
     }
   }
 }

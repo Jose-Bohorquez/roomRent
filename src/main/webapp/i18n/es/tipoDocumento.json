@@ -2,12 +2,12 @@
   "roomApp": {
     "TipoDocumento": {
       "null": "",
-      "CC": "CC",
-      "CE": "CE",
-      "TI": "TI",
-      "PASSPORT": "PASSPORT",
+      "CC": "Cédula de ciudadanía",
+      "CE": "Cédula de extranjería",
+      "TI": "Tarjeta de identidad",
+      "PASSPORT": "Pasaporte",
       "NIT": "NIT",
-      "OTRO": "OTRO"
+      "OTRO": "Otro"
     }
   }
 }

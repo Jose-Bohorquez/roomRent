@@ -2,12 +2,12 @@
   "roomApp": {
     "EstadoUsuario": {
       "null": "",
-      "PENDIENTE_VERIFICACION": "PENDIENTE_VERIFICACION",
-      "ACTIVO": "ACTIVO",
-      "INACTIVO": "INACTIVO",
-      "SUSPENDIDO": "SUSPENDIDO",
-      "BLOQUEADO": "BLOQUEADO",
-      "BANEADO": "BANEADO"
+      "PENDIENTE_VERIFICACION": "Pendiente verificación",
+      "ACTIVO": "Activo",
+      "INACTIVO": "Inactivo",
+      "SUSPENDIDO": "Suspendido",
+      "BLOQUEADO": "Bloqueado",
+      "BANEADO": "Baneado"
     }
   }
 }
