@@ -1,0 +1,77 @@
+.dashboard-container {
+  background-color: #f5f5f4;
+  min-height: 100vh;
+}
+
+.dashboard-card {
+  border: 2px solid #e5e7eb;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background: white;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(180, 83, 9, 0.1);
+    border-color: #b45309;
+
+    fa-icon {
+      color: #92400e !important;
+    }
+  }
+
+  h6 {
+    margin-bottom: 0.5rem;
+  }
+
+  small {
+    font-size: 0.8rem;
+  }
+}
+
+.border-primary {
+  border-color: #3b82f6 !important;
+
+  &:hover {
+    border-color: #2563eb !important;
+  }
+}
+
+.border-success {
+  border-color: #10b981 !important;
+
+  &:hover {
+    border-color: #059669 !important;
+  }
+}
+
+.border-warning {
+  border-color: #f59e0b !important;
+
+  &:hover {
+    border-color: #d97706 !important;
+  }
+}
+
+.border-danger {
+  border-color: #ef4444 !important;
+
+  &:hover {
+    border-color: #dc2626 !important;
+  }
+}
+
+.border-info {
+  border-color: #06b6d4 !important;
+
+  &:hover {
+    border-color: #0891b2 !important;
+  }
+}
+
+.border-secondary {
+  border-color: #8b5cf6 !important;
+
+  &:hover {
+    border-color: #7c3aed !important;
+  }
+}

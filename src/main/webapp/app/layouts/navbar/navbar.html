@@ -1,12 +1,13 @@
 <nav class="navbar navbar-expand-md rr-navbar" data-bs-theme="light">
-  <!-- <nav data-cy="navbar" class="navbar bg-dark border-bottom border-body navbar-expand-md " data-bs-theme="dark"> -->
-  <!-- <nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md bg-dark"> -->
   <div class="container-fluid">
+    <!-- Logo -->
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
       <span class="logo-img"></span>
       <span class="navbar-title" jhiTranslate="global.title">Room</span>
       <span class="navbar-version">{{ version }}</span>
     </a>
+
+    <!-- Mobile toggle -->
     <a
       class="navbar-toggler d-lg-none"
       href="javascript:void(0);"
@@ -15,331 +16,42 @@
       aria-controls="navbarResponsive"
       aria-expanded="false"
       aria-label="Toggle navigation"
-      (click)="isNavbarCollapsed.update(isNavbarCollapsed => !isNavbarCollapsed)"
+      (click)="isNavbarCollapsed.update((isNavbarCollapsed) => !isNavbarCollapsed)"
     >
       <fa-icon icon="bars" />
     </a>
+
+    <!-- Navbar collapse -->
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed()">
       <ul class="navbar-nav ms-auto">
+        <!-- Home -->
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
-            <span>
-              <fa-icon icon="home" />
-              <span jhiTranslate="global.menu.home">Inicio</span>
-            </span>
+            <fa-icon icon="home" />
+            <span jhiTranslate="global.menu.home">Inicio</span>
           </a>
         </li>
+
+        <!-- Dashboard (only authenticated) -->
         @if (account() !== null) {
-          <li
-            ngbDropdown
-            class="nav-item dropdown pointer"
-            display="dynamic"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            data-cy="entity"
-          >
-            <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
-              <span>
-                <fa-icon icon="th-list" />
-                <span jhiTranslate="global.menu.entities.main">Entidades</span>
-              </span>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="/dashboard" (click)="collapseNavbar()">
+              <fa-icon icon="chart-bar" />
+              <span>Dashboard</span>
             </a>
-            <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
-              <!-- Perfil section -->
-              <li>
-                <h6 class="dropdown-header" style="font-size: 0.75rem; font-weight: 600; color: #6b7280; text-transform: uppercase">
-                  Mi Perfil
-                </h6>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  routerLink="/perfil-usuario"
-                  routerLinkActive="active"
-                  [routerLinkActiveOptions]="{ exact: true }"
-                  (click)="collapseNavbar()"
-                >
-                  <fa-icon icon="user-circle" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.perfilUsuario">Perfil Usuario</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  routerLink="/documento-usuario"
-                  routerLinkActive="active"
-                  [routerLinkActiveOptions]="{ exact: true }"
-                  (click)="collapseNavbar()"
-                >
-                  <fa-icon icon="file-pdf" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.documentoUsuario">Documentos</span>
-                </a>
-              </li>
-              <!-- Propiedades section -->
-              <li>
-                <h6
-                  class="dropdown-header"
-                  style="font-size: 0.75rem; font-weight: 600; color: #6b7280; text-transform: uppercase; margin-top: 0.5rem"
-                >
-                  Inmuebles
-                </h6>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  routerLink="/inmueble"
-                  routerLinkActive="active"
-                  [routerLinkActiveOptions]="{ exact: true }"
-                  (click)="collapseNavbar()"
-                >
-                  <fa-icon icon="home" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.inmueble">Inmuebles</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  routerLink="/publicacion-inmueble"
-                  routerLinkActive="active"
-                  [routerLinkActiveOptions]="{ exact: true }"
-                  (click)="collapseNavbar()"
-                >
-                  <fa-icon icon="bullhorn" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.publicacionInmueble">Publicaciones</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  routerLink="/multimedia-inmueble"
-                  routerLinkActive="active"
-                  [routerLinkActiveOptions]="{ exact: true }"
-                  (click)="collapseNavbar()"
-                >
-                  <fa-icon icon="images" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.multimediaInmueble">Multimedia</span>
-                </a>
-              </li>
-              <!-- Solicitudes y visitas -->
-              <li>
-                <h6
-                  class="dropdown-header"
-                  style="font-size: 0.75rem; font-weight: 600; color: #6b7280; text-transform: uppercase; margin-top: 0.5rem"
-                >
-                  Solicitudes y Visitas
-                </h6>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  routerLink="/solicitud-arriendo"
-                  routerLinkActive="active"
-                  [routerLinkActiveOptions]="{ exact: true }"
-                  (click)="collapseNavbar()"
-                >
-                  <fa-icon icon="envelope-open" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.solicitudArriendo">Solicitudes de Arriendo</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  routerLink="/visita-programada"
-                  routerLinkActive="active"
-                  [routerLinkActiveOptions]="{ exact: true }"
-                  (click)="collapseNavbar()"
-                >
-                  <fa-icon icon="calendar" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.visitaProgramada">Visitas Programadas</span>
-                </a>
-              </li>
-              <!-- Contratos -->
-              <li>
-                <h6
-                  class="dropdown-header"
-                  style="font-size: 0.75rem; font-weight: 600; color: #6b7280; text-transform: uppercase; margin-top: 0.5rem"
-                >
-                  Contratos
-                </h6>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  routerLink="/contrato-arriendo"
-                  routerLinkActive="active"
-                  [routerLinkActiveOptions]="{ exact: true }"
-                  (click)="collapseNavbar()"
-                >
-                  <fa-icon icon="file-contract" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.contratoArriendo">Contratos de Arriendo</span>
-                </a>
-              </li>
-              <!-- Roomies -->
-              <li>
-                <h6
-                  class="dropdown-header"
-                  style="font-size: 0.75rem; font-weight: 600; color: #6b7280; text-transform: uppercase; margin-top: 0.5rem"
-                >
-                  Roomies
-                </h6>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  routerLink="/publicacion-roomie"
-                  routerLinkActive="active"
-                  [routerLinkActiveOptions]="{ exact: true }"
-                  (click)="collapseNavbar()"
-                >
-                  <fa-icon icon="users" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.publicacionRoomie">Buscar Roomies</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  routerLink="/solicitud-roomie"
-                  routerLinkActive="active"
-                  [routerLinkActiveOptions]="{ exact: true }"
-                  (click)="collapseNavbar()"
-                >
-                  <fa-icon icon="handshake" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.solicitudRoomie">Solicitudes Roomie</span>
-                </a>
-              </li>
-              <!-- Calificaciones -->
-              <li>
-                <h6
-                  class="dropdown-header"
-                  style="font-size: 0.75rem; font-weight: 600; color: #6b7280; text-transform: uppercase; margin-top: 0.5rem"
-                >
-                  Reputación
-                </h6>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  routerLink="/calificacion"
-                  routerLinkActive="active"
-                  [routerLinkActiveOptions]="{ exact: true }"
-                  (click)="collapseNavbar()"
-                >
-                  <fa-icon icon="star" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.calificacion">Calificaciones</span>
-                </a>
-              </li>
-              <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-            </ul>
           </li>
         }
-        <li
-          *jhiHasAnyAuthority="'ROLE_ADMIN'"
-          ngbDropdown
-          class="nav-item dropdown pointer"
-          display="dynamic"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          data-cy="adminMenu"
-        >
-          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu">
-            <span>
-              <fa-icon icon="users-cog" />
-              <span jhiTranslate="global.menu.admin.main">Administración</span>
-            </span>
-          </a>
-          <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="admin-menu">
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="/authority"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="asterisk" [fixedWidth]="true" />
-                <span jhiTranslate="global.menu.entities.adminAuthority">Authority</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="/user-management"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="asterisk" [fixedWidth]="true" />
-                <span jhiTranslate="userManagement.home.title">User Management</span>
-              </a>
-            </li>
-            <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
-            <li>
-              <a class="dropdown-item" routerLink="/admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                <fa-icon icon="tachometer-alt" [fixedWidth]="true" />
-                <span jhiTranslate="global.menu.admin.metrics">Métricas</span>
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/admin/health" routerLinkActive="active" (click)="collapseNavbar()">
-                <fa-icon icon="heart" [fixedWidth]="true" />
-                <span jhiTranslate="global.menu.admin.health">Salud</span>
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/admin/configuration" routerLinkActive="active" (click)="collapseNavbar()">
-                <fa-icon icon="cogs" [fixedWidth]="true" />
-                <span jhiTranslate="global.menu.admin.configuration">Configuración</span>
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/admin/logs" routerLinkActive="active" (click)="collapseNavbar()">
-                <fa-icon icon="tasks" [fixedWidth]="true" />
-                <span jhiTranslate="global.menu.admin.logs">Logs</span>
-              </a>
-            </li>
-            @if (openAPIEnabled()) {
-              <li>
-                <a class="dropdown-item" routerLink="/admin/docs" routerLinkActive="active" (click)="collapseNavbar()">
-                  <fa-icon icon="book" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.admin.apidocs">API</span>
-                </a>
-              </li>
-            }
-          </ul>
-        </li>
-        @if (languages && languages.length > 1) {
-          <li ngbDropdown class="nav-item dropdown pointer" display="dynamic">
-            <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="languagesnavBarDropdown">
-              <span>
-                <fa-icon icon="flag" />
-                <span jhiTranslate="global.menu.language">Idioma</span>
-              </span>
-            </a>
-            <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="languagesnavBarDropdown">
-              @for (language of languages; track $index) {
-                <li>
-                  <a
-                    class="dropdown-item"
-                    [jhiActiveMenu]="language"
-                    href="javascript:void(0);"
-                    (click)="changeLanguage(language); collapseNavbar()"
-                    >{{ language | findLanguageFromKey }}</a
-                  >
-                </li>
-              }
-            </ul>
-          </li>
-        }
-        <li
-          ngbDropdown
-          class="nav-item dropdown pointer"
-          display="dynamic"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          data-cy="accountMenu"
-        >
+
+        <!-- Account Dropdown -->
+        <li ngbDropdown class="nav-item dropdown pointer" display="dynamic">
           @let accountRef = account();
-          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu">
+          <a
+            class="nav-link dropdown-toggle"
+            ngbDropdownToggle
+            href="javascript:void(0);"
+            id="account-menu"
+            role="button"
+          >
             @if (!accountRef?.imageUrl) {
               <span>
                 <fa-icon icon="user" />
@@ -351,7 +63,7 @@
               </span>
             }
           </a>
-          <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="account-menu">
+          <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu aria-labelledby="account-menu">
             @if (accountRef !== null) {
               <li>
                 <a
@@ -376,6 +88,9 @@
                   <fa-icon icon="lock" [fixedWidth]="true" />
                   <span jhiTranslate="global.menu.account.password">Contraseña</span>
                 </a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
               </li>
               <li>
                 <a class="dropdown-item" (click)="logout()" id="logout" data-cy="logout">

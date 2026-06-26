@@ -34,6 +34,13 @@ const routes: Routes = [
     title: 'login.title',
   },
   {
+    path: 'dashboard',
+    loadComponent: () => import('./dashboard/dashboard'),
+    data: { authorities: ['ROLE_USER'] },
+    canActivate: [UserRouteAccessService],
+    title: 'dashboard.title',
+  },
+  {
     path: '',
     loadChildren: () => import('./entities/entity.routes'),
   },
