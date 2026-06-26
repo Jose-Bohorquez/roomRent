@@ -2,13 +2,13 @@
   "roomApp": {
     "TipoInmueble": {
       "null": "",
-      "APARTAMENTO": "APARTAMENTO",
-      "CASA": "CASA",
-      "HABITACION": "HABITACION",
-      "APARTAESTUDIO": "APARTAESTUDIO",
-      "LOCAL": "LOCAL",
-      "OFICINA": "OFICINA",
-      "OTRO": "OTRO"
+      "APARTAMENTO": "Apartamento",
+      "CASA": "Casa",
+      "HABITACION": "Habitación",
+      "APARTAESTUDIO": "Apartaestudio",
+      "LOCAL": "Local comercial",
+      "OFICINA": "Oficina",
+      "OTRO": "Otro"
     }
   }
 }

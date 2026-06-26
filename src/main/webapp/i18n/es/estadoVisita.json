@@ -2,10 +2,10 @@
   "roomApp": {
     "EstadoVisita": {
       "null": "",
-      "SOLICITADA": "SOLICITADA",
-      "CONFIRMADA": "CONFIRMADA",
-      "CANCELADA": "CANCELADA",
-      "FINALIZADA": "FINALIZADA"
+      "SOLICITADA": "Solicitada",
+      "CONFIRMADA": "Confirmada",
+      "CANCELADA": "Cancelada",
+      "FINALIZADA": "Finalizada"
     }
   }
 }

@@ -2,11 +2,11 @@
   "roomApp": {
     "EstadoContrato": {
       "null": "",
-      "BORRADOR": "BORRADOR",
-      "PENDIENTE_FIRMA": "PENDIENTE_FIRMA",
-      "VIGENTE": "VIGENTE",
-      "FINALIZADO": "FINALIZADO",
-      "CANCELADO": "CANCELADO"
+      "BORRADOR": "Borrador",
+      "PENDIENTE_FIRMA": "Pendiente de firma",
+      "VIGENTE": "Vigente",
+      "FINALIZADO": "Finalizado",
+      "CANCELADO": "Cancelado"
     }
   }
 }

@@ -2,11 +2,11 @@
   "roomApp": {
     "EstadoSolicitud": {
       "null": "",
-      "CREADA": "CREADA",
-      "EN_REVISION": "EN_REVISION",
-      "APROBADA": "APROBADA",
-      "RECHAZADA": "RECHAZADA",
-      "CANCELADA": "CANCELADA"
+      "CREADA": "Creada",
+      "EN_REVISION": "En revisión",
+      "APROBADA": "Aprobada",
+      "RECHAZADA": "Rechazada",
+      "CANCELADA": "Cancelada"
     }
   }
 }

@@ -45,6 +45,8 @@
               </span>
             </a>
             <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
+              <!-- Perfil section -->
+              <li><h6 class="dropdown-header" style="font-size: 0.75rem; font-weight: 600; color: #6b7280; text-transform: uppercase;">Mi Perfil</h6></li>
               <li>
                 <a
                   class="dropdown-item"
@@ -53,7 +55,7 @@
                   [routerLinkActiveOptions]="{ exact: true }"
                   (click)="collapseNavbar()"
                 >
-                  <fa-icon icon="user" [fixedWidth]="true" />
+                  <fa-icon icon="user-circle" [fixedWidth]="true" />
                   <span jhiTranslate="global.menu.entities.perfilUsuario">Perfil Usuario</span>
                 </a>
               </li>
@@ -65,10 +67,12 @@
                   [routerLinkActiveOptions]="{ exact: true }"
                   (click)="collapseNavbar()"
                 >
-                  <fa-icon icon="home" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.documentoUsuario">Documento Usuario</span>
+                  <fa-icon icon="file-pdf" [fixedWidth]="true" />
+                  <span jhiTranslate="global.menu.entities.documentoUsuario">Documentos</span>
                 </a>
               </li>
+              <!-- Propiedades section -->
+              <li><h6 class="dropdown-header" style="font-size: 0.75rem; font-weight: 600; color: #6b7280; text-transform: uppercase; margin-top: 0.5rem;">Inmuebles</h6></li>
               <li>
                 <a
                   class="dropdown-item"
@@ -77,8 +81,8 @@
                   [routerLinkActiveOptions]="{ exact: true }"
                   (click)="collapseNavbar()"
                 >
-                  <fa-icon icon="asterisk" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.inmueble">Inmueble</span>
+                  <fa-icon icon="home" [fixedWidth]="true" />
+                  <span jhiTranslate="global.menu.entities.inmueble">Inmuebles</span>
                 </a>
               </li>
               <li>
@@ -89,8 +93,8 @@
                   [routerLinkActiveOptions]="{ exact: true }"
                   (click)="collapseNavbar()"
                 >
-                  <fa-icon icon="asterisk" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.publicacionInmueble">Publicacion Inmueble</span>
+                  <fa-icon icon="bullhorn" [fixedWidth]="true" />
+                  <span jhiTranslate="global.menu.entities.publicacionInmueble">Publicaciones</span>
                 </a>
               </li>
               <li>
@@ -101,10 +105,12 @@
                   [routerLinkActiveOptions]="{ exact: true }"
                   (click)="collapseNavbar()"
                 >
-                  <fa-icon icon="asterisk" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.multimediaInmueble">Multimedia Inmueble</span>
+                  <fa-icon icon="images" [fixedWidth]="true" />
+                  <span jhiTranslate="global.menu.entities.multimediaInmueble">Multimedia</span>
                 </a>
               </li>
+              <!-- Solicitudes y visitas -->
+              <li><h6 class="dropdown-header" style="font-size: 0.75rem; font-weight: 600; color: #6b7280; text-transform: uppercase; margin-top: 0.5rem;">Solicitudes y Visitas</h6></li>
               <li>
                 <a
                   class="dropdown-item"
@@ -113,8 +119,8 @@
                   [routerLinkActiveOptions]="{ exact: true }"
                   (click)="collapseNavbar()"
                 >
-                  <fa-icon icon="asterisk" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.solicitudArriendo">Solicitud Arriendo</span>
+                  <fa-icon icon="envelope-open" [fixedWidth]="true" />
+                  <span jhiTranslate="global.menu.entities.solicitudArriendo">Solicitudes de Arriendo</span>
                 </a>
               </li>
               <li>
@@ -125,10 +131,12 @@
                   [routerLinkActiveOptions]="{ exact: true }"
                   (click)="collapseNavbar()"
                 >
-                  <fa-icon icon="asterisk" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.visitaProgramada">Visita Programada</span>
+                  <fa-icon icon="calendar" [fixedWidth]="true" />
+                  <span jhiTranslate="global.menu.entities.visitaProgramada">Visitas Programadas</span>
                 </a>
               </li>
+              <!-- Contratos -->
+              <li><h6 class="dropdown-header" style="font-size: 0.75rem; font-weight: 600; color: #6b7280; text-transform: uppercase; margin-top: 0.5rem;">Contratos</h6></li>
               <li>
                 <a
                   class="dropdown-item"
@@ -137,10 +145,12 @@
                   [routerLinkActiveOptions]="{ exact: true }"
                   (click)="collapseNavbar()"
                 >
-                  <fa-icon icon="asterisk" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.contratoArriendo">Contrato Arriendo</span>
+                  <fa-icon icon="file-contract" [fixedWidth]="true" />
+                  <span jhiTranslate="global.menu.entities.contratoArriendo">Contratos de Arriendo</span>
                 </a>
               </li>
+              <!-- Roomies -->
+              <li><h6 class="dropdown-header" style="font-size: 0.75rem; font-weight: 600; color: #6b7280; text-transform: uppercase; margin-top: 0.5rem;">Roomies</h6></li>
               <li>
                 <a
                   class="dropdown-item"
@@ -149,8 +159,8 @@
                   [routerLinkActiveOptions]="{ exact: true }"
                   (click)="collapseNavbar()"
                 >
-                  <fa-icon icon="asterisk" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.publicacionRoomie">Publicacion Roomie</span>
+                  <fa-icon icon="users" [fixedWidth]="true" />
+                  <span jhiTranslate="global.menu.entities.publicacionRoomie">Buscar Roomies</span>
                 </a>
               </li>
               <li>
@@ -161,10 +171,12 @@
                   [routerLinkActiveOptions]="{ exact: true }"
                   (click)="collapseNavbar()"
                 >
-                  <fa-icon icon="asterisk" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.solicitudRoomie">Solicitud Roomie</span>
+                  <fa-icon icon="handshake" [fixedWidth]="true" />
+                  <span jhiTranslate="global.menu.entities.solicitudRoomie">Solicitudes Roomie</span>
                 </a>
               </li>
+              <!-- Calificaciones -->
+              <li><h6 class="dropdown-header" style="font-size: 0.75rem; font-weight: 600; color: #6b7280; text-transform: uppercase; margin-top: 0.5rem;">Reputación</h6></li>
               <li>
                 <a
                   class="dropdown-item"
@@ -173,8 +185,8 @@
                   [routerLinkActiveOptions]="{ exact: true }"
                   (click)="collapseNavbar()"
                 >
-                  <fa-icon icon="asterisk" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.entities.calificacion">Calificacion</span>
+                  <fa-icon icon="star" [fixedWidth]="true" />
+                  <span jhiTranslate="global.menu.entities.calificacion">Calificaciones</span>
                 </a>
               </li>
               <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->

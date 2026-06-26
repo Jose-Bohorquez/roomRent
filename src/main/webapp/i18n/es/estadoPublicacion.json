@@ -2,11 +2,11 @@
   "roomApp": {
     "EstadoPublicacion": {
       "null": "",
-      "BORRADOR": "BORRADOR",
-      "PUBLICADO": "PUBLICADO",
-      "PAUSADO": "PAUSADO",
-      "ARRENDADO": "ARRENDADO",
-      "FINALIZADO": "FINALIZADO"
+      "BORRADOR": "Borrador",
+      "PUBLICADO": "Publicado",
+      "PAUSADO": "Pausado",
+      "ARRENDADO": "Arrendado",
+      "FINALIZADO": "Finalizado"
     }
   }
 }
