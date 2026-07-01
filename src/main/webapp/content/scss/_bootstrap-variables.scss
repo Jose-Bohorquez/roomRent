@@ -1,6 +1,6 @@
 /*
- * Bootstrap overrides — Room Rent visual identity
- * Paleta: Amber cálido (brand), Stone/Zinc neutrals
+ * Bootstrap overrides — Room Rent dark admin theme
+ * Paleta: Amber cálido (brand), Stone neutrals (dark)
  */
 
 // Options
@@ -12,39 +12,129 @@ $enable-hover-media-query:  false;
 $enable-grid-classes:       true;
 $enable-print-styles:       true;
 
-// Amber como color primario — mismo que el frontend React
+// Brand colors — amber = same as React portal
 $primary:   #b45309;   // amber-700
-$secondary: #78716c;   // stone-500
+$secondary: #57534e;   // stone-600
+$success:   #15803d;   // green-700
+$info:      #0369a1;   // sky-700
+$warning:   #d97706;   // amber-600
+$danger:    #991b1b;   // red-800
+$light:     #292524;   // stone-800
+$dark:      #0c0a09;   // stone-950
 
-// Body
-$body-bg:       #f5f5f4;   // stone-100 — mismo que React surface-light
-$body-color:    #1c1917;   // stone-900
+// Body — dark theme
+$body-bg:       #1c1917;   // stone-900
+$body-color:    #e7e5e4;   // stone-200
 
 // Links
-$link-color:        #b45309;
-$link-hover-color:  #92400e;
+$link-color:        #fbbf24;   // amber-400
+$link-hover-color:  #fde68a;   // amber-200
 
 // Fonts
 $font-family-sans-serif: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
-$font-size-base: 0.9375rem;  // 15px — más legible
+$font-size-base: 0.9375rem;
 
-// Border radius — coherente con React (rounded-lg = 0.5rem)
+// Border radius
 $border-radius:    0.5rem;
 $border-radius-lg: 0.75rem;
 $border-radius-sm: 0.375rem;
 
-// Cards
-$card-border-color:      rgba(0, 0, 0, 0.08);
-$card-box-shadow:        0 4px 6px -1px rgba(0,0,0,.08), 0 2px 4px -2px rgba(0,0,0,.06);
+// Cards — dark glass
+$card-bg:                rgba(255, 255, 255, 0.03);
+$card-border-color:      rgba(255, 255, 255, 0.07);
+$card-border-radius:     0.75rem;
+$card-cap-bg:            rgba(255, 255, 255, 0.04);
+$card-box-shadow:        0 4px 24px rgba(0, 0, 0, 0.25);
 
-// Dropdowns — hover oscuro coherente
-$dropdown-link-hover-color:  #ffffff;
-$dropdown-link-hover-bg:     #b45309;   // amber-700
-$dropdown-link-active-bg:    #92400e;   // amber-800
+// Input controls — dark surfaces
+$input-bg:                      rgba(255, 255, 255, 0.05);
+$input-disabled-bg:             rgba(255, 255, 255, 0.03);
+$input-border-color:            rgba(255, 255, 255, 0.12);
+$input-color:                   #e7e5e4;
+$input-placeholder-color:       #78716c;
+$input-focus-bg:                rgba(255, 255, 255, 0.08);
+$input-focus-border-color:      #b45309;
+$input-focus-box-shadow:        0 0 0 3px rgba(180, 83, 9, 0.2);
+$input-group-addon-bg:          rgba(255, 255, 255, 0.06);
+$input-group-addon-border-color: rgba(255, 255, 255, 0.12);
+$input-group-addon-color:       #a8a29e;
+
+// Form select — dark
+$form-select-bg:        rgba(255, 255, 255, 0.05);
+$form-select-color:     #e7e5e4;
+$form-select-border-color: rgba(255, 255, 255, 0.12);
+$form-select-indicator-color: #a8a29e;
+
+// Form labels
+$form-label-color:          #a8a29e;
+$form-label-font-weight:    600;
+$form-label-font-size:      0.8125rem;
+
+// Tables — dark
+$table-color:           #d6d3d1;
+$table-bg:              transparent;
+$table-border-color:    rgba(255, 255, 255, 0.07);
+$table-striped-bg:      rgba(255, 255, 255, 0.02);
+$table-hover-bg:        rgba(251, 191, 36, 0.07);
+$table-active-bg:       rgba(180, 83, 9, 0.12);
+
+// Dropdowns — dark
+$dropdown-bg:                   #1c1917;
+$dropdown-border-color:         rgba(255, 255, 255, 0.08);
+$dropdown-color:                #d6d3d1;
+$dropdown-link-color:           #d6d3d1;
+$dropdown-link-hover-color:     #ffffff;
+$dropdown-link-hover-bg:        rgba(180, 83, 9, 0.25);
+$dropdown-link-active-color:    #fbbf24;
+$dropdown-link-active-bg:       rgba(180, 83, 9, 0.4);
+$dropdown-header-color:         #57534e;
+$dropdown-divider-bg:           rgba(255, 255, 255, 0.07);
 
 // Navbar
-$navbar-light-color:             #57534e;   // stone-600
-$navbar-light-hover-color:       #1c1917;   // stone-900
-$navbar-light-active-color:      #b45309;   // amber-700
-$navbar-light-brand-color:       #1c1917;
-$navbar-light-toggler-border-color: rgba(0,0,0,.1);
+$navbar-dark-color:             #a8a29e;
+$navbar-dark-hover-color:       #fbbf24;
+$navbar-dark-active-color:      #fbbf24;
+$navbar-dark-brand-color:       #ffffff;
+
+// Modals — dark
+$modal-content-bg:              #1c1917;
+$modal-content-border-color:    rgba(255, 255, 255, 0.1);
+$modal-header-border-color:     rgba(255, 255, 255, 0.07);
+$modal-footer-border-color:     rgba(255, 255, 255, 0.07);
+
+// Pagination — amber active
+$pagination-bg:                 rgba(255, 255, 255, 0.04);
+$pagination-border-color:       rgba(255, 255, 255, 0.08);
+$pagination-color:              #a8a29e;
+$pagination-hover-bg:           rgba(180, 83, 9, 0.2);
+$pagination-hover-color:        #fbbf24;
+$pagination-hover-border-color: rgba(180, 83, 9, 0.3);
+$pagination-active-bg:          #b45309;
+$pagination-active-border-color: #b45309;
+$pagination-active-color:       #ffffff;
+$pagination-disabled-bg:        rgba(255, 255, 255, 0.02);
+$pagination-disabled-color:     #44403c;
+$pagination-disabled-border-color: rgba(255, 255, 255, 0.04);
+
+// List group — dark
+$list-group-bg:             rgba(255, 255, 255, 0.03);
+$list-group-border-color:   rgba(255, 255, 255, 0.07);
+$list-group-color:          #d6d3d1;
+$list-group-action-color:   #e7e5e4;
+$list-group-hover-bg:       rgba(255, 255, 255, 0.06);
+$list-group-active-bg:      #b45309;
+$list-group-active-border-color: #b45309;
+
+// Badges
+$badge-font-weight: 600;
+
+// Tooltips
+$tooltip-bg: #0c0a09;
+$tooltip-color: #e7e5e4;
+
+// Popovers — dark
+$popover-bg:                #1c1917;
+$popover-border-color:      rgba(255, 255, 255, 0.08);
+$popover-body-color:        #d6d3d1;
+$popover-header-bg:         rgba(255, 255, 255, 0.05);
+$popover-header-color:      #ffffff;
