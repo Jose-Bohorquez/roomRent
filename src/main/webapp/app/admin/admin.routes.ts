@@ -4,7 +4,7 @@ import { Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'user-management',
+    redirectTo: '/user-management',
     pathMatch: 'full',
   },
   {

@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 
 import { TranslateModule } from '@ngx-translate/core';
 
+import type { Account } from 'app/core/auth/account.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { TranslateDirective } from 'app/shared/language';
@@ -44,11 +45,14 @@ export default class Login implements OnInit, AfterViewInit {
 
   login(): void {
     this.loginService.login(this.loginForm.getRawValue()).subscribe({
-      next: () => {
+      next: (account: Account | null) => {
         this.authenticationError.set(false);
         if (!this.router.currentNavigation()) {
-          // There were no routing during login (eg from navigationToStoredUrl)
-          this.router.navigate(['']);
+          if (account?.authorities?.includes('ROLE_ADMIN')) {
+            this.router.navigate(['/user-management']);
+          } else {
+            this.router.navigate(['/dashboard']);
+          }
         }
       },
       error: () => this.authenticationError.set(true),
