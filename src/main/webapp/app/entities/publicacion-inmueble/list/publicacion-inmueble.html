@@ -1,150 +1,80 @@
-<div>
-  <h2 id="page-heading" data-cy="PublicacionInmuebleHeading">
-    <span jhiTranslate="roomApp.publicacionInmueble.home.title">Publicacion Inmuebles</span>
-
-    <div class="d-flex justify-content-end gap-2">
-      <button class="btn btn-outline-secondary btn-sm" (click)="load()" [disabled]="isLoading()">
-        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
-        <span class="d-none d-md-inline" jhiTranslate="roomApp.publicacionInmueble.home.refreshListLabel">Refrescar</span>
-      </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary btn-sm create-publicacion-inmueble"
-        [routerLink]="['/publicacion-inmueble/new']"
-      >
-        <fa-icon icon="plus" />
-        <span class="d-none d-md-inline" jhiTranslate="roomApp.publicacionInmueble.home.createLabel">Nueva publicación</span>
-      </button>
-    </div>
-  </h2>
-
+<div class="rr-table-container">
   <jhi-alert-error />
   <jhi-alert />
 
-  @if (publicacionInmuebles().length === 0) {
-    <div class="alert alert-warning mt-3" id="no-result">
-      <span jhiTranslate="roomApp.publicacionInmueble.home.notFound">Ninguna publicación encontrada</span>
-    </div>
+  <rr-table-toolbar
+    title="Publicaciones de Inmueble"
+    description="Inmuebles publicados para arrendar"
+    [createRoute]="['/publicacion-inmueble/new']"
+    createLabel="Nueva Publicación"
+    [isLoading]="isLoading()"
+    [totalCount]="totalItems()"
+    (searchChange)="searchTerm.set($event)"
+    (refresh)="load()"
+  />
+
+  @if (filteredItems().length === 0) {
+    <rr-empty-state
+      entityLabel="publicaciones"
+      [createRoute]="['/publicacion-inmueble/new']"
+      createLabel="Publicar Inmueble"
+      [searchActive]="searchTerm().length > 0"
+    />
   } @else {
-    <div class="table-responsive table-entities mt-3" id="entities">
-      <table class="table table-hover align-middle" aria-describedby="page-heading">
-        <thead class="table-light">
+    <div class="rr-table-wrap" id="entities">
+      <table class="rr-table" aria-describedby="page-heading">
+        <thead>
           <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
-            <th scope="col" jhiSortBy="titulo" style="min-width: 200px">
-              <div class="d-flex align-items-center gap-1">
-                <span jhiTranslate="roomApp.publicacionInmueble.titulo">Título</span>
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="canonArriendo" style="min-width: 120px">
-              <div class="d-flex align-items-center gap-1">
-                <span jhiTranslate="roomApp.publicacionInmueble.canonArriendo">Canon / mes</span>
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="estado" style="min-width: 110px">
-              <div class="d-flex align-items-center gap-1">
-                <span jhiTranslate="roomApp.publicacionInmueble.estado">Estado</span>
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" style="min-width: 180px">
-              <span>Inmueble / Dirección</span>
-            </th>
-            <th scope="col" jhiSortBy="fechaDisponible" style="min-width: 130px">
-              <div class="d-flex align-items-center gap-1">
-                <span jhiTranslate="roomApp.publicacionInmueble.fechaDisponible">Disponible</span>
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" class="text-end"></th>
+            <th scope="col" jhiSortBy="titulo"><div class="d-flex"><span jhiTranslate="roomApp.publicacionInmueble.titulo">Título</span><fa-icon class="p-1" icon="sort" /></div></th>
+            <th scope="col" jhiSortBy="canonArriendo"><div class="d-flex"><span jhiTranslate="roomApp.publicacionInmueble.canonArriendo">Canon / mes</span><fa-icon class="p-1" icon="sort" /></div></th>
+            <th scope="col" jhiSortBy="estado"><div class="d-flex"><span jhiTranslate="roomApp.publicacionInmueble.estado">Estado</span><fa-icon class="p-1" icon="sort" /></div></th>
+            <th scope="col"><span>Inmueble / Dirección</span></th>
+            <th scope="col" jhiSortBy="fechaDisponible"><div class="d-flex"><span jhiTranslate="roomApp.publicacionInmueble.fechaDisponible">Disponible</span><fa-icon class="p-1" icon="sort" /></div></th>
+            <th scope="col" class="rr-col-actions"></th>
           </tr>
         </thead>
         <tbody>
-          @for (pub of publicacionInmuebles(); track trackId(pub)) {
+          @for (pub of filteredItems(); track trackId(pub)) {
             <tr data-cy="entityTable">
-              <!-- Título -->
               <td>
-                <a [routerLink]="['/publicacion-inmueble', pub.id, 'view']" class="fw-semibold text-dark text-decoration-none">
+                <a [routerLink]="['/publicacion-inmueble', pub.id, 'view']" class="fw-semibold text-decoration-none" style="color:#fbbf24">
                   {{ pub.titulo || '—' }}
                 </a>
                 @if (pub.descripcion) {
-                  <div class="text-muted small text-truncate" style="max-width: 260px">{{ pub.descripcion }}</div>
+                  <div class="text-muted small text-truncate" style="max-width:220px">{{ pub.descripcion }}</div>
                 }
               </td>
-
-              <!-- Canon de arriendo -->
-              <td class="fw-semibold" style="color: #b45309">
+              <td class="fw-semibold" style="color:#b45309">
                 {{ pub.canonArriendo !== null ? '$' + (pub.canonArriendo | number: '1.0-0') : '—' }}
               </td>
-
-              <!-- Estado — badge con color semántico -->
               <td>
                 @switch (pub.estado) {
-                  @case ('PUBLICADO') {
-                    <span class="badge rounded-pill" style="background: #b45309">PUBLICADO</span>
-                  }
-                  @case ('BORRADOR') {
-                    <span class="badge rounded-pill bg-secondary">BORRADOR</span>
-                  }
-                  @case ('PAUSADO') {
-                    <span class="badge rounded-pill" style="background: #78716c">PAUSADO</span>
-                  }
-                  @case ('ARRENDADO') {
-                    <span class="badge rounded-pill bg-success">ARRENDADO</span>
-                  }
-                  @case ('FINALIZADO') {
-                    <span class="badge rounded-pill bg-dark">FINALIZADO</span>
-                  }
-                  @default {
-                    <span class="text-muted small">—</span>
-                  }
+                  @case ('PUBLICADO') { <span class="badge rounded-pill" style="background:#b45309">PUBLICADO</span> }
+                  @case ('BORRADOR') { <span class="badge rounded-pill bg-secondary">BORRADOR</span> }
+                  @case ('PAUSADO') { <span class="badge rounded-pill" style="background:#78716c">PAUSADO</span> }
+                  @case ('ARRENDADO') { <span class="badge rounded-pill bg-success">ARRENDADO</span> }
+                  @case ('FINALIZADO') { <span class="badge rounded-pill" style="background:#292524">FINALIZADO</span> }
+                  @default { <span class="text-muted small">—</span> }
                 }
               </td>
-
-              <!-- Inmueble / Dirección -->
               <td>
                 @if (pub.inmueble) {
-                  <a [routerLink]="['/inmueble', pub.inmueble.id, 'view']" class="text-decoration-none small fw-medium">
+                  <a [routerLink]="['/inmueble', pub.inmueble.id, 'view']" class="text-decoration-none small fw-medium" style="color:#fbbf24">
                     {{ pub.inmueble.nombre || pub.inmueble.id }}
                   </a>
                   @if (pub.inmueble.direccion) {
-                    <div class="text-muted small text-truncate" style="max-width: 200px">{{ pub.inmueble.direccion }}</div>
+                    <div class="text-muted small text-truncate" style="max-width:180px">{{ pub.inmueble.direccion }}</div>
                   }
                 } @else {
                   <span class="text-muted small">—</span>
                 }
               </td>
-
-              <!-- Fecha disponible -->
-              <td class="small text-muted">
-                {{ pub.fechaDisponible ? (pub.fechaDisponible | formatMediumDate) : '—' }}
-              </td>
-
-              <!-- Acciones -->
-              <td class="text-end">
-                <div class="btn-group btn-group-sm">
-                  <a
-                    [routerLink]="['/publicacion-inmueble', pub.id, 'view']"
-                    class="btn btn-outline-secondary"
-                    data-cy="entityDetailsButton"
-                    title="Ver"
-                  >
-                    <fa-icon icon="eye" />
-                  </a>
-                  <a
-                    [routerLink]="['/publicacion-inmueble', pub.id, 'edit']"
-                    class="btn btn-outline-primary"
-                    data-cy="entityEditButton"
-                    title="Editar"
-                  >
-                    <fa-icon icon="pencil-alt" />
-                  </a>
-                  <button type="button" (click)="delete(pub)" class="btn btn-outline-danger" data-cy="entityDeleteButton" title="Eliminar">
-                    <fa-icon icon="times" />
-                  </button>
+              <td class="small text-muted">{{ pub.fechaDisponible ? (pub.fechaDisponible | formatMediumDate) : '—' }}</td>
+              <td class="rr-col-actions">
+                <div class="rr-actions">
+                  <a [routerLink]="['/publicacion-inmueble', pub.id, 'view']" class="rr-btn-action rr-btn-view" title="Ver" data-cy="entityDetailsButton"><fa-icon icon="eye" /></a>
+                  <a [routerLink]="['/publicacion-inmueble', pub.id, 'edit']" class="rr-btn-action rr-btn-edit" title="Editar" data-cy="entityEditButton"><fa-icon icon="pencil-alt" /></a>
+                  <button type="button" (click)="delete(pub)" class="rr-btn-action rr-btn-delete" title="Eliminar" data-cy="entityDeleteButton"><fa-icon icon="trash-alt" /></button>
                 </div>
               </td>
             </tr>
@@ -152,24 +82,18 @@
         </tbody>
       </table>
     </div>
-  }
 
-  @if (publicacionInmuebles().length > 0) {
-    <div class="mt-3">
-      <div class="d-flex justify-content-center">
-        <jhi-item-count [params]="{ page: page(), totalItems: totalItems(), itemsPerPage: itemsPerPage() }" />
-      </div>
-      <div class="d-flex justify-content-center">
-        <ngb-pagination
-          [collectionSize]="totalItems()"
-          [page]="page()"
-          [pageSize]="itemsPerPage()"
-          [maxSize]="5"
-          [rotate]="true"
-          [boundaryLinks]="true"
-          (pageChange)="navigateToPage($event)"
-        />
-      </div>
+    <div class="rr-pagination-area">
+      <jhi-item-count [params]="{ page: page(), totalItems: totalItems(), itemsPerPage: itemsPerPage() }" />
+      <ngb-pagination
+        [collectionSize]="totalItems()"
+        [page]="page()"
+        [pageSize]="itemsPerPage()"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      />
     </div>
   }
 </div>

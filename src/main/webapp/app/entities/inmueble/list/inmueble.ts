@@ -1,5 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, OnInit, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Data, ParamMap, Router, RouterLink } from '@angular/router';
 
@@ -16,6 +16,8 @@ import { AlertError } from 'app/shared/alert/alert-error';
 import { TranslateDirective } from 'app/shared/language';
 import { ItemCount } from 'app/shared/pagination';
 import { SortByDirective, SortDirective, SortService, type SortState, sortStateSignal } from 'app/shared/sort';
+import { RrEmptyState } from 'app/shared/components/rr-empty-state/rr-empty-state';
+import { RrTableToolbar } from 'app/shared/components/rr-table-toolbar/rr-table-toolbar';
 import { InmuebleDeleteDialog } from '../delete/inmueble-delete-dialog';
 import { IInmueble } from '../inmueble.model';
 import { InmuebleService } from '../service/inmueble.service';
@@ -36,11 +38,19 @@ import { InmuebleService } from '../service/inmueble.service';
     TranslateModule,
     NgbPagination,
     ItemCount,
+    RrTableToolbar,
+    RrEmptyState,
   ],
 })
 export class Inmueble implements OnInit {
   subscription: Subscription | null = null;
   readonly inmuebles = signal<IInmueble[]>([]);
+  readonly searchTerm = signal<string>('');
+  readonly filteredItems = computed(() => {
+    const term = this.searchTerm().toLowerCase().trim();
+    if (!term) return this.inmuebles();
+    return this.inmuebles().filter(item => Object.values(item).some(v => String(v ?? '').toLowerCase().includes(term)));
+  });
 
   sortState = sortStateSignal({});
 

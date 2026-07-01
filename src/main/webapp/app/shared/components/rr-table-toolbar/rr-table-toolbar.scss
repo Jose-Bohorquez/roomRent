@@ -1,0 +1,129 @@
+.rr-toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 0.875rem 0.875rem 0 0;
+  border-bottom: none;
+  flex-wrap: wrap;
+}
+
+.rr-toolbar-info {
+  min-width: 0;
+}
+
+.rr-toolbar-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.125rem;
+  letter-spacing: -0.02em;
+}
+
+.rr-toolbar-desc {
+  font-size: 0.8125rem;
+  color: #78716c;
+  margin: 0 0 0.375rem;
+}
+
+.rr-toolbar-count {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #57534e;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.2rem 0.625rem;
+  border-radius: 99px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.rr-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.rr-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.rr-search-icon {
+  position: absolute;
+  left: 0.625rem;
+  color: #57534e;
+  font-size: 0.75rem;
+  pointer-events: none;
+}
+
+.rr-search-input {
+  width: 220px;
+  padding: 0.4rem 0.75rem 0.4rem 1.875rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  color: #e7e5e4;
+  font-size: 0.8125rem;
+  font-family: inherit;
+  transition: border-color 0.15s, background 0.15s;
+
+  &::placeholder { color: #57534e; }
+
+  &:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #b45309;
+    box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.2);
+  }
+}
+
+.rr-toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &--ghost {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #a8a29e;
+
+    &:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.09);
+      color: #e7e5e4;
+    }
+  }
+
+  &--primary {
+    background: #b45309;
+    border: 1px solid #b45309;
+    color: #ffffff;
+
+    &:hover {
+      background: #92400e;
+      border-color: #92400e;
+      color: #ffffff;
+      text-decoration: none;
+    }
+  }
+}
+
+.rr-btn-label {
+  @media (max-width: 576px) { display: none; }
+}

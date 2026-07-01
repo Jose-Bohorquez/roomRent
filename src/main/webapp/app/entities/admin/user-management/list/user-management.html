@@ -1,128 +1,80 @@
-<div>
-  <h2 id="page-heading" data-cy="UserManagementHeading">
-    <span jhiTranslate="userManagement.home.title">Usuarios</span>
-
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading()">
-        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
-        <span jhiTranslate="userManagement.home.refreshListLabel">Refrescar lista</span>
-      </button>
-      <button class="btn btn-primary jh-create-entity" [routerLink]="['./new']" data-cy="entityCreateButton">
-        <fa-icon icon="plus" />
-        <span jhiTranslate="userManagement.home.createLabel">Crear un nuevo usuario</span>
-      </button>
-    </div>
-  </h2>
-
+<div class="rr-table-container">
   <jhi-alert-error />
-
   <jhi-alert />
 
+  <rr-table-toolbar
+    title="Gestión de Usuarios"
+    description="Cuentas de usuario del sistema"
+    [createRoute]="['./new']"
+    createLabel="Nuevo Usuario"
+    [isLoading]="isLoading()"
+    [totalCount]="totalItems()"
+    (searchChange)="searchTerm.set($event)"
+    (refresh)="loadAll()"
+  />
+
   @if (users()) {
-    <div class="table-responsive">
-      <table class="table table-striped" aria-describedby="user-management-page-heading">
-        <thead>
-          <tr jhiSort [(sortState)]="sortState" (sortChange)="transition($event)">
-            <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort" /></th>
-            <th scope="col" jhiSortBy="login"><span jhiTranslate="userManagement.login">Login</span> <fa-icon icon="sort" /></th>
-            <th scope="col" jhiSortBy="email"><span jhiTranslate="userManagement.email">Email</span> <fa-icon icon="sort" /></th>
-            <th scope="col"></th>
-            <th scope="col" jhiSortBy="langKey"><span jhiTranslate="userManagement.langKey">Idioma</span> <fa-icon icon="sort" /></th>
-            <th scope="col"><span jhiTranslate="userManagement.profiles">Perfiles</span></th>
-            <th scope="col" jhiSortBy="createdDate">
-              <span jhiTranslate="userManagement.createdDate">Fecha de creación</span> <fa-icon icon="sort" />
-            </th>
-            <th scope="col" jhiSortBy="lastModifiedBy">
-              <span jhiTranslate="userManagement.lastModifiedBy">Modificado por</span> <fa-icon icon="sort" />
-            </th>
-            <th scope="col" jhiSortBy="lastModifiedDate">
-              <span jhiTranslate="userManagement.lastModifiedDate">Fecha de modificación</span> <fa-icon icon="sort" />
-            </th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (userManagement of users(); track trackIdentity(userManagement)) {
-            <tr data-cy="entityTable">
-              <td>
-                <a [routerLink]="['./', userManagement.login, 'view']">{{ userManagement.id }}</a>
-              </td>
-              <td>{{ userManagement.login }}</td>
-              <td>{{ userManagement.email }}</td>
-              <td>
-                @if (!userManagement.activated) {
-                  <button class="btn btn-danger btn-sm" (click)="setActive(userManagement, true)" jhiTranslate="userManagement.deactivated">
-                    Desactivado
-                  </button>
-                } @else {
-                  <button
-                    class="btn btn-success btn-sm"
-                    (click)="setActive(userManagement, false)"
-                    [disabled]="!currentAccount() || currentAccount()?.login === userManagement.login"
-                    jhiTranslate="userManagement.activated"
-                  >
-                    Activado
-                  </button>
-                }
-              </td>
-              <td>{{ userManagement.langKey }}</td>
-              <td>
-                @for (authority of userManagement.authorities; track $index) {
-                  <div>
-                    <span class="badge bg-info">{{ authority }}</span>
-                  </div>
-                }
-              </td>
-              <td>{{ userManagement.createdDate | date: 'dd/MM/yy HH:mm' }}</td>
-              <td>{{ userManagement.lastModifiedBy }}</td>
-              <td>{{ userManagement.lastModifiedDate | date: 'dd/MM/yy HH:mm' }}</td>
-              <td class="text-end">
-                <div class="btn-group">
-                  <button
-                    type="submit"
-                    [routerLink]="['./', userManagement.login, 'view']"
-                    class="btn btn-info btn-sm"
-                    data-cy="entityDetailsButton"
-                  >
-                    <fa-icon icon="eye" />
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
-                  </button>
-
-                  <button
-                    type="submit"
-                    [routerLink]="['./', userManagement.login, 'edit']"
-                    queryParamsHandling="merge"
-                    class="btn btn-primary btn-sm"
-                    data-cy="entityEditButton"
-                  >
-                    <fa-icon icon="pencil-alt" />
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    (click)="deleteUser(userManagement)"
-                    class="btn btn-danger btn-sm"
-                    data-cy="entityDeleteButton"
-                    [disabled]="!currentAccount() || currentAccount()?.login === userManagement.login"
-                  >
-                    <fa-icon icon="times" />
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
-                  </button>
-                </div>
-              </td>
+    @if (filteredItems().length === 0) {
+      <rr-empty-state
+        entityLabel="usuarios"
+        [createRoute]="['./new']"
+        createLabel="Crear Usuario"
+        [searchActive]="searchTerm().length > 0"
+      />
+    } @else {
+      <div class="rr-table-wrap" id="entities">
+        <table class="rr-table" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(sortState)]="sortState" (sortChange)="transition($event)">
+              <th scope="col" jhiSortBy="id"><div class="d-flex"><span jhiTranslate="global.field.id">ID</span><fa-icon class="p-1" icon="sort" /></div></th>
+              <th scope="col" jhiSortBy="login"><div class="d-flex"><span jhiTranslate="userManagement.login">Login</span><fa-icon class="p-1" icon="sort" /></div></th>
+              <th scope="col" jhiSortBy="email"><div class="d-flex"><span jhiTranslate="userManagement.email">Email</span><fa-icon class="p-1" icon="sort" /></div></th>
+              <th scope="col"><span jhiTranslate="userManagement.activated">Estado</span></th>
+              <th scope="col" jhiSortBy="langKey"><div class="d-flex"><span jhiTranslate="userManagement.langKey">Idioma</span><fa-icon class="p-1" icon="sort" /></div></th>
+              <th scope="col"><span jhiTranslate="userManagement.profiles">Perfiles</span></th>
+              <th scope="col" jhiSortBy="createdDate"><div class="d-flex"><span jhiTranslate="userManagement.createdDate">Creación</span><fa-icon class="p-1" icon="sort" /></div></th>
+              <th scope="col" jhiSortBy="lastModifiedBy"><div class="d-flex"><span jhiTranslate="userManagement.lastModifiedBy">Modificado por</span><fa-icon class="p-1" icon="sort" /></div></th>
+              <th scope="col" jhiSortBy="lastModifiedDate"><div class="d-flex"><span jhiTranslate="userManagement.lastModifiedDate">Fecha modif.</span><fa-icon class="p-1" icon="sort" /></div></th>
+              <th scope="col" class="rr-col-actions"></th>
             </tr>
-          }
-        </tbody>
-      </table>
-    </div>
-
-    <div>
-      <div class="d-flex justify-content-center">
-        <jhi-item-count [params]="{ page: page(), totalItems: totalItems(), itemsPerPage: itemsPerPage() }" />
+          </thead>
+          <tbody>
+            @for (userManagement of filteredItems(); track trackIdentity(userManagement)) {
+              <tr data-cy="entityTable">
+                <td><a [routerLink]="['./', userManagement.login, 'view']">{{ userManagement.id }}</a></td>
+                <td>{{ userManagement.login }}</td>
+                <td>{{ userManagement.email }}</td>
+                <td>
+                  @if (!userManagement.activated) {
+                    <button class="btn btn-danger btn-sm" (click)="setActive(userManagement, true)" jhiTranslate="userManagement.deactivated">Desactivado</button>
+                  } @else {
+                    <button class="btn btn-success btn-sm" (click)="setActive(userManagement, false)" [disabled]="!currentAccount() || currentAccount()?.login === userManagement.login" jhiTranslate="userManagement.activated">Activado</button>
+                  }
+                </td>
+                <td>{{ userManagement.langKey }}</td>
+                <td>
+                  @for (authority of userManagement.authorities; track $index) {
+                    <div><span class="badge bg-info">{{ authority }}</span></div>
+                  }
+                </td>
+                <td>{{ userManagement.createdDate | date: 'dd/MM/yy HH:mm' }}</td>
+                <td>{{ userManagement.lastModifiedBy }}</td>
+                <td>{{ userManagement.lastModifiedDate | date: 'dd/MM/yy HH:mm' }}</td>
+                <td class="rr-col-actions">
+                  <div class="rr-actions">
+                    <a [routerLink]="['./', userManagement.login, 'view']" class="rr-btn-action rr-btn-view" title="Ver" data-cy="entityDetailsButton"><fa-icon icon="eye" /></a>
+                    <a [routerLink]="['./', userManagement.login, 'edit']" queryParamsHandling="merge" class="rr-btn-action rr-btn-edit" title="Editar" data-cy="entityEditButton"><fa-icon icon="pencil-alt" /></a>
+                    <button type="button" (click)="deleteUser(userManagement)" class="rr-btn-action rr-btn-delete" title="Eliminar" data-cy="entityDeleteButton" [disabled]="!currentAccount() || currentAccount()?.login === userManagement.login"><fa-icon icon="trash-alt" /></button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
       </div>
 
-      <div class="d-flex justify-content-center">
+      <div class="rr-pagination-area">
+        <jhi-item-count [params]="{ page: page(), totalItems: totalItems(), itemsPerPage: itemsPerPage() }" />
         <ngb-pagination
           [collectionSize]="totalItems()"
           [(page)]="page"
@@ -133,6 +85,6 @@
           (pageChange)="transition()"
         />
       </div>
-    </div>
+    }
   }
 </div>

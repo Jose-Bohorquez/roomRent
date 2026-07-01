@@ -1,0 +1,39 @@
+<div class="rr-toolbar">
+  <div class="rr-toolbar-info">
+    <h2 class="rr-toolbar-title">{{ title() }}</h2>
+    @if (description()) {
+      <p class="rr-toolbar-desc">{{ description() }}</p>
+    }
+    <span class="rr-toolbar-count">{{ totalCount() }} registro{{ totalCount() !== 1 ? 's' : '' }}</span>
+  </div>
+
+  <div class="rr-toolbar-actions">
+    <div class="rr-search-wrap">
+      <fa-icon icon="search" class="rr-search-icon" />
+      <input
+        type="text"
+        class="rr-search-input"
+        [placeholder]="searchPlaceholder()"
+        (input)="onSearch($event)"
+        autocomplete="off"
+      />
+    </div>
+
+    <button
+      type="button"
+      class="rr-toolbar-btn rr-toolbar-btn--ghost"
+      title="Actualizar lista"
+      [disabled]="isLoading()"
+      (click)="onRefresh()"
+    >
+      <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
+    </button>
+
+    @if (createRoute().length) {
+      <a [routerLink]="createRoute()" class="rr-toolbar-btn rr-toolbar-btn--primary">
+        <fa-icon icon="plus" />
+        <span class="rr-btn-label">{{ createLabel() }}</span>
+      </a>
+    }
+  </div>
+</div>
