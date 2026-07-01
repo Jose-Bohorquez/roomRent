@@ -1,13 +1,21 @@
 <jhi-page-ribbon />
 
-<div>
+<!-- Top bar fixed -->
+<div class="rr-topbar-host">
   <router-outlet name="navbar" />
 </div>
 
-<div class="container-fluid">
-  <div class="card jh-card">
-    <router-outlet />
+<!-- App shell: sidebar + content -->
+<div class="rr-app-shell" [class.rr-app-shell--authenticated]="!!account()">
+
+  <rr-sidebar />
+
+  <div class="rr-content-wrapper">
+    <main class="rr-page-content">
+      <router-outlet />
+    </main>
+
+    <jhi-footer />
   </div>
 
-  <jhi-footer />
 </div>
