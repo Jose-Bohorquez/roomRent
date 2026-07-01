@@ -1,50 +1,78 @@
-<div class="dashboard-container py-5">
-  <div class="container">
-    <!-- Header -->
-    <div class="row mb-5">
-      <div class="col-lg-12">
-        <h1 class="fw-bold mb-2" style="color: #1c1917">
-          Bienvenido, <span style="color: #b45309">{{ account()?.login }}!</span>
-        </h1>
-        <p style="color: #6b7280">Gestiona todos tus espacios, solicitudes y contratos desde aquí</p>
+<div class="rr-dash">
+
+  <!-- ── Hero ── -->
+  <div class="rr-dash-hero">
+    <div class="container-fluid px-4 px-md-5">
+      <div class="row align-items-center py-5">
+        <div class="col">
+          <span class="rr-dash-badge">PANEL DE ADMINISTRACIÓN · ROOM RENT</span>
+          <h1 class="rr-dash-title mt-2">
+            Bienvenido,&nbsp;<span class="rr-dash-name">{{ account()?.login }}!</span>
+          </h1>
+          <p class="rr-dash-subtitle">
+            Gestiona inmuebles, solicitudes, contratos y usuarios desde un solo lugar
+          </p>
+        </div>
+        <div class="col-auto d-none d-lg-flex">
+          <div class="rr-dash-emblem">🏠</div>
+        </div>
       </div>
     </div>
+  </div>
 
-    <!-- Entity Grid -->
-    <div class="row g-4">
+  <!-- ── Módulos ── -->
+  <div class="container-fluid px-4 px-md-5 mt-5">
+    <p class="rr-section-label">MÓDULOS DEL SISTEMA</p>
+    <div class="row g-3">
       @for (entity of entities; track entity.path) {
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <a [routerLink]="entity.path" class="card h-100 dashboard-card text-decoration-none" [ngClass]="'border-' + entity.color">
-            <div class="card-body d-flex flex-column align-items-center text-center p-4">
-              <div class="mb-3" style="font-size: 2.5rem; color: #b45309">
-                <fa-icon [icon]="entity.icon" />
-              </div>
-              <h6 class="fw-bold" style="color: #1c1917">{{ entity.label }}</h6>
-              <small style="color: #9ca3af">Click para acceder</small>
+        <div class="col-xl-3 col-lg-4 col-md-6">
+          <a [routerLink]="entity.path" class="rr-module-card text-decoration-none">
+            <div class="rr-module-icon">
+              <fa-icon [icon]="entity.icon" />
+            </div>
+            <div class="rr-module-info">
+              <div class="rr-module-label">{{ entity.label }}</div>
+              <div class="rr-module-action">Ver y gestionar →</div>
             </div>
           </a>
         </div>
       }
     </div>
 
-    <!-- Quick Info -->
-    <div class="row g-3 mt-5">
-      <div class="col-lg-6">
-        <div class="alert alert-info d-flex align-items-center" role="alert">
-          <fa-icon icon="info-circle" class="me-3" style="font-size: 1.5rem" />
-          <div>
-            <strong>Consejo:</strong> Completa tu perfil para tener más visibilidad en la plataforma
+    <!-- ── Acceso rápido ── -->
+    <p class="rr-section-label mt-5">ACCESO RÁPIDO</p>
+    <div class="row g-3 pb-5">
+      <div class="col-lg-4">
+        <a routerLink="/user-management" class="rr-quick-card text-decoration-none">
+          <div class="rr-quick-icon rr-icon-amber"><fa-icon icon="users" /></div>
+          <div class="flex-grow-1">
+            <div class="rr-quick-title">Gestión de Usuarios</div>
+            <div class="rr-quick-sub">Administra cuentas y permisos del sistema</div>
           </div>
-        </div>
+          <span class="rr-quick-arrow">→</span>
+        </a>
       </div>
-      <div class="col-lg-6">
-        <div class="alert alert-success d-flex align-items-center" role="alert">
-          <fa-icon icon="check-circle" class="me-3" style="font-size: 1.5rem" />
-          <div>
-            <strong>Verificado:</strong> Tu cuenta está activa y lista para usar
+      <div class="col-lg-4">
+        <a routerLink="/inmueble" class="rr-quick-card text-decoration-none">
+          <div class="rr-quick-icon rr-icon-blue"><fa-icon icon="home" /></div>
+          <div class="flex-grow-1">
+            <div class="rr-quick-title">Catálogo de Inmuebles</div>
+            <div class="rr-quick-sub">Revisa y gestiona propiedades registradas</div>
           </div>
-        </div>
+          <span class="rr-quick-arrow">→</span>
+        </a>
+      </div>
+      <div class="col-lg-4">
+        <a routerLink="/publicacion-inmueble" class="rr-quick-card text-decoration-none">
+          <div class="rr-quick-icon rr-icon-green"><fa-icon icon="bullhorn" /></div>
+          <div class="flex-grow-1">
+            <div class="rr-quick-title">Publicaciones Activas</div>
+            <div class="rr-quick-sub">Revisa publicaciones en la plataforma</div>
+          </div>
+          <span class="rr-quick-arrow">→</span>
+        </a>
       </div>
     </div>
   </div>
+
 </div>
