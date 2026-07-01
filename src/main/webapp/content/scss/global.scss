@@ -214,17 +214,19 @@ a:not([href]):not([tabindex]):hover.dropdown-item {
   margin-bottom: 2rem;
 }
 
-/* Feature & hero cards */
+/* Feature & hero cards — dark glass */
 .rr-hero-card,
 .rr-feature-card {
-  border: 1px solid rgba(0,0,0,.07) !important;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
   border-radius: 0.75rem !important;
-  background: #ffffff;
-  transition: box-shadow .2s;
+  background: rgba(255, 255, 255, 0.04) !important;
+  color: #e7e5e4 !important;
+  transition: box-shadow .2s, transform .2s;
 }
 .rr-feature-card:hover {
-  box-shadow: 0 10px 15px -3px rgba(0,0,0,.10) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3) !important;
+  border-color: rgba(251, 191, 36, 0.2) !important;
   transform: translateY(-2px);
 }
 
