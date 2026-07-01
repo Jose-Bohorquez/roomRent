@@ -1,266 +1,303 @@
-# room
+# RoomRent — Plataforma de Arrendamiento
 
-This application was generated using JHipster 9.1.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v9.1.0](https://www.jhipster.tech/documentation-archive/v9.1.0).
+Sistema de gestión de arrendamiento de inmuebles desarrollado con **JHipster 9.1.0**.
 
-## Project Structure
+> Repositorio: [github.com/Jose-Bohorquez/roomRent](https://github.com/Jose-Bohorquez/roomRent)
 
-Node is required for generation and recommended for development. `package.json` is always generated for a better development experience with prettier, commit hooks, scripts and so on.
+---
 
-In the project root, JHipster generates configuration files for tools like git, prettier, eslint, husky, and others that are well known and you can find references in the web.
+## Descripción del sistema
 
-`/src/*` structure follows default Java structure.
+RoomRent conecta arrendadores con arrendatarios y candidatos roomie. Ofrece:
 
-- `.yo-rc.json` - Yeoman configuration file
-  JHipster configuration is stored in this file at `generator-jhipster` key. You may find `generator-jhipster-*` for specific blueprints configuration.
-- `.yo-resolve` (optional) - Yeoman conflict resolver
-  Allows to use a specific action when conflicts are found skipping prompts for files that matches a pattern. Each line should match `[pattern] [action]` with pattern been a [Minimatch](https://github.com/isaacs/minimatch#minimatch) pattern and action been one of skip (default if omitted) or force. Lines starting with `#` are considered comments and are ignored.
-- `.jhipster/*.json` - JHipster entity configuration files
+- Registro y verificación de perfiles de usuario
+- Publicación de inmuebles (apartamentos, casas, habitaciones, locales, oficinas)
+- Flujo completo de solicitud → visita → contrato digital
+- Sistema de publicaciones roomie para co-habitación
+- Calificaciones y reputación entre actores
+- Panel de administración Angular + Portal público React
 
-- `npmw` - wrapper to use locally installed npm.
-  JHipster installs Node and npm locally using the build tool by default. This wrapper makes sure npm is installed locally and uses it avoiding some differences different versions can cause. By using `./npmw` instead of the traditional `npm` you can configure a Node-less environment to develop or test your application.
-- `/src/main/docker` - Docker configurations for the application and services that the application depends on
+---
 
-## Development
+## Arquitectura
 
-The build system will install automatically the recommended version of Node and npm.
+| Capa | Tecnología |
+|---|---|
+| Backend | Spring Boot 4.0.6 + Java 21 |
+| Base de datos | MongoDB |
+| Autenticación | JWT (stateless) |
+| Admin frontend | Angular 21 (standalone components, signals) |
+| Portal público | React 18 (SPA independiente en `/portal/`) |
+| Build | Maven (backend) + esbuild/Angular CLI (frontend) |
 
-We provide a wrapper to launch npm.
-You will only need to run this command when dependencies change in [package.json](package.json).
+### Enrutamiento dual SPA
 
-```bash
-./npmw install
-```
+El proyecto tiene dos SPAs coexistiendo:
 
-We use npm scripts and [Angular CLI](https://angular.dev/tools/cli) with esbuild as our build system.
+- `/portal/*` → React (`src/main/resources/static/portal/index.html`)
+- Todo lo demás → Angular
 
-Run the following commands in two separate terminals to create a blissful development experience where your browser
-auto-refreshes when files change on your hard drive.
-
-```bash
-./npmw run backend:start
-./npmw run start
-```
-
-Npm is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
-specifying a newer version in [package.json](package.json). You can also run `./npmw update` and `./npmw install` to manage dependencies.
-Add the `help` flag on any command to see how you can use it. For example, `./npmw help update`.
-
-The `./npmw run` command will list all the scripts available to run for this project.
-
-### PWA Support
-
-JHipster ships with PWA (Progressive Web App) support, and it's turned off by default. One of the main components of a PWA is a service worker.
-
-The service worker initialization code is disabled by default. To enable it, uncomment the following code in `src/main/webapp/app/app.config.ts`:
-
-```typescript
-ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
-```
-
-### Managing dependencies
-
-For example, to add [Leaflet](https://leafletjs.com/) library as a runtime dependency of your application, you would run the following command:
+El filtro `SpaWebFilter.java` gestiona el enrutamiento. **Después de cada build Angular**, el portal React debe restaurarse:
 
 ```bash
-./npmw install --save --save-exact leaflet
+cp -r src/main/resources/static/portal target/classes/static/portal
 ```
 
-To benefit from TypeScript type definitions from [DefinitelyTyped](https://definitelytyped.org/) repository in development, you would run the following command:
+---
+
+## Prerrequisitos
+
+| Herramienta | Versión requerida |
+|---|---|
+| Java (JDK) | 21 |
+| Maven | 3.9+ (incluido como wrapper `./mvnw`) |
+| Node.js | 20+ |
+| npm | 10+ |
+| MongoDB | 7.x (o vía Docker) |
+
+> **Importante:** Usar explícitamente `JAVA_HOME=/usr/lib/jvm/temurin-21-jdk-amd64` si el sistema tiene múltiples JDKs.
+
+---
+
+## Configuración inicial
 
 ```bash
-./npmw install --save-dev --save-exact @types/leaflet
+# Clonar el repositorio
+git clone git@github.com:Jose-Bohorquez/roomRent.git
+cd roomRent
+
+# Instalar dependencias Node
+npm install
 ```
 
-Then you would import the JS and CSS files specified in library's installation instructions so that [esbuild][] knows about them:
-Edit [src/main/webapp/app/app.config.ts](src/main/webapp/app/app.config.ts) file:
+---
 
-```typescript
-import 'leaflet/dist/leaflet.js';
-```
+## Desarrollo local
 
-Edit [src/main/webapp/content/scss/vendor.scss](src/main/webapp/content/scss/vendor.scss) file:
-
-```typescript
-@import 'leaflet/dist/leaflet.css';
-```
-
-Note: There are still a few other things remaining to do for Leaflet that we won't detail here.
-
-For further instructions on how to develop with JHipster, have a look at [Using JHipster in development](https://www.jhipster.tech/development/).
-
-### Using Angular CLI
-
-You can also use [Angular CLI](https://angular.dev/tools/cli) to generate some custom client code.
-
-For example, the following command:
+### 1. Iniciar MongoDB (Docker)
 
 ```bash
-ng generate component my-component
+docker compose -f src/main/docker/mongodb.yml up -d
 ```
 
-will generate few files:
+### 2. Iniciar el backend (Spring Boot)
 
 ```bash
-create src/main/webapp/app/my-component/my-component.html
-create src/main/webapp/app/my-component/my-component.ts
-update src/main/webapp/app/app.config.ts
+JAVA_HOME=/usr/lib/jvm/temurin-21-jdk-amd64 ./mvnw spring-boot:run
 ```
 
-## Building for production
+El servidor queda en `http://localhost:8080`
 
-### Packaging as jar
+### 3. Iniciar el frontend Angular (modo watch)
 
-To build the final jar and optimize the room application for production, run:
+En una terminal separada:
 
 ```bash
-./mvnw -Pprod clean verify
+npm start
 ```
 
-This will concatenate and minify the client CSS and JavaScript files. It will also modify `index.html` so it references these new files.
-To ensure everything worked, run:
+El proxy de desarrollo redirige `/api/*` al puerto 8080.
+
+---
+
+## Comandos de compilación
+
+### Frontend Angular (producción)
 
 ```bash
+npm run webapp:build
+# Restaurar portal React después del build:
+cp -r src/main/resources/static/portal target/classes/static/portal
+```
+
+### Backend (compilar sin ejecutar)
+
+```bash
+JAVA_HOME=/usr/lib/jvm/temurin-21-jdk-amd64 ./mvnw compile -Denforcer.skip=true
+```
+
+### JAR completo de producción
+
+```bash
+JAVA_HOME=/usr/lib/jvm/temurin-21-jdk-amd64 ./mvnw -Pprod clean verify
 java -jar target/*.jar
 ```
 
-Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
+---
 
-Refer to [Using JHipster in production][] for more details.
+## Estructura del proyecto
 
-### Packaging as war
-
-To package your application as a war in order to deploy it to an application server, run:
-
-```bash
-./mvnw -Pprod,war clean verify
+```
+roomRent/
+├── src/
+│   ├── main/
+│   │   ├── java/com/roomrent/app/
+│   │   │   ├── domain/           # Entidades MongoDB (documentos)
+│   │   │   ├── repository/       # Spring Data MongoDB repositories
+│   │   │   ├── service/          # Interfaces de servicio
+│   │   │   │   └── impl/         # Implementaciones de servicio
+│   │   │   ├── web/rest/         # Controladores REST (API)
+│   │   │   └── config/           # Configuración Spring
+│   │   ├── resources/
+│   │   │   ├── static/portal/    # React portal (producción)
+│   │   │   └── config/           # application.yml, etc.
+│   │   └── webapp/               # Angular SPA
+│   │       └── app/
+│   │           ├── entities/     # Módulos CRUD por entidad
+│   │           ├── layouts/      # Navbar, Sidebar, Footer
+│   │           ├── dashboard/    # Panel principal
+│   │           └── shared/       # Componentes reutilizables
+├── jhipster-jdl.jdl              # Modelo de dominio completo
+├── .yo-rc.json                   # Configuración JHipster
+├── .jhipster/                    # JSON de configuración por entidad
+└── pom.xml
 ```
 
-### JHipster Control Center
+---
 
-JHipster Control Center can help you manage and control your application(s). You can start a local control center server (accessible on http://localhost:7419) with:
+## Modelo de dominio
 
-```bash
-docker compose -f src/main/docker/jhipster-control-center.yml up
+Ver [`jhipster-jdl.jdl`](jhipster-jdl.jdl) para el modelo completo con anotaciones.
+
+### Entidades principales
+
+| Entidad | Descripción | Paginación |
+|---|---|---|
+| `PerfilUsuario` | Datos personales y laborales del usuario | Sí |
+| `DocumentoUsuario` | Documentos de verificación de identidad | Sí |
+| `Inmueble` | Unidad arrendable (aparto, casa, habitación…) | Sí |
+| `PublicacionInmueble` | Anuncio activo de un inmueble en el portal | Sí |
+| `MultimediaInmueble` | Fotos y archivos del inmueble | No |
+| `SolicitudArriendo` | Solicitud enviada por un arrendatario | Sí |
+| `VisitaProgramada` | Cita para conocer el inmueble | No |
+| `ContratoArriendo` | Contrato digital firmado | Sí |
+| `PublicacionRoomie` | Habitación disponible para compartir | Sí |
+| `SolicitudRoomie` | Postulación a una publicación roomie | Sí |
+| `Calificacion` | Valoración entre actores al cerrar contrato | Sí |
+
+### Flujos principales
+
+```
+Inmueble → PublicacionInmueble → SolicitudArriendo → VisitaProgramada
+                                                   ↓
+                                            ContratoArriendo → Calificacion
 ```
 
-## Testing
-
-### Spring Boot tests
-
-To launch your application's tests, run:
-
-```bash
-./mvnw verify
+```
+PublicacionRoomie → SolicitudRoomie (flujo co-habitación independiente)
 ```
 
-### Client tests
+---
 
-Unit tests are run by Vitest. They're located near components and can be run with:
+## Estado del modelo vs. requerimientos
 
-```bash
-./npmw test
+### Soportado completamente
+
+- Arrendador con múltiples inmuebles
+- Tipos: Apartamento, Casa, Habitación, Apartaestudio, Local, Oficina
+- Múltiples publicaciones a lo largo del tiempo por inmueble
+- Múltiples contratos históricos por inmueble
+- Publicaciones y solicitudes para roomies
+- Contratos con URL a documento digital (firma electrónica)
+- Sistema de calificaciones entre arrendadores, arrendatarios y roomies
+- Visitas programadas vinculadas a solicitudes
+- Multimedia (fotos/videos) por inmueble
+- Documentos de verificación por perfil
+
+### Limitaciones actuales y propuesta de evolución
+
+| Escenario | Estado | Propuesta |
+|---|---|---|
+| Edificio con múltiples unidades | No implementado | Entidad `Edificio` → OneToMany → `Inmueble` |
+| Múltiples ocupantes por contrato | Parcial (roomies tienen flujo propio) | Entidad `OcupanteContrato` → ManyToOne → `ContratoArriendo` |
+| Seguimiento de pagos mensuales | No implementado | Entidad `PagoArriendo` → ManyToOne → `ContratoArriendo` |
+| Notificaciones in-app | No implementado | Entidad `Notificacion` o servicio de eventos |
+
+> Estas extensiones son **aditivas** y compatibles con el modelo actual. No requieren modificar entidades existentes.
+
+---
+
+## Variables de entorno
+
+El archivo `src/main/resources/config/application.yml` y `application-dev.yml` controlan la configuración. Las variables sensibles se sobreescriben en producción:
+
+| Variable | Descripción | Valor por defecto (dev) |
+|---|---|---|
+| `SPRING_DATA_MONGODB_URI` | URI de conexión MongoDB | `mongodb://localhost:27017/room` |
+| `JHIPSTER_SECURITY_AUTHENTICATION_JWT_SECRET` | Clave JWT (base64) | En `.yo-rc.json` |
+| `SERVER_PORT` | Puerto del servidor | `8080` |
+
+---
+
+## API REST
+
+Todos los endpoints siguen la convención JHipster:
+
+```
+GET    /api/{entidades}           → listado paginado
+GET    /api/{entidades}/{id}      → detalle
+POST   /api/{entidades}           → crear
+PUT    /api/{entidades}/{id}      → actualizar completo
+PATCH  /api/{entidades}/{id}      → actualizar parcial
+DELETE /api/{entidades}/{id}      → eliminar
 ```
 
-## Others
+Documentación Swagger en: `http://localhost:8080/swagger-ui/index.html` (perfil `api-docs`)
 
-### Code quality using Sonar
+---
 
-Sonar is used to analyse code quality. You can start a local Sonar server (accessible on http://localhost:9001) with:
+## Regeneración con JHipster
 
-```bash
-docker compose -f src/main/docker/sonar.yml up -d
-```
-
-Note: we have turned off forced authentication redirect for UI in [src/main/docker/sonar.yml](src/main/docker/sonar.yml) for out of the box experience while trying out SonarQube, for real use cases turn it back on.
-
-You can run a Sonar analysis with using the [sonar-scanner](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner) or by using the maven plugin.
-
-Then, run a Sonar analysis:
+Para regenerar entidades usando el JDL:
 
 ```bash
-./mvnw -Pprod clean verify sonar:sonar -Dsonar.login=admin -Dsonar.password=admin
+# Instalar JHipster globalmente (si no está)
+npm install -g generator-jhipster@9.1.0
+
+# Importar el JDL (regenera solo lo que cambió)
+jhipster import-jdl jhipster-jdl.jdl
+
+# ⚠️ Respaldar ANTES de regenerar:
+# - src/main/webapp/app/ (componentes personalizados)
+# - src/main/webapp/content/scss/ (estilos)
+# - src/main/webapp/app/layouts/ (sidebar, navbar)
+# - src/main/webapp/app/shared/components/ (RrTableToolbar, RrEmptyState)
 ```
 
-If you need to re-run the Sonar phase, please be sure to specify at least the `initialize` phase since Sonar properties are loaded from the sonar-project.properties file.
+---
+
+## Pruebas
+
+### Backend
 
 ```bash
-./mvnw initialize sonar:sonar -Dsonar.login=admin -Dsonar.password=admin
+JAVA_HOME=/usr/lib/jvm/temurin-21-jdk-amd64 ./mvnw verify
 ```
 
-Additionally, Instead of passing `sonar.password` and `sonar.login` as CLI arguments, these parameters can be configured from [sonar-project.properties](sonar-project.properties) as shown below:
+### Frontend
 
 ```bash
-sonar.login=admin
-sonar.password=admin
+npm test
 ```
 
-For more information, refer to the [Code quality page][].
+---
 
-### Docker Compose support
-
-JHipster generates a number of Docker Compose configuration files in the [src/main/docker/](src/main/docker/) folder to launch required third party services.
-
-For example, to start required services in Docker containers, run:
+## Docker
 
 ```bash
-docker compose -f src/main/docker/services.yml up -d
-```
+# MongoDB standalone
+docker compose -f src/main/docker/mongodb.yml up -d
 
-To stop and remove the containers, run:
-
-```bash
-docker compose -f src/main/docker/services.yml down
-```
-
-[Spring Docker Compose Integration](https://docs.spring.io/spring-boot/reference/features/dev-services.html) is enabled by default. It's possible to disable it in `application.yml`:
-
-```yaml
-spring:
-  ...
-  docker:
-    compose:
-      enabled: false
-```
-
-You can also fully dockerize your application and all the services that it depends on.
-To achieve this, first build a Docker image of your app by running:
-
-```bash
+# Aplicación completa (requiere build previo)
 npm run java:docker
-```
-
-Or build an arm64 Docker image when using an arm64 processor OS, i.e., Apple Silicon chips (M\*), running:
-
-```bash
-npm run java:docker:arm64
-```
-
-Then run:
-
-```bash
 docker compose -f src/main/docker/app.yml up -d
 ```
 
-For more information refer to [Docker and Docker-Compose](https://www.jhipster.tech/documentation-archive/v9.1.0/docker-compose/), this page also contains information on the Docker Compose sub-generator (`jhipster docker-compose`), which is able to generate Docker configurations for one or several JHipster applications.
+---
 
-## Continuous Integration (optional)
+## Referencias
 
-To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration](https://www.jhipster.tech/documentation-archive/v9.1.0/setting-up-ci/) page for more information.
-
-## References
-
-- [JHipster Homepage and latest documentation](https://www.jhipster.tech/)
-- [JHipster 9.1.0 archive](https://www.jhipster.tech/documentation-archive/v9.1.0)
-- [Using JHipster in development](https://www.jhipster.tech/documentation-archive/v9.1.0/development/)
-- [Using Docker and Docker-Compose](https://www.jhipster.tech/documentation-archive/v9.1.0/docker-compose)
-- [Using JHipster in production](https://www.jhipster.tech/documentation-archive/v9.1.0/production/)
-- [Running tests page](https://www.jhipster.tech/documentation-archive/v9.1.0/running-tests/)
-- [Code quality page](https://www.jhipster.tech/documentation-archive/v9.1.0/code-quality/)
-- [Setting up Continuous Integration](https://www.jhipster.tech/documentation-archive/v9.1.0/setting-up-ci/)
-- [Node.js](https://nodejs.org/)
-- [NPM](https://www.npmjs.com/)
-- [BrowserSync](https://www.browsersync.io/)
-- [Jest](https://jestjs.io)
-- [Leaflet](https://leafletjs.com/)
-- [DefinitelyTyped](https://definitelytyped.org/)
-- [Angular CLI](https://angular.dev/tools/cli)
+- [JHipster 9.1.0](https://www.jhipster.tech/documentation-archive/v9.1.0)
+- [Spring Boot 4.x](https://docs.spring.io/spring-boot/index.html)
+- [Angular 21](https://angular.dev)
+- [Spring Data MongoDB](https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/)

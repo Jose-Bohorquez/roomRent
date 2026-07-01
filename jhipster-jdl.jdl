@@ -1,3 +1,27 @@
+/*
+ * ============================================================
+ * RoomRent — JHipster Domain Language (JDL)
+ * ============================================================
+ * Versión del generador : JHipster 9.1.0
+ * Base de datos         : MongoDB (dev y prod)
+ * Autenticación         : JWT
+ * Framework frontend    : Angular 21 (admin) + React 18 (portal público)
+ * Build tool            : Maven
+ * Package               : com.roomrent.app
+ *
+ * Este archivo representa el estado COMPLETO del modelo de dominio.
+ * Puede usarse para regenerar entidades con:
+ *   jhipster import-jdl jhipster-jdl.jdl --force
+ *
+ * ADVERTENCIA: antes de regenerar, respalda los archivos
+ *   personalizados (HTML, SCSS, servicios Angular, etc.)
+ *   porque el generador sobreescribirá plantillas estándar.
+ * ============================================================
+ */
+
+// ────────────────────────────────────────────────────────────
+// Configuración de la aplicación
+// ────────────────────────────────────────────────────────────
 application {
   config {
     baseName room
@@ -12,19 +36,29 @@ application {
     enableTranslation true
     nativeLanguage es
     languages [es, en]
+    monorepository true
+    skipCommitHook true
   }
-  entities PerfilUsuario, DocumentoUsuario, Inmueble, PublicacionInmueble, MultimediaInmueble, SolicitudArriendo, VisitaProgramada, ContratoArriendo, PublicacionRoomie, SolicitudRoomie, Calificacion
+  entities PerfilUsuario, DocumentoUsuario, Inmueble, PublicacionInmueble,
+           MultimediaInmueble, SolicitudArriendo, VisitaProgramada,
+           ContratoArriendo, PublicacionRoomie, SolicitudRoomie, Calificacion
 }
 
+// ════════════════════════════════════════════════════════════
+// ENUMERACIONES
+// ════════════════════════════════════════════════════════════
+
+/** Tipos de documento de identidad aceptados en Colombia */
 enum TipoDocumento {
-  CC,
-  CE,
-  TI,
-  PASSPORT,
-  NIT,
+  CC,         // Cédula de Ciudadanía
+  CE,         // Cédula de Extranjería
+  TI,         // Tarjeta de Identidad
+  PASSPORT,   // Pasaporte
+  NIT,        // NIT empresarial
   OTRO
 }
 
+/** Género declarado por el usuario */
 enum Genero {
   MASCULINO,
   FEMENINO,
@@ -32,15 +66,17 @@ enum Genero {
   PREFIERO_NO_DECIR
 }
 
+/** Estado del ciclo de vida de un perfil de usuario */
 enum EstadoUsuario {
-  PENDIENTE_VERIFICACION,
-  ACTIVO,
-  INACTIVO,
-  SUSPENDIDO,
-  BLOQUEADO,
-  BANEADO
+  PENDIENTE_VERIFICACION, // Recién registrado, sin verificar documentos
+  ACTIVO,                 // Verificado y habilitado
+  INACTIVO,               // Se desactivó voluntariamente
+  SUSPENDIDO,             // Suspensión temporal por reporte o incidente
+  BLOQUEADO,              // Bloqueo moderado — puede apelar
+  BANEADO                 // Bloqueo permanente
 }
 
+/** Categorías de inmueble disponibles en la plataforma */
 enum TipoInmueble {
   APARTAMENTO,
   CASA,
@@ -51,14 +87,16 @@ enum TipoInmueble {
   OTRO
 }
 
+/** Estado de publicación de un inmueble o habitación roomie */
 enum EstadoPublicacion {
-  BORRADOR,
-  PUBLICADO,
-  PAUSADO,
-  ARRENDADO,
-  FINALIZADO
+  BORRADOR,   // No visible en el portal
+  PUBLICADO,  // Activo y visible
+  PAUSADO,    // Temporalmente oculto por el arrendador
+  ARRENDADO,  // Contrato activo; sin nuevas solicitudes
+  FINALIZADO  // Publicación cerrada definitivamente
 }
 
+/** Estado de una solicitud de arriendo o roomie */
 enum EstadoSolicitud {
   CREADA,
   EN_REVISION,
@@ -67,14 +105,16 @@ enum EstadoSolicitud {
   CANCELADA
 }
 
+/** Estado del ciclo de vida de un contrato de arrendamiento */
 enum EstadoContrato {
-  BORRADOR,
-  PENDIENTE_FIRMA,
-  VIGENTE,
-  FINALIZADO,
-  CANCELADO
+  BORRADOR,         // En preparación
+  PENDIENTE_FIRMA,  // Generado y esperando firmas
+  VIGENTE,          // Firmado y activo
+  FINALIZADO,       // Terminó normalmente al vencer fecha
+  CANCELADO         // Cancelado antes del vencimiento
 }
 
+/** Estado de una visita programada a un inmueble */
 enum EstadoVisita {
   SOLICITADA,
   CONFIRMADA,
@@ -82,6 +122,7 @@ enum EstadoVisita {
   FINALIZADA
 }
 
+/** Dirección y tipo de calificación entre actores del sistema */
 enum TipoCalificacion {
   ARRENDADOR_A_ARRENDATARIO,
   ARRENDATARIO_A_ARRENDADOR,
@@ -89,163 +130,279 @@ enum TipoCalificacion {
   ROOMIE_A_ARRENDATARIO
 }
 
+// ════════════════════════════════════════════════════════════
+// ENTIDADES
+// ════════════════════════════════════════════════════════════
+
+/**
+ * Perfil extendido de usuario de la plataforma.
+ * Cada usuario del sistema JHipster (User) puede tener exactamente
+ * un PerfilUsuario. Este perfil almacena datos personales, laborales
+ * y de preferencias que no caben en el User estándar.
+ */
 entity PerfilUsuario {
-  tipoDocumento TipoDocumento required
-  numeroDocumento String required unique
-  primerNombre String required
-  segundoNombre String
-  primerApellido String required
-  segundoApellido String
-  fechaNacimiento LocalDate required
-  genero Genero
-  telefono String required
-  direccionActual String
-  ciudad String required
-  barrio String
-  profesion String
-  ocupacion String
-  empresaTrabajo String
-  universidad String
-  biografia TextBlob
-  intereses TextBlob
-  tieneMascotas Boolean
-  fumador Boolean
-  verificado Boolean required
-  habilitadoRoomie Boolean required
-  estado EstadoUsuario required
-  fechaCreacion Instant required
+  tipoDocumento       TipoDocumento required
+  numeroDocumento     String        required unique
+  primerNombre        String        required
+  segundoNombre       String
+  primerApellido      String        required
+  segundoApellido     String
+  fechaNacimiento     LocalDate     required
+  genero              Genero
+  telefono            String        required
+  direccionActual     String
+  ciudad              String        required
+  barrio              String
+  profesion           String
+  ocupacion           String
+  empresaTrabajo      String
+  universidad         String
+  biografia           TextBlob
+  intereses           TextBlob
+  tieneMascotas       Boolean
+  fumador             Boolean
+  verificado          Boolean       required
+  habilitadoRoomie    Boolean       required
+  estado              EstadoUsuario required
+  fechaCreacion       Instant       required
 }
 
+/**
+ * Documentos de verificación de identidad e ingresos.
+ * Un perfil puede cargar múltiples documentos (CC, certificado
+ * laboral, desprendibles de pago, referencias, etc.).
+ */
 entity DocumentoUsuario {
-  tipoDocumento TipoDocumento required
-  nombreDocumento String required
-  urlArchivo String required
-  tipoMime String
-  tamanoArchivo Long
-  fechaCarga Instant required
-  aprobado Boolean
-  observaciones TextBlob
+  tipoDocumento   TipoDocumento required
+  nombreDocumento String        required
+  urlArchivo      String        required
+  tipoMime        String
+  tamanoArchivo   Long
+  fechaCarga      Instant       required
+  aprobado        Boolean
+  observaciones   TextBlob
 }
 
+/**
+ * Inmueble registrado en la plataforma.
+ * Representa una unidad arrendable (apartamento, casa, habitación,
+ * local, oficina o apartaestudio). El propietario es un PerfilUsuario
+ * con rol de arrendador.
+ *
+ * Nota: el modelo actual trata cada unidad como un Inmueble independiente.
+ * Para edificios con múltiples unidades se propone en el futuro una
+ * entidad Edificio padre (ver sección EVOLUCIÓN DEL MODELO al final).
+ */
 entity Inmueble {
-  nombre String required
-  direccion String required
-  ciudad String required
-  localidad String
-  barrio String required
-  latitud Double
-  longitud Double
-  tipoInmueble TipoInmueble required
-  areaMetrosCuadrados Double
-  numeroHabitaciones Integer required
-  numeroBanos Integer required
-  numeroParqueaderos Integer
-  estrato Integer min(1) max(6)
+  nombre               String       required
+  direccion            String       required
+  ciudad               String       required
+  localidad            String
+  barrio               String       required
+  latitud              Double
+  longitud             Double
+  tipoInmueble         TipoInmueble required
+  areaMetrosCuadrados  Double
+  numeroHabitaciones   Integer      required
+  numeroBanos          Integer      required
+  numeroParqueaderos   Integer
+  estrato              Integer      min(1) max(6)
 }
 
+/**
+ * Publicación de un inmueble para arriendo.
+ * Un mismo inmueble puede tener varias publicaciones a lo largo
+ * del tiempo (rearrendamiento). Solo una debería estar PUBLICADA
+ * simultáneamente. Esta restricción se maneja en la capa de servicio.
+ */
 entity PublicacionInmueble {
-  titulo String required
-  descripcion TextBlob
-  canonArriendo Long required
-  deposito Long
-  requisitos TextBlob
-  seguroRequerido Boolean
+  titulo               String         required
+  descripcion          TextBlob
+  canonArriendo        Long           required
+  deposito             Long
+  requisitos           TextBlob
+  seguroRequerido      Boolean
   datacreditoRequerido Boolean
-  fechaDisponible LocalDate
-  estado EstadoPublicacion required
-  permiteRoomies Boolean required
-  aceptaMascotas Boolean required
-  permiteFumadores Boolean required
-  permiteNinos Boolean required
-  permiteVisitas Boolean required
-  permiteParejas Boolean required
+  fechaDisponible      LocalDate
+  estado               EstadoPublicacion required
+  permiteRoomies       Boolean        required
+  aceptaMascotas       Boolean        required
+  permiteFumadores     Boolean        required
+  permiteNinos         Boolean        required
+  permiteVisitas       Boolean        required
+  permiteParejas       Boolean        required
 }
 
+/**
+ * Archivos multimedia asociados a un inmueble (fotos, videos, planos).
+ * El campo `principal` indica la imagen de portada de la publicación.
+ */
 entity MultimediaInmueble {
-  urlMedia String required
-  tipoMedia String required
+  urlMedia  String  required
+  tipoMedia String  required
   principal Boolean required
-  titulo String
+  titulo    String
 }
 
+/**
+ * Solicitud de arriendo enviada por un arrendatario sobre
+ * una publicación específica.
+ */
 entity SolicitudArriendo {
-  mensaje TextBlob
-  aceptaTerminos Boolean required
-  estado EstadoSolicitud required
-  fechaCreacion Instant required
+  mensaje        TextBlob
+  aceptaTerminos Boolean         required
+  estado         EstadoSolicitud required
+  fechaCreacion  Instant         required
 }
 
+/**
+ * Visita programada para que un interesado conozca el inmueble.
+ * Se origina desde una SolicitudArriendo aprobada.
+ */
 entity VisitaProgramada {
-  fechaSolicitada Instant required
+  fechaSolicitada Instant         required
   fechaConfirmada Instant
-  notas TextBlob
-  estado EstadoVisita required
+  notas           TextBlob
+  estado          EstadoVisita    required
 }
 
+/**
+ * Contrato de arrendamiento firmado digitalmente.
+ * Vincula un inmueble con un arrendador y un arrendatario.
+ * Múltiples contratos pueden existir para el mismo inmueble
+ * en distintos periodos de tiempo.
+ */
 entity ContratoArriendo {
-  numeroContrato String required unique
+  numeroContrato     String        required unique
   urlContratoDigital String
-  fechaInicio LocalDate required
-  fechaFin LocalDate required
-  valorMensual Long required
-  valorDeposito Long
-  estado EstadoContrato required
-  fechaFirma Instant
+  fechaInicio        LocalDate     required
+  fechaFin           LocalDate     required
+  valorMensual       Long          required
+  valorDeposito      Long
+  estado             EstadoContrato required
+  fechaFirma         Instant
 }
 
+/**
+ * Publicación de una habitación disponible para compartir (roomie).
+ * El arrendatario es quien ofrece la habitación dentro de su propio
+ * contrato de arriendo (subarriendo o co-habitación).
+ */
 entity PublicacionRoomie {
-  titulo String required
-  nombreHabitacion String required
-  valorMensual Long required
+  titulo             String           required
+  nombreHabitacion   String           required
+  valorMensual       Long             required
   serviciosIncluidos TextBlob
   espaciosCompartidos TextBlob
-  generoPreferido Genero
-  fechaDisponible LocalDate
-  estado EstadoPublicacion required
+  generoPreferido    Genero
+  fechaDisponible    LocalDate
+  estado             EstadoPublicacion required
 }
 
+/**
+ * Postulación de un candidato a una publicación roomie.
+ */
 entity SolicitudRoomie {
-  mensaje TextBlob
-  referencias TextBlob
-  estado EstadoSolicitud required
-  fechaCreacion Instant required
+  mensaje       TextBlob
+  referencias   TextBlob
+  estado        EstadoSolicitud required
+  fechaCreacion Instant         required
 }
 
+/**
+ * Calificación entre actores al finalizar una relación contractual.
+ * El campo `visible` permite moderar la publicación de la calificación.
+ */
 entity Calificacion {
   tipoCalificacion TipoCalificacion required
-  puntaje Integer required min(1) max(5)
-  comentario TextBlob
-  fechaCreacion Instant required
-  visible Boolean required
+  puntaje          Integer          required min(1) max(5)
+  comentario       TextBlob
+  fechaCreacion    Instant          required
+  visible          Boolean          required
 }
 
+// ════════════════════════════════════════════════════════════
+// RELACIONES
+// ════════════════════════════════════════════════════════════
+
+/** Un PerfilUsuario corresponde a exactamente un User del sistema */
 relationship OneToOne {
   PerfilUsuario{usuario(login)} to User with builtInEntity
 }
 
+/** Relaciones de composición (padre → hijos) */
 relationship OneToMany {
-  PerfilUsuario{documentos} to DocumentoUsuario{perfilUsuario}
-  PerfilUsuario{inmuebles} to Inmueble{propietario}
-  Inmueble{publicaciones} to PublicacionInmueble{inmueble}
-  Inmueble{multimedia} to MultimediaInmueble{inmueble}
+  PerfilUsuario{documentos}       to DocumentoUsuario{perfilUsuario}
+  PerfilUsuario{inmuebles}        to Inmueble{propietario}
+  Inmueble{publicaciones}         to PublicacionInmueble{inmueble}
+  Inmueble{multimedia}            to MultimediaInmueble{inmueble}
   PublicacionInmueble{solicitudes} to SolicitudArriendo{publicacion}
-  SolicitudArriendo{visitas} to VisitaProgramada{solicitud}
-  Inmueble{contratos} to ContratoArriendo{inmueble}
-  PublicacionRoomie{solicitudes} to SolicitudRoomie{publicacionRoomie}
+  SolicitudArriendo{visitas}      to VisitaProgramada{solicitud}
+  Inmueble{contratos}             to ContratoArriendo{inmueble}
+  PublicacionRoomie{solicitudes}  to SolicitudRoomie{publicacionRoomie}
 }
 
+/** Relaciones de referencia (hijo → padre diferente al propietario) */
 relationship ManyToOne {
-  SolicitudArriendo{arrendatario(primerNombre)} to PerfilUsuario
-  VisitaProgramada{visitante(primerNombre)} to PerfilUsuario
-  ContratoArriendo{arrendador(primerNombre)} to PerfilUsuario
-  ContratoArriendo{arrendatario(primerNombre)} to PerfilUsuario
-  PublicacionRoomie{arrendatario(primerNombre)} to PerfilUsuario
-  PublicacionRoomie{inmueble(nombre)} to Inmueble
-  SolicitudRoomie{postulante(primerNombre)} to PerfilUsuario
-  Calificacion{autor(primerNombre)} to PerfilUsuario
-  Calificacion{calificado(primerNombre)} to PerfilUsuario
-  Calificacion{contrato(numeroContrato)} to ContratoArriendo
+  SolicitudArriendo{arrendatario(primerNombre)}  to PerfilUsuario
+  VisitaProgramada{visitante(primerNombre)}      to PerfilUsuario
+  ContratoArriendo{arrendador(primerNombre)}     to PerfilUsuario
+  ContratoArriendo{arrendatario(primerNombre)}   to PerfilUsuario
+  PublicacionRoomie{arrendatario(primerNombre)}  to PerfilUsuario
+  PublicacionRoomie{inmueble(nombre)}            to Inmueble
+  SolicitudRoomie{postulante(primerNombre)}      to PerfilUsuario
+  Calificacion{autor(primerNombre)}              to PerfilUsuario
+  Calificacion{calificado(primerNombre)}         to PerfilUsuario
+  Calificacion{contrato(numeroContrato)}         to ContratoArriendo
 }
 
-paginate PerfilUsuario, DocumentoUsuario, Inmueble, PublicacionInmueble, SolicitudArriendo, ContratoArriendo, PublicacionRoomie, SolicitudRoomie, Calificacion with pagination
+// ════════════════════════════════════════════════════════════
+// OPCIONES DE GENERACIÓN
+// ════════════════════════════════════════════════════════════
+
+/** Paginación server-side (20 items por página, configurable) */
+paginate PerfilUsuario, DocumentoUsuario, Inmueble, PublicacionInmueble,
+         SolicitudArriendo, ContratoArriendo, PublicacionRoomie,
+         SolicitudRoomie, Calificacion with pagination
+
+/** MultimediaInmueble y VisitaProgramada: sin paginación (carga total) */
+
+/** Capa de servicio con implementación desacoplada de la interfaz */
 service all with serviceImpl
+
+/*
+ * ════════════════════════════════════════════════════════════
+ * EVOLUCIÓN DEL MODELO — PROPUESTAS (no implementadas)
+ * ════════════════════════════════════════════════════════════
+ *
+ * Las siguientes extensiones son compatibles con el modelo actual
+ * y se proponen para futuras iteraciones sin romper nada existente.
+ *
+ * 1. ENTIDAD Edificio
+ *    Agrupa múltiples Inmuebles dentro de un mismo inmueble físico.
+ *    Se añadiría: entity Edificio { nombre String required, ... }
+ *    Y la relación: Edificio → OneToMany → Inmueble{edificio}
+ *
+ * 2. ENTIDAD PagoArriendo
+ *    Registro de pagos mensuales de cada contrato.
+ *    Se añadiría: entity PagoArriendo { fechaPago Instant, monto Long,
+ *    comprobante String, estado EstadoPago }
+ *    Y la relación: ContratoArriendo → OneToMany → PagoArriendo{contrato}
+ *
+ * 3. MÚLTIPLES OCUPANTES POR CONTRATO
+ *    Para contratos compartidos donde varios roomies están ligados
+ *    al mismo contrato, se podría añadir:
+ *    entity OcupanteContrato { fechaIngreso LocalDate, ... }
+ *    Relación: ContratoArriendo → OneToMany → OcupanteContrato{contrato}
+ *    Relación: PerfilUsuario → OneToMany → OcupanteContrato{ocupante}
+ *
+ * 4. ENTIDAD Notificacion
+ *    Sistema de alertas in-app para eventos relevantes
+ *    (solicitud recibida, contrato por vencer, visita confirmada).
+ *
+ * 5. UNIDAD dentro de Inmueble
+ *    Para casos donde un Inmueble (edificio/casa) tiene múltiples
+ *    unidades arrendables independientes, se podría introducir
+ *    entity UnidadInmueble con ManyToOne a Inmueble.
+ * ════════════════════════════════════════════════════════════
+ */
