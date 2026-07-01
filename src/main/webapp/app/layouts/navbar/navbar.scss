@@ -3,9 +3,9 @@
 
 /* ── Navbar principal ── */
 .rr-navbar {
-  background-color: #ffffff !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  background-color: #0c0a09 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
   padding: 0 1rem;
   min-height: 60px;
 
@@ -13,7 +13,7 @@
   .navbar-brand {
     font-weight: 800;
     font-size: 1.05rem;
-    color: #1c1917 !important;
+    color: #ffffff !important;
     letter-spacing: -0.02em;
     display: flex;
     align-items: center;
@@ -24,28 +24,29 @@
   .nav-link {
     font-weight: 500;
     font-size: 0.875rem;
-    color: #57534e !important;   /* stone-600 */
+    color: #a8a29e !important;
     padding: 0.5rem 0.75rem;
     border-radius: 0.5rem;
     transition: background-color 0.15s, color 0.15s;
 
     &:hover {
-      background-color: #fef3c7;  /* amber-100 */
-      color: #92400e !important;  /* amber-800 */
+      background-color: rgba(251, 191, 36, 0.1);
+      color: #fbbf24 !important;
     }
   }
 
   /* Link activo */
   .active > .nav-link,
   .nav-item.active > .nav-link {
-    color: #b45309 !important;   /* amber-700 */
+    color: #fbbf24 !important;
     font-weight: 600;
   }
 
   /* Dropdown */
   .dropdown-menu {
-    border: 1px solid rgba(0,0,0,.08);
-    box-shadow: 0 10px 15px -3px rgba(0,0,0,.10), 0 4px 6px -4px rgba(0,0,0,.07);
+    background-color: #1c1917;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3);
     border-radius: 0.75rem;
     padding: 0.375rem;
     margin-top: 0.375rem;
@@ -54,21 +55,21 @@
       border-radius: 0.5rem;
       font-size: 0.875rem;
       font-weight: 500;
-      color: #44403c;     /* stone-700 */
+      color: #d6d3d1;
       padding: 0.5rem 0.875rem;
       transition: background-color 0.15s, color 0.15s;
 
-      fa-icon { color: #a8a29e; margin-right: 0.5rem; }
+      fa-icon { color: #78716c; margin-right: 0.5rem; }
 
       &:hover {
-        background-color: #b45309;
-        color: #ffffff;
-        fa-icon { color: #fde68a; }
+        background-color: rgba(180, 83, 9, 0.25);
+        color: #fbbf24;
+        fa-icon { color: #fbbf24; }
       }
 
       &.active {
-        background-color: #92400e;
-        color: #ffffff;
+        background-color: rgba(180, 83, 9, 0.4);
+        color: #fbbf24;
       }
     }
   }
@@ -76,8 +77,8 @@
   /* Versión tag */
   .navbar-version {
     font-size: 0.6rem;
-    color: #a8a29e;
-    background: #f5f5f4;
+    color: #78716c;
+    background: rgba(255, 255, 255, 0.06);
     padding: 0.1rem 0.35rem;
     border-radius: 0.25rem;
     margin-left: 0.25rem;
@@ -92,11 +93,12 @@
 
   /* Toggler mobile */
   .navbar-toggler {
-    border: 1px solid rgba(0,0,0,.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     padding: 0.35rem 0.6rem;
     border-radius: 0.5rem;
+    color: #a8a29e;
 
-    &:focus { box-shadow: 0 0 0 3px rgba(180,83,9,.25); }
+    &:focus { box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.25); }
   }
 }
 
@@ -107,7 +109,7 @@
   justify-content: center;
   width: 34px;
   height: 34px;
-  background-color: #f59e0b;
+  background-color: #b45309;
   border-radius: 8px;
   font-size: 18px;
   flex-shrink: 0;
@@ -116,14 +118,14 @@
 .rr-brand-main {
   font-size: 1.05rem;
   font-weight: 800;
-  color: #1c1917;
+  color: #ffffff;
   letter-spacing: -0.03em;
 }
-.rr-brand-accent { color: #f59e0b; }
+.rr-brand-accent { color: #fbbf24; }
 .rr-brand-sub {
   font-size: 0.65rem;
   font-weight: 600;
-  color: #a8a29e;
+  color: #78716c;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-left: 0.25rem;
@@ -132,15 +134,16 @@
 
 /* ── Portal link ── */
 .rr-portal-link {
-  background-color: #fef3c7 !important;
-  color: #92400e !important;
+  background-color: rgba(251, 191, 36, 0.12) !important;
+  color: #fbbf24 !important;
   font-weight: 600 !important;
   border-radius: 0.5rem;
   margin-left: 0.25rem;
+  border: 1px solid rgba(251, 191, 36, 0.2);
 
   &:hover {
-    background-color: #f59e0b !important;
-    color: #1c1917 !important;
+    background-color: rgba(251, 191, 36, 0.22) !important;
+    color: #fde68a !important;
   }
 }
 
@@ -151,7 +154,7 @@
   .dropdown-header {
     font-size: 0.7rem;
     font-weight: 700;
-    color: #a8a29e;
+    color: #57534e;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     padding: 0.5rem 0.875rem 0.25rem;

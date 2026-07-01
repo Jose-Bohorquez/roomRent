@@ -1,37 +1,31 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AccountService } from 'app/core/auth/account.service';
-import { TranslateDirective } from 'app/shared/language';
 
 @Component({
   selector: 'jhi-dashboard',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
-  imports: [CommonModule, RouterLink, FontAwesomeModule, TranslateDirective],
+  imports: [CommonModule, RouterLink, FontAwesomeModule],
 })
 export default class Dashboard {
   readonly account = inject(AccountService).account;
-  private readonly router = inject(Router);
 
   entities = [
-    { path: '/perfil-usuario', label: 'Mi Perfil', icon: 'user-circle', color: 'primary' },
-    { path: '/documento-usuario', label: 'Mis Documentos', icon: 'file-pdf', color: 'info' },
-    { path: '/inmueble', label: 'Mis Inmuebles', icon: 'home', color: 'success' },
-    { path: '/publicacion-inmueble', label: 'Publicaciones', icon: 'bullhorn', color: 'warning' },
-    { path: '/multimedia-inmueble', label: 'Multimedia', icon: 'images', color: 'secondary' },
-    { path: '/solicitud-arriendo', label: 'Solicitudes', icon: 'envelope-open', color: 'danger' },
-    { path: '/visita-programada', label: 'Visitas', icon: 'calendar', color: 'primary' },
-    { path: '/contrato-arriendo', label: 'Contratos', icon: 'file-contract', color: 'info' },
-    { path: '/publicacion-roomie', label: 'Buscar Roomies', icon: 'users', color: 'success' },
-    { path: '/solicitud-roomie', label: 'Solicitudes Roomie', icon: 'handshake', color: 'warning' },
-    { path: '/calificacion', label: 'Calificaciones', icon: 'star', color: 'secondary' },
+    { path: '/perfil-usuario',      label: 'Perfiles de Usuario',    icon: 'user-circle' },
+    { path: '/documento-usuario',   label: 'Documentos',             icon: 'file-alt' },
+    { path: '/inmueble',            label: 'Inmuebles',              icon: 'home' },
+    { path: '/publicacion-inmueble',label: 'Publicaciones Inmueble', icon: 'bullhorn' },
+    { path: '/multimedia-inmueble', label: 'Multimedia',             icon: 'images' },
+    { path: '/solicitud-arriendo',  label: 'Solicitudes Arriendo',   icon: 'envelope-open' },
+    { path: '/visita-programada',   label: 'Visitas Programadas',    icon: 'calendar' },
+    { path: '/contrato-arriendo',   label: 'Contratos',              icon: 'file-contract' },
+    { path: '/publicacion-roomie',  label: 'Publicaciones Roomie',   icon: 'users' },
+    { path: '/solicitud-roomie',    label: 'Solicitudes Roomie',     icon: 'handshake' },
+    { path: '/calificacion',        label: 'Calificaciones',         icon: 'star' },
   ];
-
-  navigate(path: string): void {
-    this.router.navigate([path]);
-  }
 }
