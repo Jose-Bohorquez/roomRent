@@ -124,11 +124,11 @@
 
         <!-- ── Admin (solo ADMIN) ── -->
         <li
+          *jhiHasAnyAuthority="'ROLE_ADMIN'"
           ngbDropdown
           class="nav-item dropdown pointer"
           display="dynamic"
           routerLinkActive="active"
-          jhiHasAnyAuthority="ROLE_ADMIN"
         >
           <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu" role="button">
             <fa-icon icon="users-cog" />
