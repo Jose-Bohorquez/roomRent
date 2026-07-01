@@ -1,0 +1,137 @@
+@if (account()) {
+
+  <!-- Sidebar -->
+  <aside class="rr-sidebar" [class.rr-sidebar--open]="layout.sidebarOpen()">
+
+    <!-- Brand -->
+    <div class="rr-sidebar-brand">
+      <a routerLink="/dashboard" class="rr-sidebar-brand-link" (click)="close()">
+        <span class="rr-sidebar-logo">🏠</span>
+        <div>
+          <div class="rr-sidebar-brand-name">Room<span>Rent</span></div>
+          <div class="rr-sidebar-brand-sub">Admin Panel</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="rr-sidebar-nav">
+
+      <!-- Panel -->
+      <div class="rr-nav-section">
+        <a routerLink="/dashboard" routerLinkActive="rr-nav-active" class="rr-nav-item" (click)="close()">
+          <fa-icon icon="tachometer-alt" class="rr-nav-icon" />
+          <span>Dashboard</span>
+        </a>
+      </div>
+
+      <!-- Usuarios -->
+      <div class="rr-nav-section">
+        <p class="rr-nav-label">Usuarios</p>
+        <a routerLink="/perfil-usuario" routerLinkActive="rr-nav-active" class="rr-nav-item" (click)="close()">
+          <fa-icon icon="user-circle" class="rr-nav-icon" />
+          <span>Perfiles</span>
+        </a>
+        <a routerLink="/documento-usuario" routerLinkActive="rr-nav-active" class="rr-nav-item" (click)="close()">
+          <fa-icon icon="file-alt" class="rr-nav-icon" />
+          <span>Documentos</span>
+        </a>
+      </div>
+
+      <!-- Inmuebles -->
+      <div class="rr-nav-section">
+        <p class="rr-nav-label">Inmuebles</p>
+        <a routerLink="/inmueble" routerLinkActive="rr-nav-active" class="rr-nav-item" (click)="close()">
+          <fa-icon icon="home" class="rr-nav-icon" />
+          <span>Inmuebles</span>
+        </a>
+        <a routerLink="/publicacion-inmueble" routerLinkActive="rr-nav-active" class="rr-nav-item" (click)="close()">
+          <fa-icon icon="bullhorn" class="rr-nav-icon" />
+          <span>Publicaciones</span>
+        </a>
+        <a routerLink="/multimedia-inmueble" routerLinkActive="rr-nav-active" class="rr-nav-item" (click)="close()">
+          <fa-icon icon="images" class="rr-nav-icon" />
+          <span>Multimedia</span>
+        </a>
+      </div>
+
+      <!-- Arriendos -->
+      <div class="rr-nav-section">
+        <p class="rr-nav-label">Arriendos</p>
+        <a routerLink="/solicitud-arriendo" routerLinkActive="rr-nav-active" class="rr-nav-item" (click)="close()">
+          <fa-icon icon="file-signature" class="rr-nav-icon" />
+          <span>Solicitudes</span>
+        </a>
+        <a routerLink="/visita-programada" routerLinkActive="rr-nav-active" class="rr-nav-item" (click)="close()">
+          <fa-icon icon="calendar-check" class="rr-nav-icon" />
+          <span>Visitas</span>
+        </a>
+        <a routerLink="/contrato-arriendo" routerLinkActive="rr-nav-active" class="rr-nav-item" (click)="close()">
+          <fa-icon icon="file-contract" class="rr-nav-icon" />
+          <span>Contratos</span>
+        </a>
+      </div>
+
+      <!-- Roomies -->
+      <div class="rr-nav-section">
+        <p class="rr-nav-label">Roomies</p>
+        <a routerLink="/publicacion-roomie" routerLinkActive="rr-nav-active" class="rr-nav-item" (click)="close()">
+          <fa-icon icon="users" class="rr-nav-icon" />
+          <span>Publicaciones</span>
+        </a>
+        <a routerLink="/solicitud-roomie" routerLinkActive="rr-nav-active" class="rr-nav-item" (click)="close()">
+          <fa-icon icon="user-plus" class="rr-nav-icon" />
+          <span>Solicitudes</span>
+        </a>
+        <a routerLink="/calificacion" routerLinkActive="rr-nav-active" class="rr-nav-item" (click)="close()">
+          <fa-icon icon="star" class="rr-nav-icon" />
+          <span>Calificaciones</span>
+        </a>
+      </div>
+
+      <!-- Sistema — solo ADMIN -->
+      @if (isAdmin()) {
+        <div class="rr-nav-section">
+          <p class="rr-nav-label">Sistema</p>
+          <a routerLink="/user-management" routerLinkActive="rr-nav-active" class="rr-nav-item" (click)="close()">
+            <fa-icon icon="users-cog" class="rr-nav-icon" />
+            <span>Usuarios del sistema</span>
+          </a>
+          <a routerLink="/admin/health" routerLinkActive="rr-nav-active" class="rr-nav-item" (click)="close()">
+            <fa-icon icon="heart" class="rr-nav-icon" />
+            <span>Health check</span>
+          </a>
+          <a routerLink="/admin/docs" routerLinkActive="rr-nav-active" class="rr-nav-item" (click)="close()">
+            <fa-icon icon="book" class="rr-nav-icon" />
+            <span>API Docs</span>
+          </a>
+        </div>
+      }
+
+      <!-- Portal público -->
+      <div class="rr-nav-section">
+        <a href="/portal/" class="rr-nav-item rr-nav-portal" (click)="close()">
+          <fa-icon icon="external-link-alt" class="rr-nav-icon" />
+          <span>Portal Público</span>
+        </a>
+      </div>
+
+    </nav>
+
+    <!-- User info -->
+    <div class="rr-sidebar-user">
+      <div class="rr-user-avatar">{{ userInitial() }}</div>
+      <div class="rr-user-info">
+        <div class="rr-user-name">{{ account()?.login }}</div>
+        <div class="rr-user-role">{{ isAdmin() ? 'Administrador' : 'Usuario' }}</div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- Mobile overlay -->
+  @if (layout.sidebarOpen()) {
+    <div class="rr-sidebar-overlay" (click)="close()"></div>
+  }
+
+}
