@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, effect, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Data, ParamMap, Router, RouterLink } from '@angular/router';
 
@@ -15,6 +15,8 @@ import { SortByDirective, SortDirective, SortService, type SortState, sortStateS
 import { MultimediaInmuebleDeleteDialog } from '../delete/multimedia-inmueble-delete-dialog';
 import { IMultimediaInmueble } from '../multimedia-inmueble.model';
 import { MultimediaInmuebleService } from '../service/multimedia-inmueble.service';
+import { RrEmptyState } from 'app/shared/components/rr-empty-state/rr-empty-state';
+import { RrTableToolbar } from 'app/shared/components/rr-table-toolbar/rr-table-toolbar';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,11 +32,19 @@ import { MultimediaInmuebleService } from '../service/multimedia-inmueble.servic
     SortByDirective,
     TranslateDirective,
     TranslateModule,
+    RrTableToolbar,
+    RrEmptyState,
   ],
 })
 export class MultimediaInmueble implements OnInit {
   subscription: Subscription | null = null;
   readonly multimediaInmuebles = signal<IMultimediaInmueble[]>([]);
+  readonly searchTerm = signal<string>('');
+  readonly filteredItems = computed(() => {
+    const term = this.searchTerm().toLowerCase().trim();
+    if (!term) return this.multimediaInmuebles() ?? [];
+    return (this.multimediaInmuebles() ?? []).filter(item => Object.values(item).some(v => String(v ?? '').toLowerCase().includes(term)));
+  });
 
   sortState = sortStateSignal({});
 

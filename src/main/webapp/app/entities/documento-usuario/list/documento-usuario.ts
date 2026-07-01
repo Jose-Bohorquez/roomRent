@@ -1,5 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, OnInit, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, effect, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Data, ParamMap, Router, RouterLink } from '@angular/router';
 
@@ -21,6 +21,8 @@ import { SortByDirective, SortDirective, SortService, type SortState, sortStateS
 import { DocumentoUsuarioDeleteDialog } from '../delete/documento-usuario-delete-dialog';
 import { IDocumentoUsuario } from '../documento-usuario.model';
 import { DocumentoUsuarioService } from '../service/documento-usuario.service';
+import { RrEmptyState } from 'app/shared/components/rr-empty-state/rr-empty-state';
+import { RrTableToolbar } from 'app/shared/components/rr-table-toolbar/rr-table-toolbar';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -39,11 +41,19 @@ import { DocumentoUsuarioService } from '../service/documento-usuario.service';
     FormatMediumDatetimePipe,
     NgbPagination,
     ItemCount,
+    RrTableToolbar,
+    RrEmptyState,
   ],
 })
 export class DocumentoUsuario implements OnInit {
   subscription: Subscription | null = null;
   readonly documentoUsuarios = signal<IDocumentoUsuario[]>([]);
+  readonly searchTerm = signal<string>('');
+  readonly filteredItems = computed(() => {
+    const term = this.searchTerm().toLowerCase().trim();
+    if (!term) return this.documentoUsuarios() ?? [];
+    return (this.documentoUsuarios() ?? []).filter(item => Object.values(item).some(v => String(v ?? '').toLowerCase().includes(term)));
+  });
 
   sortState = sortStateSignal({});
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, effect, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Data, ParamMap, Router, RouterLink } from '@angular/router';
 
@@ -17,6 +17,8 @@ import { SortByDirective, SortDirective, SortService, type SortState, sortStateS
 import { VisitaProgramadaDeleteDialog } from '../delete/visita-programada-delete-dialog';
 import { VisitaProgramadaService } from '../service/visita-programada.service';
 import { IVisitaProgramada } from '../visita-programada.model';
+import { RrEmptyState } from 'app/shared/components/rr-empty-state/rr-empty-state';
+import { RrTableToolbar } from 'app/shared/components/rr-table-toolbar/rr-table-toolbar';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,11 +35,19 @@ import { IVisitaProgramada } from '../visita-programada.model';
     TranslateDirective,
     TranslateModule,
     FormatMediumDatetimePipe,
+    RrTableToolbar,
+    RrEmptyState,
   ],
 })
 export class VisitaProgramada implements OnInit {
   subscription: Subscription | null = null;
   readonly visitaProgramadas = signal<IVisitaProgramada[]>([]);
+  readonly searchTerm = signal<string>('');
+  readonly filteredItems = computed(() => {
+    const term = this.searchTerm().toLowerCase().trim();
+    if (!term) return this.visitaProgramadas() ?? [];
+    return (this.visitaProgramadas() ?? []).filter(item => Object.values(item).some(v => String(v ?? '').toLowerCase().includes(term)));
+  });
 
   sortState = sortStateSignal({});
 

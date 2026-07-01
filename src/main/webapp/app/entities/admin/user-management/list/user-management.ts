@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -20,6 +20,8 @@ import { SortByDirective, SortDirective, SortService, SortState, sortStateSignal
 import { UserManagementDeleteDialog } from '../delete/user-management-delete-dialog';
 import { UserManagementService } from '../service/user-management.service';
 import { IUserManagement } from '../user-management.model';
+import { RrEmptyState } from 'app/shared/components/rr-empty-state/rr-empty-state';
+import { RrTableToolbar } from 'app/shared/components/rr-table-toolbar/rr-table-toolbar';
 
 @Component({
   selector: 'jhi-user-mgmt',
@@ -37,11 +39,19 @@ import { IUserManagement } from '../user-management.model';
     SortByDirective,
     ItemCount,
     DatePipe,
+    RrTableToolbar,
+    RrEmptyState,
   ],
 })
 export class UserManagement implements OnInit {
   readonly currentAccount = inject(AccountService).account;
   readonly users = signal<IUserManagement[] | null>(null);
+  readonly searchTerm = signal<string>('');
+  readonly filteredItems = computed(() => {
+    const term = this.searchTerm().toLowerCase().trim();
+    if (!term) return this.users() ?? [];
+    return (this.users() ?? []).filter(item => Object.values(item).some(v => String(v ?? '').toLowerCase().includes(term)));
+  });
   readonly isLoading = signal(false);
   readonly totalItems = signal(0);
   readonly itemsPerPage = signal(ITEMS_PER_PAGE);

@@ -1,5 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, OnInit, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, effect, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Data, ParamMap, Router, RouterLink } from '@angular/router';
 
@@ -21,6 +21,8 @@ import { SortByDirective, SortDirective, SortService, type SortState, sortStateS
 import { ICalificacion } from '../calificacion.model';
 import { CalificacionDeleteDialog } from '../delete/calificacion-delete-dialog';
 import { CalificacionService } from '../service/calificacion.service';
+import { RrEmptyState } from 'app/shared/components/rr-empty-state/rr-empty-state';
+import { RrTableToolbar } from 'app/shared/components/rr-table-toolbar/rr-table-toolbar';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -39,11 +41,19 @@ import { CalificacionService } from '../service/calificacion.service';
     FormatMediumDatetimePipe,
     NgbPagination,
     ItemCount,
+    RrTableToolbar,
+    RrEmptyState,
   ],
 })
 export class Calificacion implements OnInit {
   subscription: Subscription | null = null;
   readonly calificacions = signal<ICalificacion[]>([]);
+  readonly searchTerm = signal<string>('');
+  readonly filteredItems = computed(() => {
+    const term = this.searchTerm().toLowerCase().trim();
+    if (!term) return this.calificacions() ?? [];
+    return (this.calificacions() ?? []).filter(item => Object.values(item).some(v => String(v ?? '').toLowerCase().includes(term)));
+  });
 
   sortState = sortStateSignal({});
 

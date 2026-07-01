@@ -1,0 +1,25 @@
+<div class="rr-empty">
+  <div class="rr-empty-icon">
+    <fa-icon [icon]="searchActive() ? 'search' : 'list'" />
+  </div>
+  <p class="rr-empty-title">
+    @if (searchActive()) {
+      Sin resultados para tu búsqueda
+    } @else {
+      No hay {{ entityLabel() }} registrados
+    }
+  </p>
+  <p class="rr-empty-sub">
+    @if (searchActive()) {
+      Intenta con otros términos o limpia el filtro
+    } @else {
+      Crea el primero para comenzar
+    }
+  </p>
+  @if (!searchActive() && createRoute().length) {
+    <a [routerLink]="createRoute()" class="rr-empty-cta">
+      <fa-icon icon="plus" />
+      {{ createLabel() }}
+    </a>
+  }
+</div>

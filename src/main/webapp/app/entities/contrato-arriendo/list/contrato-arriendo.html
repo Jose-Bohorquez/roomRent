@@ -1,196 +1,73 @@
-<div>
-  <h2 id="page-heading" data-cy="ContratoArriendoHeading">
-    <span jhiTranslate="roomApp.contratoArriendo.home.title">Contrato Arriendos</span>
-
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
-        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
-        <span jhiTranslate="roomApp.contratoArriendo.home.refreshListLabel">Refrescar lista</span>
-      </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-contrato-arriendo"
-        [routerLink]="['/contrato-arriendo/new']"
-      >
-        <fa-icon icon="plus" />
-        <span jhiTranslate="roomApp.contratoArriendo.home.createLabel">Crear nuevo Contrato Arriendo</span>
-      </button>
-    </div>
-  </h2>
-
+<div class="rr-table-container">
   <jhi-alert-error />
-
   <jhi-alert />
 
-  @if (contratoArriendos().length === 0) {
-    <div class="alert alert-warning" id="no-result">
-      <span jhiTranslate="roomApp.contratoArriendo.home.notFound">Ningún Contrato Arriendos encontrado</span>
-    </div>
+  <rr-table-toolbar
+    title="Contratos de Arriendo"
+    description="Contratos de arrendamiento activos y cerrados"
+    [createRoute]="['/contrato-arriendo/new']"
+    createLabel="Nuevo Contrato"
+    [isLoading]="isLoading()"
+    [totalCount]="totalItems()"
+    (searchChange)="searchTerm.set($event)"
+    (refresh)="load()"
+  />
+
+  @if (filteredItems().length === 0) {
+    <rr-empty-state
+      entityLabel="contratos"
+      [createRoute]="['/contrato-arriendo/new']"
+      createLabel="Crear Contrato"
+      [searchActive]="searchTerm().length > 0"
+    />
   } @else {
-    <div class="table-responsive table-entities" id="entities">
-      <table class="table table-striped" aria-describedby="page-heading">
+    <div class="rr-table-wrap" id="entities">
+      <table class="rr-table" aria-describedby="page-heading">
         <thead>
           <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
-            <th scope="col" jhiSortBy="id">
-              <div class="d-flex">
-                <span jhiTranslate="global.field.id">ID</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="numeroContrato">
-              <div class="d-flex">
-                <span jhiTranslate="roomApp.contratoArriendo.numeroContrato">Numero Contrato</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="urlContratoDigital">
-              <div class="d-flex">
-                <span jhiTranslate="roomApp.contratoArriendo.urlContratoDigital">Url Contrato Digital</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="fechaInicio">
-              <div class="d-flex">
-                <span jhiTranslate="roomApp.contratoArriendo.fechaInicio">Fecha Inicio</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="fechaFin">
-              <div class="d-flex">
-                <span jhiTranslate="roomApp.contratoArriendo.fechaFin">Fecha Fin</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="valorMensual">
-              <div class="d-flex">
-                <span jhiTranslate="roomApp.contratoArriendo.valorMensual">Valor Mensual</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="valorDeposito">
-              <div class="d-flex">
-                <span jhiTranslate="roomApp.contratoArriendo.valorDeposito">Valor Deposito</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="estado">
-              <div class="d-flex">
-                <span jhiTranslate="roomApp.contratoArriendo.estado">Estado</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="fechaFirma">
-              <div class="d-flex">
-                <span jhiTranslate="roomApp.contratoArriendo.fechaFirma">Fecha Firma</span>
-
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="arrendador.primerNombre">
-              <div class="d-flex">
-                <span jhiTranslate="roomApp.contratoArriendo.arrendador">Arrendador</span>
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="arrendatario.primerNombre">
-              <div class="d-flex">
-                <span jhiTranslate="roomApp.contratoArriendo.arrendatario">Arrendatario</span>
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="inmueble.id">
-              <div class="d-flex">
-                <span jhiTranslate="roomApp.contratoArriendo.inmueble">Inmueble</span>
-                <fa-icon class="p-1" icon="sort" />
-              </div>
-            </th>
-            <th scope="col"></th>
+            <th scope="col" jhiSortBy="id"><div class="d-flex"><span jhiTranslate="global.field.id">ID</span><fa-icon class="p-1" icon="sort" /></div></th>
+            <th scope="col" jhiSortBy="numeroContrato"><div class="d-flex"><span jhiTranslate="roomApp.contratoArriendo.numeroContrato">Número</span><fa-icon class="p-1" icon="sort" /></div></th>
+            <th scope="col" jhiSortBy="fechaInicio"><div class="d-flex"><span jhiTranslate="roomApp.contratoArriendo.fechaInicio">Inicio</span><fa-icon class="p-1" icon="sort" /></div></th>
+            <th scope="col" jhiSortBy="fechaFin"><div class="d-flex"><span jhiTranslate="roomApp.contratoArriendo.fechaFin">Fin</span><fa-icon class="p-1" icon="sort" /></div></th>
+            <th scope="col" jhiSortBy="valorMensual"><div class="d-flex"><span jhiTranslate="roomApp.contratoArriendo.valorMensual">Valor/Mes</span><fa-icon class="p-1" icon="sort" /></div></th>
+            <th scope="col" jhiSortBy="valorDeposito"><div class="d-flex"><span jhiTranslate="roomApp.contratoArriendo.valorDeposito">Depósito</span><fa-icon class="p-1" icon="sort" /></div></th>
+            <th scope="col" jhiSortBy="estado"><div class="d-flex"><span jhiTranslate="roomApp.contratoArriendo.estado">Estado</span><fa-icon class="p-1" icon="sort" /></div></th>
+            <th scope="col" jhiSortBy="arrendador.primerNombre"><div class="d-flex"><span jhiTranslate="roomApp.contratoArriendo.arrendador">Arrendador</span><fa-icon class="p-1" icon="sort" /></div></th>
+            <th scope="col" jhiSortBy="arrendatario.primerNombre"><div class="d-flex"><span jhiTranslate="roomApp.contratoArriendo.arrendatario">Arrendatario</span><fa-icon class="p-1" icon="sort" /></div></th>
+            <th scope="col" jhiSortBy="inmueble.id"><div class="d-flex"><span jhiTranslate="roomApp.contratoArriendo.inmueble">Inmueble</span><fa-icon class="p-1" icon="sort" /></div></th>
+            <th scope="col" class="rr-col-actions"></th>
           </tr>
         </thead>
         <tbody>
-          @for (contratoArriendo of contratoArriendos(); track trackId(contratoArriendo)) {
+          @for (contratoArriendo of filteredItems(); track trackId(contratoArriendo)) {
             <tr data-cy="entityTable">
-              <td>
-                <a [routerLink]="['/contrato-arriendo', contratoArriendo.id, 'view']">{{ contratoArriendo.id }}</a>
-              </td>
+              <td><a [routerLink]="['/contrato-arriendo', contratoArriendo.id, 'view']">{{ contratoArriendo.id }}</a></td>
               <td>{{ contratoArriendo.numeroContrato }}</td>
-              <td>{{ contratoArriendo.urlContratoDigital }}</td>
               <td>{{ contratoArriendo.fechaInicio | formatMediumDate }}</td>
               <td>{{ contratoArriendo.fechaFin | formatMediumDate }}</td>
               <td>{{ contratoArriendo.valorMensual }}</td>
               <td>{{ contratoArriendo.valorDeposito }}</td>
-              <td [jhiTranslate]="'roomApp.EstadoContrato.' + (contratoArriendo.estado ?? 'null')">
-                {{
-                  {
-                    null: '',
-                    BORRADOR: 'BORRADOR',
-                    PENDIENTE_FIRMA: 'PENDIENTE_FIRMA',
-                    VIGENTE: 'VIGENTE',
-                    FINALIZADO: 'FINALIZADO',
-                    CANCELADO: 'CANCELADO',
-                  }[contratoArriendo.estado ?? 'null']
-                }}
-              </td>
-              <td>{{ contratoArriendo.fechaFirma | formatMediumDatetime }}</td>
+              <td [jhiTranslate]="'roomApp.EstadoContrato.' + (contratoArriendo.estado ?? 'null')">{{ contratoArriendo.estado }}</td>
               <td>
                 @if (contratoArriendo.arrendador) {
-                  <div>
-                    <a [routerLink]="['/perfil-usuario', contratoArriendo.arrendador.id, 'view']">{{
-                      contratoArriendo.arrendador.primerNombre
-                    }}</a>
-                  </div>
+                  <a [routerLink]="['/perfil-usuario', contratoArriendo.arrendador.id, 'view']">{{ contratoArriendo.arrendador.primerNombre }}</a>
                 }
               </td>
               <td>
                 @if (contratoArriendo.arrendatario) {
-                  <div>
-                    <a [routerLink]="['/perfil-usuario', contratoArriendo.arrendatario.id, 'view']">{{
-                      contratoArriendo.arrendatario.primerNombre
-                    }}</a>
-                  </div>
+                  <a [routerLink]="['/perfil-usuario', contratoArriendo.arrendatario.id, 'view']">{{ contratoArriendo.arrendatario.primerNombre }}</a>
                 }
               </td>
               <td>
                 @if (contratoArriendo.inmueble) {
-                  <div>
-                    <a [routerLink]="['/inmueble', contratoArriendo.inmueble.id, 'view']">{{ contratoArriendo.inmueble.id }}</a>
-                  </div>
+                  <a [routerLink]="['/inmueble', contratoArriendo.inmueble.id, 'view']">{{ contratoArriendo.inmueble.id }}</a>
                 }
               </td>
-              <td class="text-end">
-                <div class="btn-group">
-                  <a
-                    [routerLink]="['/contrato-arriendo', contratoArriendo.id, 'view']"
-                    class="btn btn-info btn-sm"
-                    data-cy="entityDetailsButton"
-                  >
-                    <fa-icon icon="eye" />
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
-                  </a>
-
-                  <a
-                    [routerLink]="['/contrato-arriendo', contratoArriendo.id, 'edit']"
-                    class="btn btn-primary btn-sm"
-                    data-cy="entityEditButton"
-                  >
-                    <fa-icon icon="pencil-alt" />
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
-                  </a>
-
-                  <button type="submit" (click)="delete(contratoArriendo)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                    <fa-icon icon="times" />
-                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
-                  </button>
+              <td class="rr-col-actions">
+                <div class="rr-actions">
+                  <a [routerLink]="['/contrato-arriendo', contratoArriendo.id, 'view']" class="rr-btn-action rr-btn-view" title="Ver" data-cy="entityDetailsButton"><fa-icon icon="eye" /></a>
+                  <a [routerLink]="['/contrato-arriendo', contratoArriendo.id, 'edit']" class="rr-btn-action rr-btn-edit" title="Editar" data-cy="entityEditButton"><fa-icon icon="pencil-alt" /></a>
+                  <button type="button" (click)="delete(contratoArriendo)" class="rr-btn-action rr-btn-delete" title="Eliminar" data-cy="entityDeleteButton"><fa-icon icon="trash-alt" /></button>
                 </div>
               </td>
             </tr>
@@ -198,24 +75,18 @@
         </tbody>
       </table>
     </div>
-  }
-  @if (contratoArriendos().length > 0) {
-    <div>
-      <div class="d-flex justify-content-center">
-        <jhi-item-count [params]="{ page: page(), totalItems: totalItems(), itemsPerPage: itemsPerPage() }" />
-      </div>
 
-      <div class="d-flex justify-content-center">
-        <ngb-pagination
-          [collectionSize]="totalItems()"
-          [page]="page()"
-          [pageSize]="itemsPerPage()"
-          [maxSize]="5"
-          [rotate]="true"
-          [boundaryLinks]="true"
-          (pageChange)="navigateToPage($event)"
-        />
-      </div>
+    <div class="rr-pagination-area">
+      <jhi-item-count [params]="{ page: page(), totalItems: totalItems(), itemsPerPage: itemsPerPage() }" />
+      <ngb-pagination
+        [collectionSize]="totalItems()"
+        [page]="page()"
+        [pageSize]="itemsPerPage()"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      />
     </div>
   }
 </div>
