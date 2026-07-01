@@ -34,10 +34,10 @@ spring:
     serialization:
       indent-output: true
   mail:
-    host: ${MAIL_HOST:localhost}
-    port: ${MAIL_PORT:25}
-    username: ${MAIL_USERNAME:}
-    password: ${MAIL_PASSWORD:}
+    host: smtp.gmail.com
+    port: 587
+    username: bd567358546@gmail.com
+    password: 'ccurihmaqdebemfu'
     protocol: smtp
     properties:
       mail:
@@ -46,6 +46,9 @@ spring:
           starttls:
             enable: true
             required: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   mongodb:
@@ -87,8 +90,8 @@ jhipster:
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000
   mail: # specific JHipster mail property, for standard properties see MailProperties
-    base-url: http://127.0.0.1:8080
-    from: ${MAIL_FROM:room@localhost}
+    base-url: http://localhost:5173
+    from: bd567358546@gmail.com
   logging:
     use-json-format: false # By default, logs are not in Json format
     logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration

@@ -5,6 +5,7 @@ import com.roomrent.app.repository.MultimediaInmuebleRepository;
 import com.roomrent.app.service.MultimediaInmuebleService;
 import com.roomrent.app.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -14,9 +15,14 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
@@ -52,6 +58,7 @@ public class MultimediaInmuebleResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new multimediaInmueble, or with status {@code 400 (Bad Request)} if the multimediaInmueble has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("")
     public ResponseEntity<MultimediaInmueble> createMultimediaInmueble(@Valid @RequestBody MultimediaInmueble multimediaInmueble)
         throws URISyntaxException {
@@ -75,6 +82,7 @@ public class MultimediaInmuebleResource {
      * or with status {@code 500 (Internal Server Error)} if the multimediaInmueble couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<MultimediaInmueble> updateMultimediaInmueble(
         @PathVariable(value = "id", required = false) final String id,
@@ -109,6 +117,7 @@ public class MultimediaInmuebleResource {
      * or with status {@code 500 (Internal Server Error)} if the multimediaInmueble couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<MultimediaInmueble> partialUpdateMultimediaInmueble(
         @PathVariable(value = "id", required = false) final String id,
@@ -140,9 +149,13 @@ public class MultimediaInmuebleResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of Multimedia Inmuebles in body.
      */
     @GetMapping("")
-    public List<MultimediaInmueble> getAllMultimediaInmuebles() {
-        LOG.debug("REST request to get all MultimediaInmuebles");
-        return multimediaInmuebleService.findAll();
+    public ResponseEntity<List<MultimediaInmueble>> getAllMultimediaInmuebles(
+        @org.springdoc.core.annotations.ParameterObject Pageable pageable
+    ) {
+        LOG.debug("REST request to get a page of MultimediaInmuebles");
+        Page<MultimediaInmueble> page = multimediaInmuebleService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**
@@ -164,6 +177,7 @@ public class MultimediaInmuebleResource {
      * @param id the id of the multimediaInmueble to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMultimediaInmueble(@PathVariable("id") String id) {
         LOG.debug("REST request to delete MultimediaInmueble : {}", id);

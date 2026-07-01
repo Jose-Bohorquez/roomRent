@@ -8,7 +8,7 @@ const publicacionInmuebleRoute: Routes = [
   {
     path: '',
     loadComponent: () => import('./list/publicacion-inmueble').then(m => m.PublicacionInmueble),
-    data: {},
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -17,6 +17,7 @@ const publicacionInmuebleRoute: Routes = [
     resolve: {
       publicacionInmueble: PublicacionInmuebleResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -25,6 +26,7 @@ const publicacionInmuebleRoute: Routes = [
     resolve: {
       publicacionInmueble: PublicacionInmuebleResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -33,6 +35,7 @@ const publicacionInmuebleRoute: Routes = [
     resolve: {
       publicacionInmueble: PublicacionInmuebleResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
 ];

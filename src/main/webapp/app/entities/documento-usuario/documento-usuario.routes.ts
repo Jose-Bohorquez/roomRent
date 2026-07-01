@@ -8,7 +8,7 @@ const documentoUsuarioRoute: Routes = [
   {
     path: '',
     loadComponent: () => import('./list/documento-usuario').then(m => m.DocumentoUsuario),
-    data: {},
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -17,6 +17,7 @@ const documentoUsuarioRoute: Routes = [
     resolve: {
       documentoUsuario: DocumentoUsuarioResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -25,6 +26,7 @@ const documentoUsuarioRoute: Routes = [
     resolve: {
       documentoUsuario: DocumentoUsuarioResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -33,6 +35,7 @@ const documentoUsuarioRoute: Routes = [
     resolve: {
       documentoUsuario: DocumentoUsuarioResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
 ];

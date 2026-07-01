@@ -1,30 +1,30 @@
 <nav class="navbar navbar-expand-md rr-navbar" data-bs-theme="light">
   <div class="container-fluid">
-    <!-- Logo -->
-    <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
-      <span class="logo-img"></span>
-      <span class="navbar-title" jhiTranslate="global.title">Room</span>
-      <span class="navbar-version">{{ version }}</span>
+
+    <!-- ── Logo ── -->
+    <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/" (click)="collapseNavbar()">
+      <span class="rr-logo-pill">🏠</span>
+      <span>
+        <span class="rr-brand-main">Room<span class="rr-brand-accent">Rent</span></span>
+        <span class="rr-brand-sub d-none d-sm-inline">Admin</span>
+      </span>
     </a>
 
-    <!-- Mobile toggle -->
+    <!-- ── Mobile toggle ── -->
     <a
       class="navbar-toggler d-lg-none"
       href="javascript:void(0);"
-      data-toggle="collapse"
-      data-target="#navbarResponsive"
-      aria-controls="navbarResponsive"
-      aria-expanded="false"
       aria-label="Toggle navigation"
-      (click)="isNavbarCollapsed.update((isNavbarCollapsed) => !isNavbarCollapsed)"
+      (click)="isNavbarCollapsed.update((v) => !v)"
     >
       <fa-icon icon="bars" />
     </a>
 
-    <!-- Navbar collapse -->
+    <!-- ── Nav items ── -->
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed()">
-      <ul class="navbar-nav ms-auto">
-        <!-- Home -->
+      <ul class="navbar-nav ms-auto align-items-md-center">
+
+        <!-- Inicio -->
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
             <fa-icon icon="home" />
@@ -32,70 +32,170 @@
           </a>
         </li>
 
-        <!-- Dashboard (only authenticated) -->
-        @if (account() !== null) {
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" routerLink="/dashboard" (click)="collapseNavbar()">
-              <fa-icon icon="chart-bar" />
-              <span>Dashboard</span>
-            </a>
-          </li>
-        }
+        <!-- ── Entidades ── -->
+        <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active">
+          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" role="button">
+            <fa-icon icon="th-list" />
+            <span>Entidades</span>
+          </a>
+          <ul class="dropdown-menu dropdown-entity" ngbDropdownMenu aria-labelledby="entity-menu">
 
-        <!-- Account Dropdown -->
+            <li class="dropdown-header">Usuarios</li>
+            <li>
+              <a class="dropdown-item" routerLink="/perfil-usuario" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon icon="user-circle" [fixedWidth]="true" />
+                Perfil de usuario
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/documento-usuario" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon icon="file-alt" [fixedWidth]="true" />
+                Documentos
+              </a>
+            </li>
+
+            <li><hr class="dropdown-divider" /></li>
+            <li class="dropdown-header">Inmuebles</li>
+            <li>
+              <a class="dropdown-item" routerLink="/inmueble" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon icon="home" [fixedWidth]="true" />
+                Inmuebles
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/publicacion-inmueble" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon icon="bullhorn" [fixedWidth]="true" />
+                Publicaciones
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/multimedia-inmueble" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon icon="images" [fixedWidth]="true" />
+                Multimedia
+              </a>
+            </li>
+
+            <li><hr class="dropdown-divider" /></li>
+            <li class="dropdown-header">Arriendos</li>
+            <li>
+              <a class="dropdown-item" routerLink="/solicitud-arriendo" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon icon="file-signature" [fixedWidth]="true" />
+                Solicitudes de arriendo
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/visita-programada" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon icon="calendar-check" [fixedWidth]="true" />
+                Visitas programadas
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/contrato-arriendo" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon icon="file-contract" [fixedWidth]="true" />
+                Contratos
+              </a>
+            </li>
+
+            <li><hr class="dropdown-divider" /></li>
+            <li class="dropdown-header">Roomies</li>
+            <li>
+              <a class="dropdown-item" routerLink="/publicacion-roomie" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon icon="users" [fixedWidth]="true" />
+                Publicaciones roomie
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/solicitud-roomie" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon icon="user-plus" [fixedWidth]="true" />
+                Solicitudes roomie
+              </a>
+            </li>
+
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item" routerLink="/calificacion" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon icon="star" [fixedWidth]="true" />
+                Calificaciones
+              </a>
+            </li>
+
+          </ul>
+        </li>
+
+        <!-- ── Admin (solo ADMIN) ── -->
+        <li
+          ngbDropdown
+          class="nav-item dropdown pointer"
+          display="dynamic"
+          routerLinkActive="active"
+          jhiHasAnyAuthority="ROLE_ADMIN"
+        >
+          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu" role="button">
+            <fa-icon icon="users-cog" />
+            <span>Admin</span>
+          </a>
+          <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="admin-menu">
+            <li>
+              <a class="dropdown-item" routerLink="/admin/user-management" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon icon="users" [fixedWidth]="true" />
+                <span jhiTranslate="global.menu.admin.userManagement">Usuarios</span>
+              </a>
+            </li>
+            @if (openAPIEnabled()) {
+              <li>
+                <a class="dropdown-item" routerLink="/admin/docs" routerLinkActive="active" (click)="collapseNavbar()">
+                  <fa-icon icon="book" [fixedWidth]="true" />
+                  <span jhiTranslate="global.menu.admin.apidocs">API</span>
+                </a>
+              </li>
+            }
+            <li>
+              <a class="dropdown-item" routerLink="/admin/health" routerLinkActive="active" (click)="collapseNavbar()">
+                <fa-icon icon="heart" [fixedWidth]="true" />
+                <span jhiTranslate="global.menu.admin.health">Health</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- ── Portal público ── -->
+        <li class="nav-item">
+          <a class="nav-link rr-portal-link" href="/portal/" target="_self" (click)="collapseNavbar()">
+            <fa-icon icon="external-link-alt" />
+            <span>Portal</span>
+          </a>
+        </li>
+
+        <!-- ── Cuenta ── -->
         <li ngbDropdown class="nav-item dropdown pointer" display="dynamic">
           @let accountRef = account();
-          <a
-            class="nav-link dropdown-toggle"
-            ngbDropdownToggle
-            href="javascript:void(0);"
-            id="account-menu"
-            role="button"
-          >
+          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu" role="button">
             @if (!accountRef?.imageUrl) {
-              <span>
-                <fa-icon icon="user" />
-                <span jhiTranslate="global.menu.account.main">Cuenta</span>
-              </span>
+              <fa-icon icon="user" />
+              <span jhiTranslate="global.menu.account.main">Cuenta</span>
             } @else {
-              <span>
-                <img [src]="accountRef!.imageUrl" class="profile-image rounded-circle" alt="Avatar" />
-              </span>
+              <img [src]="accountRef!.imageUrl" class="profile-image rounded-circle" alt="Avatar" />
             }
           </a>
           <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu aria-labelledby="account-menu">
             @if (accountRef !== null) {
               <li>
-                <a
-                  class="dropdown-item"
-                  routerLink="/account/settings"
-                  routerLinkActive="active"
-                  (click)="collapseNavbar()"
-                  data-cy="settings"
-                >
+                <a class="dropdown-item" routerLink="/account/settings" routerLinkActive="active" (click)="collapseNavbar()" data-cy="settings">
                   <fa-icon icon="wrench" [fixedWidth]="true" />
                   <span jhiTranslate="global.menu.account.settings">Ajustes</span>
                 </a>
               </li>
               <li>
-                <a
-                  class="dropdown-item"
-                  routerLink="/account/password"
-                  routerLinkActive="active"
-                  (click)="collapseNavbar()"
-                  data-cy="passwordItem"
-                >
+                <a class="dropdown-item" routerLink="/account/password" routerLinkActive="active" (click)="collapseNavbar()" data-cy="passwordItem">
                   <fa-icon icon="lock" [fixedWidth]="true" />
                   <span jhiTranslate="global.menu.account.password">Contraseña</span>
                 </a>
               </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
+              <li><hr class="dropdown-divider" /></li>
               <li>
                 <a class="dropdown-item" (click)="logout()" id="logout" data-cy="logout">
                   <fa-icon icon="sign-out-alt" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.account.logout">Cerrar la sesión</span>
+                  <span jhiTranslate="global.menu.account.logout">Cerrar sesión</span>
                 </a>
               </li>
             } @else {
@@ -106,20 +206,15 @@
                 </a>
               </li>
               <li>
-                <a
-                  class="dropdown-item"
-                  routerLink="/account/register"
-                  routerLinkActive="active"
-                  (click)="collapseNavbar()"
-                  data-cy="register"
-                >
+                <a class="dropdown-item" routerLink="/account/register" routerLinkActive="active" (click)="collapseNavbar()" data-cy="register">
                   <fa-icon icon="user-plus" [fixedWidth]="true" />
-                  <span jhiTranslate="global.menu.account.register">Crear una cuenta</span>
+                  <span jhiTranslate="global.menu.account.register">Crear cuenta</span>
                 </a>
               </li>
             }
           </ul>
         </li>
+
       </ul>
     </div>
   </div>

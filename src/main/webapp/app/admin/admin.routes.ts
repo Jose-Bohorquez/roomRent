@@ -3,6 +3,11 @@ import { Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'user-management',
+    pathMatch: 'full',
+  },
+  {
     path: 'docs',
     loadComponent: () => import('./docs/docs'),
     title: 'global.menu.admin.apidocs',

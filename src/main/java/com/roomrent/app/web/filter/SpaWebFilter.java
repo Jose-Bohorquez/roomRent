@@ -9,18 +9,29 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 public class SpaWebFilter extends OncePerRequestFilter {
 
-    /**
-     * Forwards any unmapped paths (except those containing a period) to the client {@code index.html}.
-     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
         throws ServletException, IOException {
-        // Request URI includes the contextPath if any, removed it.
         String path = request.getRequestURI().substring(request.getContextPath().length());
+
+        // Root → redirect to React portal landing
+        if (path.equals("/") || path.isEmpty()) {
+            response.sendRedirect(request.getContextPath() + "/portal/");
+            return;
+        }
+
+        // React portal SPA: forward all clean portal paths to portal/index.html
+        if (path.startsWith("/portal") && !path.contains(".")) {
+            request.getRequestDispatcher("/portal/index.html").forward(request, response);
+            return;
+        }
+
+        // Angular SPA: forward all other clean paths (non-API, non-file) to Angular index
         if (
             !path.startsWith("/api") &&
             !path.startsWith("/management") &&
             !path.startsWith("/v3/api-docs") &&
+            !path.startsWith("/portal") &&
             !path.contains(".") &&
             path.matches("/(.*)")
         ) {

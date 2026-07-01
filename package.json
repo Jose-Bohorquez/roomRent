@@ -59,7 +59,11 @@
     "webapp:dev-ssl": "ng serve --ssl",
     "webapp:dev-verbose": "ng serve --verbose",
     "webapp:prod": "npm run clean-www && npm run webapp:build:prod",
-    "webapp:test": "npm run test --"
+    "webapp:test": "npm run test --",
+    "frontend:install": "cd frontRoomRent && npm install",
+    "frontend:dev": "cd frontRoomRent && npm run dev",
+    "frontend:build": "cd frontRoomRent && npm run build",
+    "dev": "concurrently \"npm run backend:start\" \"npm run frontend:dev\""
   },
   "config": {
     "backend_port": 8080,

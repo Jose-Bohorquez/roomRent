@@ -8,7 +8,7 @@ const inmuebleRoute: Routes = [
   {
     path: '',
     loadComponent: () => import('./list/inmueble').then(m => m.Inmueble),
-    data: {},
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -17,6 +17,7 @@ const inmuebleRoute: Routes = [
     resolve: {
       inmueble: InmuebleResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -25,6 +26,7 @@ const inmuebleRoute: Routes = [
     resolve: {
       inmueble: InmuebleResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -33,6 +35,7 @@ const inmuebleRoute: Routes = [
     resolve: {
       inmueble: InmuebleResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
 ];

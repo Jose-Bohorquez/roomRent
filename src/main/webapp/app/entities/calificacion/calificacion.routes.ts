@@ -8,7 +8,7 @@ const calificacionRoute: Routes = [
   {
     path: '',
     loadComponent: () => import('./list/calificacion').then(m => m.Calificacion),
-    data: {},
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -17,6 +17,7 @@ const calificacionRoute: Routes = [
     resolve: {
       calificacion: CalificacionResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -25,6 +26,7 @@ const calificacionRoute: Routes = [
     resolve: {
       calificacion: CalificacionResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -33,6 +35,7 @@ const calificacionRoute: Routes = [
     resolve: {
       calificacion: CalificacionResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
 ];

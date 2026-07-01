@@ -60,6 +60,8 @@ public class SecurityConfiguration {
                     .requestMatchers("/content/**").permitAll()
                     .requestMatchers("/resources/**").permitAll()
                     .requestMatchers("/swagger-ui/**").permitAll()
+                    // React portal — public landing served at /portal/**
+                    .requestMatchers("/portal/**").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/authenticate").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/authenticate").permitAll()
                     .requestMatchers("/api/register").permitAll()

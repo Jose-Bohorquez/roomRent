@@ -6,6 +6,7 @@ import com.roomrent.app.service.CalificacionService;
 import com.roomrent.app.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.security.access.prepost.PreAuthorize;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -54,6 +55,7 @@ public class CalificacionResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new calificacion, or with status {@code 400 (Bad Request)} if the calificacion has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("")
     public ResponseEntity<Calificacion> createCalificacion(@Valid @RequestBody Calificacion calificacion) throws URISyntaxException {
         LOG.debug("REST request to save Calificacion : {}", calificacion);
@@ -76,6 +78,7 @@ public class CalificacionResource {
      * or with status {@code 500 (Internal Server Error)} if the calificacion couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Calificacion> updateCalificacion(
         @PathVariable(value = "id", required = false) final String id,
@@ -110,6 +113,7 @@ public class CalificacionResource {
      * or with status {@code 500 (Internal Server Error)} if the calificacion couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<Calificacion> partialUpdateCalificacion(
         @PathVariable(value = "id", required = false) final String id,
@@ -177,6 +181,7 @@ public class CalificacionResource {
      * @param id the id of the calificacion to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCalificacion(@PathVariable("id") String id) {
         LOG.debug("REST request to delete Calificacion : {}", id);

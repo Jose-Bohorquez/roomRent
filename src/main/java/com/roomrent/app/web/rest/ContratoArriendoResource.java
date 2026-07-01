@@ -5,6 +5,7 @@ import com.roomrent.app.repository.ContratoArriendoRepository;
 import com.roomrent.app.service.ContratoArriendoService;
 import com.roomrent.app.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -57,6 +58,7 @@ public class ContratoArriendoResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new contratoArriendo, or with status {@code 400 (Bad Request)} if the contratoArriendo has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("")
     public ResponseEntity<ContratoArriendo> createContratoArriendo(@Valid @RequestBody ContratoArriendo contratoArriendo)
         throws URISyntaxException {
@@ -80,6 +82,7 @@ public class ContratoArriendoResource {
      * or with status {@code 500 (Internal Server Error)} if the contratoArriendo couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<ContratoArriendo> updateContratoArriendo(
         @PathVariable(value = "id", required = false) final String id,
@@ -114,6 +117,7 @@ public class ContratoArriendoResource {
      * or with status {@code 500 (Internal Server Error)} if the contratoArriendo couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<ContratoArriendo> partialUpdateContratoArriendo(
         @PathVariable(value = "id", required = false) final String id,
@@ -181,6 +185,7 @@ public class ContratoArriendoResource {
      * @param id the id of the contratoArriendo to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteContratoArriendo(@PathVariable("id") String id) {
         LOG.debug("REST request to delete ContratoArriendo : {}", id);

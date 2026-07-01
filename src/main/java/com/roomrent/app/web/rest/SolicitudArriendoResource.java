@@ -5,6 +5,7 @@ import com.roomrent.app.repository.SolicitudArriendoRepository;
 import com.roomrent.app.service.SolicitudArriendoService;
 import com.roomrent.app.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -57,6 +58,7 @@ public class SolicitudArriendoResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new solicitudArriendo, or with status {@code 400 (Bad Request)} if the solicitudArriendo has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("")
     public ResponseEntity<SolicitudArriendo> createSolicitudArriendo(@Valid @RequestBody SolicitudArriendo solicitudArriendo)
         throws URISyntaxException {
@@ -80,6 +82,7 @@ public class SolicitudArriendoResource {
      * or with status {@code 500 (Internal Server Error)} if the solicitudArriendo couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<SolicitudArriendo> updateSolicitudArriendo(
         @PathVariable(value = "id", required = false) final String id,
@@ -114,6 +117,7 @@ public class SolicitudArriendoResource {
      * or with status {@code 500 (Internal Server Error)} if the solicitudArriendo couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<SolicitudArriendo> partialUpdateSolicitudArriendo(
         @PathVariable(value = "id", required = false) final String id,
@@ -181,6 +185,7 @@ public class SolicitudArriendoResource {
      * @param id the id of the solicitudArriendo to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSolicitudArriendo(@PathVariable("id") String id) {
         LOG.debug("REST request to delete SolicitudArriendo : {}", id);

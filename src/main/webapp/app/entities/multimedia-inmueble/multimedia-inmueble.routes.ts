@@ -8,7 +8,7 @@ const multimediaInmuebleRoute: Routes = [
   {
     path: '',
     loadComponent: () => import('./list/multimedia-inmueble').then(m => m.MultimediaInmueble),
-    data: {},
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -17,6 +17,7 @@ const multimediaInmuebleRoute: Routes = [
     resolve: {
       multimediaInmueble: MultimediaInmuebleResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -25,6 +26,7 @@ const multimediaInmuebleRoute: Routes = [
     resolve: {
       multimediaInmueble: MultimediaInmuebleResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -33,6 +35,7 @@ const multimediaInmuebleRoute: Routes = [
     resolve: {
       multimediaInmueble: MultimediaInmuebleResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
 ];

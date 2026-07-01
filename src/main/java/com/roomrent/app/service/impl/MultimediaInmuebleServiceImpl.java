@@ -3,9 +3,10 @@ package com.roomrent.app.service.impl;
 import com.roomrent.app.domain.MultimediaInmueble;
 import com.roomrent.app.repository.MultimediaInmuebleRepository;
 import com.roomrent.app.service.MultimediaInmuebleService;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -54,9 +55,9 @@ public class MultimediaInmuebleServiceImpl implements MultimediaInmuebleService 
     }
 
     @Override
-    public List<MultimediaInmueble> findAll() {
+    public Page<MultimediaInmueble> findAll(Pageable pageable) {
         LOG.debug("Request to get all MultimediaInmuebles");
-        return multimediaInmuebleRepository.findAll();
+        return multimediaInmuebleRepository.findAll(pageable);
     }
 
     @Override

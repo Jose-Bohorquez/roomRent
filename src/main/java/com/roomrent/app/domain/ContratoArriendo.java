@@ -3,8 +3,6 @@ package com.roomrent.app.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.roomrent.app.domain.enumeration.EstadoContrato;
 import jakarta.validation.constraints.*;
-import java.io.Serial;
-import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
 import org.springframework.data.annotation.Id;
@@ -17,10 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 @Document(collection = "contrato_arriendo")
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class ContratoArriendo implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class ContratoArriendo extends AbstractAuditingEntity<String> {
 
     @Id
     private String id;

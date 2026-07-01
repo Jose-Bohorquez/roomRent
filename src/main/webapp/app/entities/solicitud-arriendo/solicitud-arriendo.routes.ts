@@ -8,7 +8,7 @@ const solicitudArriendoRoute: Routes = [
   {
     path: '',
     loadComponent: () => import('./list/solicitud-arriendo').then(m => m.SolicitudArriendo),
-    data: {},
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -17,6 +17,7 @@ const solicitudArriendoRoute: Routes = [
     resolve: {
       solicitudArriendo: SolicitudArriendoResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -25,6 +26,7 @@ const solicitudArriendoRoute: Routes = [
     resolve: {
       solicitudArriendo: SolicitudArriendoResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -33,6 +35,7 @@ const solicitudArriendoRoute: Routes = [
     resolve: {
       solicitudArriendo: SolicitudArriendoResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
 ];

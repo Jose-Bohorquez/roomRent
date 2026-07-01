@@ -5,8 +5,6 @@ import com.roomrent.app.domain.enumeration.EstadoUsuario;
 import com.roomrent.app.domain.enumeration.Genero;
 import com.roomrent.app.domain.enumeration.TipoDocumento;
 import jakarta.validation.constraints.*;
-import java.io.Serial;
-import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -21,10 +19,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 @Document(collection = "perfil_usuario")
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class PerfilUsuario implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class PerfilUsuario extends AbstractAuditingEntity<String> {
 
     @Id
     private String id;
