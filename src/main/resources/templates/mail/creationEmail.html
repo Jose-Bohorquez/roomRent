@@ -1,20 +1,125 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
-  <head>
-    <title th:text="#{email.activation.title}">JHipster creation</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="icon" th:href="@{|${baseUrl}/favicon.ico|}" />
-  </head>
-  <body>
-    <p th:text="#{email.activation.greeting(${user.login})}">Dear</p>
-    <p th:text="#{email.creation.text1}">Your JHipster account has been created, please click on the URL below to access it:</p>
-    <p>
-      <a th:with="url=(@{|${baseUrl}/account/reset/finish?key=${user.resetKey}|})" th:href="${url}" th:text="${url}">Login link</a>
-    </p>
-    <p>
-      <span th:text="#{email.activation.text2}">Regards, </span>
-      <br />
-      <em th:text="#{email.signature}">JHipster.</em>
-    </p>
-  </body>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="es">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title th:text="#{email.activation.title}">Cuenta creada – RoomRent</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f5f5f0;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f5f5f0;">
+  <tr>
+    <td align="center" style="padding:40px 16px;">
+
+      <table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+
+        <!-- Header -->
+        <tr>
+          <td style="background-color:#1c1917;padding:32px 40px;">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="background-color:#f59e0b;border-radius:8px;padding:10px 12px;vertical-align:middle;">
+                  <span style="font-size:20px;">🏠</span>
+                </td>
+                <td style="padding-left:12px;vertical-align:middle;">
+                  <span style="font-size:22px;font-weight:700;color:#ffffff;letter-spacing:-0.5px;">Room<span style="color:#f59e0b;">Rent</span></span>
+                  <div style="font-size:11px;color:#a8a29e;letter-spacing:1px;text-transform:uppercase;margin-top:2px;">Plataforma de arrendamiento</div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="height:4px;background:linear-gradient(90deg,#f59e0b,#d97706);"></td>
+        </tr>
+
+        <!-- Body -->
+        <tr>
+          <td style="padding:48px 40px 32px;">
+
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" style="padding-bottom:28px;">
+                  <div style="display:inline-block;background-color:#fef3c7;border-radius:50%;width:64px;height:64px;line-height:64px;text-align:center;font-size:28px;">🎉</div>
+                </td>
+              </tr>
+            </table>
+
+            <h1 style="margin:0 0 8px;font-size:26px;font-weight:700;color:#1c1917;text-align:center;letter-spacing:-0.5px;">Tu cuenta está lista</h1>
+            <p style="margin:0 0 28px;font-size:15px;color:#78716c;text-align:center;">Un administrador ha creado tu acceso a RoomRent</p>
+
+            <p style="margin:0 0 16px;font-size:15px;color:#44403c;line-height:1.6;">
+              Hola <strong th:text="${user.login}">usuario</strong>,
+            </p>
+            <p th:text="#{email.creation.text1}" style="margin:0 0 28px;font-size:15px;color:#44403c;line-height:1.6;">
+              Tu cuenta en RoomRent ha sido creada. Haz clic en el botón de abajo para establecer tu contraseña y comenzar a usar la plataforma.
+            </p>
+
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" style="padding:8px 0 32px;">
+                  <a th:with="url=(@{|${baseUrl}/account/reset/finish?key=${user.resetKey}|})"
+                     th:href="${url}"
+                     style="display:inline-block;background-color:#f59e0b;color:#1c1917;font-size:15px;font-weight:700;text-decoration:none;padding:14px 36px;border-radius:8px;letter-spacing:0.2px;">
+                    Crear mi contraseña
+                  </a>
+                </td>
+              </tr>
+            </table>
+
+            <p style="margin:0 0 8px;font-size:13px;color:#78716c;">Si el botón no funciona, copia y pega este enlace:</p>
+            <p style="margin:0 0 28px;word-break:break-all;">
+              <a th:with="url=(@{|${baseUrl}/account/reset/finish?key=${user.resetKey}|})"
+                 th:href="${url}" th:text="${url}"
+                 style="font-size:12px;color:#f59e0b;text-decoration:none;">enlace de acceso</a>
+            </p>
+
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="background-color:#f5f5f0;border-radius:8px;padding:20px;">
+                  <p style="margin:0 0 12px;font-size:13px;color:#57534e;font-weight:600;">Pasos para comenzar:</p>
+                  <p style="margin:0 0 8px;font-size:13px;color:#78716c;">1. Haz clic en el botón de arriba</p>
+                  <p style="margin:0 0 8px;font-size:13px;color:#78716c;">2. Crea una contraseña segura</p>
+                  <p style="margin:0;font-size:13px;color:#78716c;">3. Explora propiedades y publica tus inmuebles</p>
+                </td>
+              </tr>
+            </table>
+
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td style="background-color:#fafaf9;border-top:1px solid #e7e5e4;padding:24px 40px;">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td>
+                  <p style="margin:0 0 4px;font-size:13px;color:#a8a29e;">
+                    <span th:text="#{email.activation.text2}">Saludos,</span>
+                  </p>
+                  <p style="margin:0;font-size:13px;color:#78716c;font-weight:600;">
+                    El equipo de <em th:text="#{email.signature}">RoomRent</em>
+                  </p>
+                </td>
+                <td align="right">
+                  <p style="margin:0;font-size:11px;color:#d6d3d1;">roomrent.sena</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+      </table>
+
+      <p style="margin:24px 0 0;font-size:12px;color:#a8a29e;text-align:center;">
+        ¿Necesitas ayuda?
+        <a href="mailto:bd567358546@gmail.com" style="color:#f59e0b;text-decoration:none;">bd567358546@gmail.com</a>
+      </p>
+
+    </td>
+  </tr>
+</table>
+
+</body>
 </html>

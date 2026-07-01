@@ -1,8 +1,9 @@
 package com.roomrent.app.service;
 
 import com.roomrent.app.domain.MultimediaInmueble;
-import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing {@link com.roomrent.app.domain.MultimediaInmueble}.
@@ -35,9 +36,10 @@ public interface MultimediaInmuebleService {
     /**
      * Get all the multimediaInmuebles.
      *
+     * @param pageable the pagination information.
      * @return the list of entities.
      */
-    List<MultimediaInmueble> findAll();
+    Page<MultimediaInmueble> findAll(Pageable pageable);
 
     /**
      * Get the "id" multimediaInmueble.

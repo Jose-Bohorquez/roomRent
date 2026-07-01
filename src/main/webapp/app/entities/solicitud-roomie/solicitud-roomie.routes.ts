@@ -8,7 +8,7 @@ const solicitudRoomieRoute: Routes = [
   {
     path: '',
     loadComponent: () => import('./list/solicitud-roomie').then(m => m.SolicitudRoomie),
-    data: {},
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -17,6 +17,7 @@ const solicitudRoomieRoute: Routes = [
     resolve: {
       solicitudRoomie: SolicitudRoomieResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -25,6 +26,7 @@ const solicitudRoomieRoute: Routes = [
     resolve: {
       solicitudRoomie: SolicitudRoomieResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -33,6 +35,7 @@ const solicitudRoomieRoute: Routes = [
     resolve: {
       solicitudRoomie: SolicitudRoomieResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
 ];

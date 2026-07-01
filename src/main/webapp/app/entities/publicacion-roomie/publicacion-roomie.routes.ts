@@ -8,7 +8,7 @@ const publicacionRoomieRoute: Routes = [
   {
     path: '',
     loadComponent: () => import('./list/publicacion-roomie').then(m => m.PublicacionRoomie),
-    data: {},
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -17,6 +17,7 @@ const publicacionRoomieRoute: Routes = [
     resolve: {
       publicacionRoomie: PublicacionRoomieResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -25,6 +26,7 @@ const publicacionRoomieRoute: Routes = [
     resolve: {
       publicacionRoomie: PublicacionRoomieResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -33,6 +35,7 @@ const publicacionRoomieRoute: Routes = [
     resolve: {
       publicacionRoomie: PublicacionRoomieResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
 ];

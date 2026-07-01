@@ -5,6 +5,7 @@ import com.roomrent.app.repository.VisitaProgramadaRepository;
 import com.roomrent.app.service.VisitaProgramadaService;
 import com.roomrent.app.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -14,9 +15,14 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
@@ -52,6 +58,7 @@ public class VisitaProgramadaResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new visitaProgramada, or with status {@code 400 (Bad Request)} if the visitaProgramada has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("")
     public ResponseEntity<VisitaProgramada> createVisitaProgramada(@Valid @RequestBody VisitaProgramada visitaProgramada)
         throws URISyntaxException {
@@ -75,6 +82,7 @@ public class VisitaProgramadaResource {
      * or with status {@code 500 (Internal Server Error)} if the visitaProgramada couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<VisitaProgramada> updateVisitaProgramada(
         @PathVariable(value = "id", required = false) final String id,
@@ -109,6 +117,7 @@ public class VisitaProgramadaResource {
      * or with status {@code 500 (Internal Server Error)} if the visitaProgramada couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<VisitaProgramada> partialUpdateVisitaProgramada(
         @PathVariable(value = "id", required = false) final String id,
@@ -141,11 +150,16 @@ public class VisitaProgramadaResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of Visita Programadas in body.
      */
     @GetMapping("")
-    public List<VisitaProgramada> getAllVisitaProgramadas(
+    public ResponseEntity<List<VisitaProgramada>> getAllVisitaProgramadas(
+        @org.springdoc.core.annotations.ParameterObject Pageable pageable,
         @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload
     ) {
-        LOG.debug("REST request to get all VisitaProgramadas");
-        return visitaProgramadaService.findAll();
+        LOG.debug("REST request to get a page of VisitaProgramadas");
+        Page<VisitaProgramada> page = eagerload
+            ? visitaProgramadaService.findAllWithEagerRelationships(pageable)
+            : visitaProgramadaService.findAllWithEagerRelationships(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     /**
@@ -167,6 +181,7 @@ public class VisitaProgramadaResource {
      * @param id the id of the visitaProgramada to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteVisitaProgramada(@PathVariable("id") String id) {
         LOG.debug("REST request to delete VisitaProgramada : {}", id);

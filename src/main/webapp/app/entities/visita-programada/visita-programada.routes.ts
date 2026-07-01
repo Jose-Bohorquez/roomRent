@@ -8,7 +8,7 @@ const visitaProgramadaRoute: Routes = [
   {
     path: '',
     loadComponent: () => import('./list/visita-programada').then(m => m.VisitaProgramada),
-    data: {},
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -17,6 +17,7 @@ const visitaProgramadaRoute: Routes = [
     resolve: {
       visitaProgramada: VisitaProgramadaResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -25,6 +26,7 @@ const visitaProgramadaRoute: Routes = [
     resolve: {
       visitaProgramada: VisitaProgramadaResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -33,6 +35,7 @@ const visitaProgramadaRoute: Routes = [
     resolve: {
       visitaProgramada: VisitaProgramadaResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
 ];

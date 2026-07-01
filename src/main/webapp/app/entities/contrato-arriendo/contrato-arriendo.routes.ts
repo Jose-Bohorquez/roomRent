@@ -8,7 +8,7 @@ const contratoArriendoRoute: Routes = [
   {
     path: '',
     loadComponent: () => import('./list/contrato-arriendo').then(m => m.ContratoArriendo),
-    data: {},
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -17,6 +17,7 @@ const contratoArriendoRoute: Routes = [
     resolve: {
       contratoArriendo: ContratoArriendoResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -25,6 +26,7 @@ const contratoArriendoRoute: Routes = [
     resolve: {
       contratoArriendo: ContratoArriendoResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -33,6 +35,7 @@ const contratoArriendoRoute: Routes = [
     resolve: {
       contratoArriendo: ContratoArriendoResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
 ];

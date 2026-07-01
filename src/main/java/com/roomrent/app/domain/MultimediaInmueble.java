@@ -2,8 +2,6 @@ package com.roomrent.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.*;
-import java.io.Serial;
-import java.io.Serializable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,10 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 @Document(collection = "multimedia_inmueble")
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class MultimediaInmueble implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class MultimediaInmueble extends AbstractAuditingEntity<String> {
 
     @Id
     private String id;

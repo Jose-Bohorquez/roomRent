@@ -3,8 +3,6 @@ package com.roomrent.app.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.roomrent.app.domain.enumeration.EstadoPublicacion;
 import jakarta.validation.constraints.*;
-import java.io.Serial;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,10 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 @Document(collection = "publicacion_inmueble")
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class PublicacionInmueble implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class PublicacionInmueble extends AbstractAuditingEntity<String> {
 
     @Id
     private String id;

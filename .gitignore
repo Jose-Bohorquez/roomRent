@@ -154,3 +154,8 @@ coverage/
 .env
 .env.local
 # Secret files
+
+# React frontend (frontRoomRent)
+frontRoomRent/node_modules/
+frontRoomRent/dist/
+

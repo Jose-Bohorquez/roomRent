@@ -8,7 +8,7 @@ const perfilUsuarioRoute: Routes = [
   {
     path: '',
     loadComponent: () => import('./list/perfil-usuario').then(m => m.PerfilUsuario),
-    data: {},
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -17,6 +17,7 @@ const perfilUsuarioRoute: Routes = [
     resolve: {
       perfilUsuario: PerfilUsuarioResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -25,6 +26,7 @@ const perfilUsuarioRoute: Routes = [
     resolve: {
       perfilUsuario: PerfilUsuarioResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -33,6 +35,7 @@ const perfilUsuarioRoute: Routes = [
     resolve: {
       perfilUsuario: PerfilUsuarioResolve,
     },
+    data: { authorities: ['ROLE_ADMIN'] },
     canActivate: [UserRouteAccessService],
   },
 ];
