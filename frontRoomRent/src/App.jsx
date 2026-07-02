@@ -45,7 +45,7 @@ const App = () => {
       <Route
         path="/arrendador"
         element={
-          <ProtectedRoute requiredRole="ROLE_USER">
+          <ProtectedRoute requiredRole={["ROLE_ARRENDADOR", "ROLE_ADMIN"]}>
             <ArrendadorDashboard />
           </ProtectedRoute>
         }
@@ -55,7 +55,7 @@ const App = () => {
       <Route
         path="/arrendatario"
         element={
-          <ProtectedRoute requiredRole="ROLE_USER">
+          <ProtectedRoute requiredRole={["ROLE_ARRENDATARIO", "ROLE_USER"]}>
             <ArrendatarioDashboard />
           </ProtectedRoute>
         }
