@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { FaPlus, FaPenToSquare, FaTrash, FaEye } from "react-icons/fa6";
 import { propiedadApi, publicacionRawApi } from "../../services/api";
+import { useAuth } from "../../context/AuthContext";
 
 function SkeletonCard() {
   return (
@@ -36,6 +37,7 @@ function EstadoBadge({ estado }) {
 
 export default function MisInmueblesPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [params] = useSearchParams();
   const createdId = params.get("created");
 
@@ -56,9 +58,9 @@ export default function MisInmueblesPage() {
   useEffect(() => {
     const load = async () => {
       try {
-        // Cargar todos los inmuebles (sin filtro por propietario por ahora)
-        const { data } = await propiedadApi.getAll("size=50&sort=id,desc");
-        setInmuebles(data);
+        const { data } = await propiedadApi.getAll("size=200&sort=id,desc");
+        const myLogin = user?.login;
+        setInmuebles(myLogin ? data.filter(inm => inm.createdBy === myLogin) : data);
 
         // Cargar publicaciones para obtener estado y precio
         const { data: pubs } = await publicacionRawApi.getAll("size=100");

@@ -72,6 +72,7 @@ public class SecurityConfiguration {
                     .requestMatchers("/api/account/reset-password/finish").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/publicacion-inmuebles/**").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/inmuebles/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/multimedia-inmuebles/**").permitAll()
                     .requestMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
                     .requestMatchers("/api/**").authenticated()
                     .requestMatchers("/v3/api-docs/**").hasAuthority(AuthoritiesConstants.ADMIN)
