@@ -28,12 +28,18 @@ services:
       SPRING_MONGODB_URI: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/room"
       # JWT
       JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET: "${JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET}"
-      # Correo
-      SPRING_MAIL_HOST: "${SPRING_MAIL_HOST}"
-      SPRING_MAIL_PORT: "${SPRING_MAIL_PORT}"
+      # Correo — host, puerto y credenciales
+      SPRING_MAIL_HOST:     "${SPRING_MAIL_HOST}"
+      SPRING_MAIL_PORT:     "${SPRING_MAIL_PORT}"
       SPRING_MAIL_USERNAME: "${SPRING_MAIL_USERNAME}"
       SPRING_MAIL_PASSWORD: "${SPRING_MAIL_PASSWORD}"
       JHIPSTER_MAIL_BASE_URL: "${JHIPSTER_MAIL_BASE_URL}"
+      # Correo — propiedades JavaMail para Gmail (STARTTLS en puerto 587)
+      # Spring Boot relaxed binding: SPRING_MAIL_PROPERTIES_MAIL_SMTP_*
+      # → spring.mail.properties.mail.smtp.* → pasado directamente a JavaMail
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE:   "${SPRING_MAIL_SMTP_STARTTLS_ENABLE:-true}"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_REQUIRED: "${SPRING_MAIL_SMTP_STARTTLS_REQUIRED:-true}"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH:              "${SPRING_MAIL_SMTP_AUTH:-true}"
       # JVM
       JAVA_OPTS: "-Xmx512m -Xms256m -XX:+UseContainerSupport"
     depends_on:
