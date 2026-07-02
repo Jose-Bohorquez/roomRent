@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+/* ── Tokens custom — @theme los registra como utilities para @apply ── */
+@theme {
+  /* Paleta brand: amber cálido */
+  --color-brand-50:  #fffbeb;
+  --color-brand-100: #fef3c7;
+  --color-brand-200: #fde68a;
+  --color-brand-300: #fcd34d;
+  --color-brand-400: #fbbf24;
+  --color-brand-500: #f59e0b;
+  --color-brand-600: #d97706;
+  --color-brand-700: #b45309;
+  --color-brand-800: #92400e;
+  --color-brand-900: #78350f;
+
+  /* Superficies — jerarquía cálida de 3 niveles para modo día */
+  --color-surface-light:     #f2efec;   /* stone-100 cálido — base de página */
+  --color-surface-alt-light: #faf9f7;   /* stone-50 cálido  — secciones alternas */
+  --color-surface-dark:      #18181b;   /* zinc-900  */
+  --color-surface-alt-dark:  #1f1f23;   /* zinc-900/90 — secciones alternas dark */
+  --color-card-light:        #ffffff;
+  --color-card-dark:         #27272a;   /* zinc-800  */
+  --color-nav-light:         #ffffff;
+  --color-nav-dark:          #18181b;
+
+  /* Fuente */
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
+/* ── Base ── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  @apply bg-surface-light text-stone-900 antialiased;
+  @apply dark:bg-surface-dark dark:text-stone-100;
+  font-family: var(--font-sans);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+h1, h2, h3, h4 {
+  @apply leading-tight tracking-tight;
+  font-family: var(--font-sans);
+}
+
+/* ── Botón primario — amber sólido ── */
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2
+         px-5 py-2.5 rounded-lg font-semibold text-sm text-white
+         bg-brand-700 hover:bg-brand-800 active:bg-brand-900
+         shadow-sm hover:shadow-md
+         transition-all duration-150 cursor-pointer
+         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2
+         disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+/* ── Botón outline ── */
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2
+         px-5 py-2.5 rounded-lg font-semibold text-sm
+         border border-stone-300 text-stone-700 bg-white
+         hover:bg-stone-50 hover:border-stone-400
+         dark:border-zinc-600 dark:text-zinc-200 dark:bg-transparent
+         dark:hover:bg-zinc-800 dark:hover:border-zinc-500
+         transition-all duration-150 cursor-pointer
+         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2
+         disabled:opacity-50;
+}
+
+/* ── Botón destructivo ── */
+.btn-danger {
+  @apply inline-flex items-center justify-center gap-2
+         px-4 py-2 rounded-lg font-semibold text-sm text-white
+         bg-red-600 hover:bg-red-700
+         transition-all duration-150 cursor-pointer
+         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2
+         disabled:opacity-50;
+}
+
+/* ── Input ── */
+.input-base {
+  @apply w-full px-3.5 py-2.5 rounded-lg text-sm
+         border border-stone-300 bg-white text-stone-900
+         placeholder:text-stone-400
+         focus:outline-none focus:ring-2 focus:ring-brand-600 focus:border-transparent
+         dark:bg-zinc-800 dark:border-zinc-600 dark:text-zinc-100 dark:placeholder:text-zinc-500
+         transition-all duration-150;
+}
+
+/* ── Select ── */
+.select-base {
+  @apply w-full px-3.5 py-2.5 rounded-lg text-sm
+         border border-stone-300 bg-white text-stone-700
+         focus:outline-none focus:ring-2 focus:ring-brand-600 focus:border-transparent
+         dark:bg-zinc-800 dark:border-zinc-600 dark:text-zinc-200
+         transition-all duration-150;
+}
+
+/* ── Card — shadow-md real ── */
+.card {
+  @apply bg-card-light dark:bg-card-dark rounded-xl
+         shadow-sm dark:shadow-none
+         border border-stone-200 dark:border-zinc-700;
+}
+
+/* ── Superficie alternada — secciones blancas/claras ── */
+.section-alt {
+  @apply bg-surface-alt-light dark:bg-surface-alt-dark;
+}
+
+/* ── Hover elevación ── */
+.card-hover {
+  @apply hover:shadow-lg dark:hover:border-zinc-600
+         transition-shadow duration-200;
+}
+
+/* ── Etiqueta de sección ── */
+.section-label {
+  @apply text-xs font-bold tracking-[0.14em] uppercase text-brand-700 dark:text-brand-500;
+}
+
+/* ── Título de sección ── */
+.section-title {
+  @apply text-3xl md:text-4xl font-extrabold text-stone-900 dark:text-white leading-tight;
+}
+
+/* ── Contenedor estándar ── */
+.container-page {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+:target {
+  scroll-margin-top: 80px;
+}
