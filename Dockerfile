@@ -66,7 +66,8 @@ WORKDIR /app
 RUN addgroup -S roomrent && adduser -S roomrent -G roomrent
 
 COPY --from=maven-build /build/target/room-0.0.1-SNAPSHOT.jar app.jar
-RUN chown roomrent:roomrent app.jar
+RUN chown roomrent:roomrent app.jar && \
+    mkdir -p /app/uploads && chown roomrent:roomrent /app/uploads
 
 USER roomrent
 EXPOSE 8080
