@@ -54,11 +54,15 @@
             <span [jhiTranslate]="'roomApp.EstadoPublicacion.' + (publicacionInmuebleRef.estado ?? 'null')">{{
               {
                 null: '',
-                BORRADOR: 'BORRADOR',
-                PUBLICADO: 'PUBLICADO',
-                PAUSADO: 'PAUSADO',
-                ARRENDADO: 'ARRENDADO',
-                FINALIZADO: 'FINALIZADO',
+                BORRADOR: 'Borrador',
+                PUBLICADA: 'Publicada',
+                VISITA_AGENDADA: 'Visita agendada',
+                POSTULANTE_SELECCIONADO: 'Postulante seleccionado',
+                RESERVADA: 'Reservada',
+                CONTRATO_EN_FIRMA: 'Contrato en firma',
+                ARRENDADA: 'Arrendada',
+                FINALIZADA: 'Finalizada',
+                ARCHIVADA: 'Archivada',
               }[publicacionInmuebleRef.estado ?? 'null']
             }}</span>
           </dd>

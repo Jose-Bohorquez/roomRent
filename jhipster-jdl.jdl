@@ -89,11 +89,15 @@ enum TipoInmueble {
 
 /** Estado de publicación de un inmueble o habitación roomie */
 enum EstadoPublicacion {
-  BORRADOR,   // No visible en el portal
-  PUBLICADO,  // Activo y visible
-  PAUSADO,    // Temporalmente oculto por el arrendador
-  ARRENDADO,  // Contrato activo; sin nuevas solicitudes
-  FINALIZADO  // Publicación cerrada definitivamente
+  BORRADOR,               // No visible en el portal
+  PUBLICADA,              // Activo y visible en el portal
+  VISITA_AGENDADA,        // Hay al menos una visita confirmada
+  POSTULANTE_SELECCIONADO, // Arrendador seleccionó un candidato
+  RESERVADA,              // Solicitud aprobada; pendiente firma de contrato
+  CONTRATO_EN_FIRMA,      // Contrato generado y enviado a firmar
+  ARRENDADA,              // Contrato VIGENTE activo
+  FINALIZADA,             // Contrato finalizado; publicación cerrada
+  ARCHIVADA               // Retirada permanentemente del portal
 }
 
 /** Estado de una solicitud de arriendo o roomie */

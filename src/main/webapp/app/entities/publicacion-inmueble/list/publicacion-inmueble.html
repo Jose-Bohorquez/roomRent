@@ -49,11 +49,15 @@
               </td>
               <td>
                 @switch (pub.estado) {
-                  @case ('PUBLICADO') { <span class="badge rounded-pill" style="background:#b45309">PUBLICADO</span> }
-                  @case ('BORRADOR') { <span class="badge rounded-pill bg-secondary">BORRADOR</span> }
-                  @case ('PAUSADO') { <span class="badge rounded-pill" style="background:#78716c">PAUSADO</span> }
-                  @case ('ARRENDADO') { <span class="badge rounded-pill bg-success">ARRENDADO</span> }
-                  @case ('FINALIZADO') { <span class="badge rounded-pill" style="background:#292524">FINALIZADO</span> }
+                  @case ('BORRADOR') { <span class="badge rounded-pill bg-secondary">Borrador</span> }
+                  @case ('PUBLICADA') { <span class="badge rounded-pill" style="background:#b45309">Publicada</span> }
+                  @case ('VISITA_AGENDADA') { <span class="badge rounded-pill" style="background:#0369a1">Visita agendada</span> }
+                  @case ('POSTULANTE_SELECCIONADO') { <span class="badge rounded-pill" style="background:#7c3aed">Postulante seleccionado</span> }
+                  @case ('RESERVADA') { <span class="badge rounded-pill" style="background:#d97706">Reservada</span> }
+                  @case ('CONTRATO_EN_FIRMA') { <span class="badge rounded-pill" style="background:#ea580c">Contrato en firma</span> }
+                  @case ('ARRENDADA') { <span class="badge rounded-pill bg-success">Arrendada</span> }
+                  @case ('FINALIZADA') { <span class="badge rounded-pill" style="background:#292524">Finalizada</span> }
+                  @case ('ARCHIVADA') { <span class="badge rounded-pill" style="background:#78716c">Archivada</span> }
                   @default { <span class="text-muted small">—</span> }
                 }
               </td>

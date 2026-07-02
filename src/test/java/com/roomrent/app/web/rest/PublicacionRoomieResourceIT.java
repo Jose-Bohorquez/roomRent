@@ -64,7 +64,7 @@ class PublicacionRoomieResourceIT {
     private static final LocalDate UPDATED_FECHA_DISPONIBLE = LocalDate.now(ZoneId.systemDefault());
 
     private static final EstadoPublicacion DEFAULT_ESTADO = EstadoPublicacion.BORRADOR;
-    private static final EstadoPublicacion UPDATED_ESTADO = EstadoPublicacion.PUBLICADO;
+    private static final EstadoPublicacion UPDATED_ESTADO = EstadoPublicacion.PUBLICADA;
 
     private static final String ENTITY_API_URL = "/api/publicacion-roomies";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";

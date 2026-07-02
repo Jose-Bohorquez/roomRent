@@ -49,7 +49,7 @@
               </td>
               <td>{{ publicacionRoomie.fechaDisponible | formatMediumDate }}</td>
               <td [jhiTranslate]="'roomApp.EstadoPublicacion.' + (publicacionRoomie.estado ?? 'null')">
-                {{ { null: '', BORRADOR: 'BORRADOR', PUBLICADO: 'PUBLICADO', PAUSADO: 'PAUSADO', ARRENDADO: 'ARRENDADO', FINALIZADO: 'FINALIZADO' }[publicacionRoomie.estado ?? 'null'] }}
+                {{ { null: '', BORRADOR: 'Borrador', PUBLICADA: 'Publicada', VISITA_AGENDADA: 'Visita agendada', POSTULANTE_SELECCIONADO: 'Postulante seleccionado', RESERVADA: 'Reservada', CONTRATO_EN_FIRMA: 'Contrato en firma', ARRENDADA: 'Arrendada', FINALIZADA: 'Finalizada', ARCHIVADA: 'Archivada' }[publicacionRoomie.estado ?? 'null'] }}
               </td>
               <td>
                 @if (publicacionRoomie.arrendatario) {

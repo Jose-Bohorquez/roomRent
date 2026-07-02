@@ -2,22 +2,30 @@
   "annotations": {
     "changelogDate": "20260618002801"
   },
-  "applications": ["room"],
+  "applications": [
+    "room"
+  ],
   "fields": [
     {
       "fieldName": "titulo",
       "fieldType": "String",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "nombreHabitacion",
       "fieldType": "String",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "valorMensual",
       "fieldType": "Long",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "serviciosIncluidos",
@@ -39,8 +47,10 @@
     {
       "fieldName": "estado",
       "fieldType": "EstadoPublicacion",
-      "fieldValidateRules": ["required"],
-      "fieldValues": "BORRADOR,PUBLICADO,PAUSADO,ARRENDADO,FINALIZADO"
+      "fieldValidateRules": [
+        "required"
+      ],
+      "fieldValues": "BORRADOR,PUBLICADA,VISITA_AGENDADA,POSTULANTE_SELECCIONADO,RESERVADA,CONTRATO_EN_FIRMA,ARRENDADA,FINALIZADA,ARCHIVADA"
     }
   ],
   "name": "PublicacionRoomie",
