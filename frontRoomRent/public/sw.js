@@ -22,6 +22,9 @@ self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   const url = new URL(e.request.url);
 
+  // Solo interceptar recursos del mismo origen
+  if (url.origin !== self.location.origin) return;
+
   // No interceptar llamadas a la API
   if (url.pathname.startsWith('/api/') || url.pathname.startsWith('/management/')) return;
 

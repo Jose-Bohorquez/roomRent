@@ -16,6 +16,9 @@ import ArrendadorDashboard from "./pages/ArrendadorDashboard";
 import ArrendatarioDashboard from "./pages/ArrendatarioDashboard";
 import InmuebleFormPage from "./pages/arrendador/InmuebleFormPage";
 import MisInmueblesPage from "./pages/arrendador/MisInmueblesPage";
+import MisContratosPage from "./pages/arrendatario/MisContratosPage";
+import MisPagosPage from "./pages/arrendatario/MisPagosPage";
+import MisReportesPage from "./pages/arrendatario/MisReportesPage";
 
 const App = () => {
   return (
@@ -59,6 +62,32 @@ const App = () => {
         element={
           <ProtectedRoute requiredRole={["ROLE_ARRENDATARIO", "ROLE_USER"]}>
             <ArrendatarioDashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* RUTAS ARRENDATARIO */}
+      <Route
+        path="/mis-contratos"
+        element={
+          <ProtectedRoute requiredRole={["ROLE_ARRENDATARIO", "ROLE_USER"]}>
+            <MisContratosPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/mis-pagos"
+        element={
+          <ProtectedRoute requiredRole={["ROLE_ARRENDATARIO", "ROLE_USER"]}>
+            <MisPagosPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/mis-reportes"
+        element={
+          <ProtectedRoute requiredRole={["ROLE_ARRENDATARIO", "ROLE_USER"]}>
+            <MisReportesPage />
           </ProtectedRoute>
         }
       />
