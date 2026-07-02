@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Map;
@@ -79,7 +78,7 @@ public class FileUploadResource {
         String extension = MIME_TO_EXT.getOrDefault(contentType.toLowerCase(), ".jpg");
         String filename = UUID.randomUUID() + extension;
 
-        Path uploadDir = Paths.get(uploadPath);
+        Path uploadDir = Path.of(uploadPath);
         Files.createDirectories(uploadDir);
 
         Path destination = uploadDir.resolve(filename);
@@ -104,7 +103,7 @@ public class FileUploadResource {
             return ResponseEntity.badRequest().build();
         }
 
-        Path file = Paths.get(uploadPath).resolve(filename);
+        Path file = Path.of(uploadPath).resolve(filename);
         if (!Files.exists(file)) {
             return ResponseEntity.notFound().build();
         }
