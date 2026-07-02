@@ -16,6 +16,12 @@ AOS.init({
   once: true,
 });
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/portal/sw.js', { scope: '/portal/' });
+  });
+}
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter basename="/portal">
