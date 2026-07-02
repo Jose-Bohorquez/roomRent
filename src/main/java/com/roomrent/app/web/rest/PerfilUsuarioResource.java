@@ -55,7 +55,7 @@ public class PerfilUsuarioResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new perfilUsuario, or with status {@code 400 (Bad Request)} if the perfilUsuario has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("")
     public ResponseEntity<PerfilUsuario> createPerfilUsuario(@Valid @RequestBody PerfilUsuario perfilUsuario) throws URISyntaxException {
         LOG.debug("REST request to save PerfilUsuario : {}", perfilUsuario);
@@ -78,7 +78,7 @@ public class PerfilUsuarioResource {
      * or with status {@code 500 (Internal Server Error)} if the perfilUsuario couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @PutMapping("/{id}")
     public ResponseEntity<PerfilUsuario> updatePerfilUsuario(
         @PathVariable(value = "id", required = false) final String id,
@@ -113,7 +113,7 @@ public class PerfilUsuarioResource {
      * or with status {@code 500 (Internal Server Error)} if the perfilUsuario couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<PerfilUsuario> partialUpdatePerfilUsuario(
         @PathVariable(value = "id", required = false) final String id,
@@ -181,7 +181,7 @@ public class PerfilUsuarioResource {
      * @param id the id of the perfilUsuario to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePerfilUsuario(@PathVariable("id") String id) {
         LOG.debug("REST request to delete PerfilUsuario : {}", id);

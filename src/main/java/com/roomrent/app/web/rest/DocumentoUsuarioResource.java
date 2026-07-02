@@ -58,7 +58,7 @@ public class DocumentoUsuarioResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new documentoUsuario, or with status {@code 400 (Bad Request)} if the documentoUsuario has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("")
     public ResponseEntity<DocumentoUsuario> createDocumentoUsuario(@Valid @RequestBody DocumentoUsuario documentoUsuario)
         throws URISyntaxException {
@@ -82,7 +82,7 @@ public class DocumentoUsuarioResource {
      * or with status {@code 500 (Internal Server Error)} if the documentoUsuario couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @PutMapping("/{id}")
     public ResponseEntity<DocumentoUsuario> updateDocumentoUsuario(
         @PathVariable(value = "id", required = false) final String id,
@@ -117,7 +117,7 @@ public class DocumentoUsuarioResource {
      * or with status {@code 500 (Internal Server Error)} if the documentoUsuario couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<DocumentoUsuario> partialUpdateDocumentoUsuario(
         @PathVariable(value = "id", required = false) final String id,
@@ -178,7 +178,7 @@ public class DocumentoUsuarioResource {
      * @param id the id of the documentoUsuario to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDocumentoUsuario(@PathVariable("id") String id) {
         LOG.debug("REST request to delete DocumentoUsuario : {}", id);

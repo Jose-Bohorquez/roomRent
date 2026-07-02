@@ -55,7 +55,7 @@ public class SolicitudRoomieResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new solicitudRoomie, or with status {@code 400 (Bad Request)} if the solicitudRoomie has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("")
     public ResponseEntity<SolicitudRoomie> createSolicitudRoomie(@Valid @RequestBody SolicitudRoomie solicitudRoomie)
         throws URISyntaxException {
@@ -79,7 +79,7 @@ public class SolicitudRoomieResource {
      * or with status {@code 500 (Internal Server Error)} if the solicitudRoomie couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @PutMapping("/{id}")
     public ResponseEntity<SolicitudRoomie> updateSolicitudRoomie(
         @PathVariable(value = "id", required = false) final String id,
@@ -114,7 +114,7 @@ public class SolicitudRoomieResource {
      * or with status {@code 500 (Internal Server Error)} if the solicitudRoomie couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<SolicitudRoomie> partialUpdateSolicitudRoomie(
         @PathVariable(value = "id", required = false) final String id,
@@ -182,7 +182,7 @@ public class SolicitudRoomieResource {
      * @param id the id of the solicitudRoomie to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSolicitudRoomie(@PathVariable("id") String id) {
         LOG.debug("REST request to delete SolicitudRoomie : {}", id);

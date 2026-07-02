@@ -58,7 +58,7 @@ public class ContratoArriendoResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new contratoArriendo, or with status {@code 400 (Bad Request)} if the contratoArriendo has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_ARRENDADOR')")
     @PostMapping("")
     public ResponseEntity<ContratoArriendo> createContratoArriendo(@Valid @RequestBody ContratoArriendo contratoArriendo)
         throws URISyntaxException {
@@ -82,7 +82,7 @@ public class ContratoArriendoResource {
      * or with status {@code 500 (Internal Server Error)} if the contratoArriendo couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_ARRENDADOR')")
     @PutMapping("/{id}")
     public ResponseEntity<ContratoArriendo> updateContratoArriendo(
         @PathVariable(value = "id", required = false) final String id,
@@ -117,7 +117,7 @@ public class ContratoArriendoResource {
      * or with status {@code 500 (Internal Server Error)} if the contratoArriendo couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_ARRENDADOR')")
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<ContratoArriendo> partialUpdateContratoArriendo(
         @PathVariable(value = "id", required = false) final String id,
@@ -185,7 +185,7 @@ public class ContratoArriendoResource {
      * @param id the id of the contratoArriendo to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_ARRENDADOR')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteContratoArriendo(@PathVariable("id") String id) {
         LOG.debug("REST request to delete ContratoArriendo : {}", id);
