@@ -179,3 +179,54 @@ export const calificacionApi = {
   create:  (data)        => apiFetch('/api/calificacions',             { method: 'POST',  body: JSON.stringify(data) }),
   remove:  (id)          => apiFetch(`/api/calificacions/${id}`,       { method: 'DELETE' }),
 };
+
+/* ── Entidad Inmueble (base) — CRUD sin transformar ── */
+export const propiedadApi = {
+  getAll:  (params = '') => apiFetchPaged(`/api/inmuebles?${params}`),
+  getOne:  (id)          => apiFetch(`/api/inmuebles/${id}`),
+  create:  (data)        => apiFetch('/api/inmuebles',       { method: 'POST',   body: JSON.stringify(data) }),
+  update:  (id, data)    => apiFetch(`/api/inmuebles/${id}`, { method: 'PUT',    body: JSON.stringify(data) }),
+  remove:  (id)          => apiFetch(`/api/inmuebles/${id}`, { method: 'DELETE' }),
+};
+
+/* ── MultimediaInmueble — vincular URL de foto/video a un inmueble ── */
+export const multimediaApi = {
+  getAll:  (params = '') => apiFetchPaged(`/api/multimedia-inmuebles?${params}`),
+  create:  (data)        => apiFetch('/api/multimedia-inmuebles',       { method: 'POST',   body: JSON.stringify(data) }),
+  update:  (id, data)    => apiFetch(`/api/multimedia-inmuebles/${id}`, { method: 'PUT',    body: JSON.stringify(data) }),
+  remove:  (id)          => apiFetch(`/api/multimedia-inmuebles/${id}`, { method: 'DELETE' }),
+};
+
+/* ── Publicación de inmueble — versión raw para crear/editar ── */
+export const publicacionRawApi = {
+  getAll:  (params = '') => apiFetchPaged(`/api/publicacion-inmuebles?${params}`),
+  getOne:  (id)          => apiFetch(`/api/publicacion-inmuebles/${id}`),
+  create:  (data)        => apiFetch('/api/publicacion-inmuebles',       { method: 'POST',   body: JSON.stringify(data) }),
+  update:  (id, data)    => apiFetch(`/api/publicacion-inmuebles/${id}`, { method: 'PUT',    body: JSON.stringify(data) }),
+  remove:  (id)          => apiFetch(`/api/publicacion-inmuebles/${id}`, { method: 'DELETE' }),
+};
+
+/* ── Subida de archivos multimedia (multipart/form-data) ──
+   POST /api/uploads/multimedia → { url: "/uploads/uuid.ext", filename: "uuid.ext" } */
+export const uploadApi = {
+  upload: async (file) => {
+    const token = localStorage.getItem('token');
+    const form = new FormData();
+    form.append('file', file);
+    const res = await fetch(`${API_BASE}/api/uploads/multimedia`, {
+      method: 'POST',
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+      body: form,
+    });
+    if (res.status === 401) {
+      localStorage.removeItem('token');
+      window.dispatchEvent(new Event('auth:logout'));
+      throw new Error('Sesión expirada.');
+    }
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || err.message || `Error ${res.status} al subir archivo`);
+    }
+    return res.json();
+  },
+};
