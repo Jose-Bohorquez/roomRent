@@ -1,4 +1,4 @@
-const CACHE = 'roomrent-v1';
+const CACHE = 'roomrent-v2';
 const PRECACHE = [
   '/portal/',
   '/portal/index.html',
