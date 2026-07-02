@@ -1,0 +1,82 @@
+# ═══════════════════════════════════════════════════════════════
+# RoomRent — Docker Compose (producción)
+#
+# Servicios:
+#   app   → Spring Boot JAR (API + Angular admin + React portal)
+#   mongo → MongoDB 7 con autenticación y volumen persistente
+#
+# Nginx corre en el host y proxea tráfico a 127.0.0.1:8080 (app).
+# Configura las variables de entorno en un archivo .env local
+# (nunca commites el .env; usa .env.example como referencia).
+# ═══════════════════════════════════════════════════════════════
+
+services:
+
+  # ── Spring Boot application ──────────────────────────────────
+  app:
+    image: roomrent-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    # Expuesto solo en loopback para que Nginx sea el único punto de entrada
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      # MongoDB — usa el nombre del servicio como host (red interna Docker)
+      SPRING_MONGODB_URI: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/room"
+      # JWT
+      JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET: "${JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET}"
+      # Correo
+      SPRING_MAIL_HOST: "${SPRING_MAIL_HOST}"
+      SPRING_MAIL_PORT: "${SPRING_MAIL_PORT}"
+      SPRING_MAIL_USERNAME: "${SPRING_MAIL_USERNAME}"
+      SPRING_MAIL_PASSWORD: "${SPRING_MAIL_PASSWORD}"
+      JHIPSTER_MAIL_BASE_URL: "${JHIPSTER_MAIL_BASE_URL}"
+      # JVM
+      JAVA_OPTS: "-Xmx512m -Xms256m -XX:+UseContainerSupport"
+    depends_on:
+      mongo:
+        condition: service_healthy
+    networks:
+      - roomrent-net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/management/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
+
+  # ── MongoDB ───────────────────────────────────────────────────
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    # No exponer MongoDB externamente — solo accesible desde la red interna
+    expose:
+      - "27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "${MONGO_INITDB_ROOT_USERNAME}"
+      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_INITDB_ROOT_PASSWORD}"
+      MONGO_INITDB_DATABASE: room
+      MONGO_USERNAME: "${MONGO_USERNAME}"
+      MONGO_PASSWORD: "${MONGO_PASSWORD}"
+    volumes:
+      - mongo-data:/data/db
+      - ./scripts/mongo-init.sh:/docker-entrypoint-initdb.d/01-init-app-user.sh:ro
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - roomrent-net
+
+volumes:
+  mongo-data:
+    name: roomrent-mongo-data
+
+networks:
+  roomrent-net:
+    name: roomrent-network

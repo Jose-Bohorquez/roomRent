@@ -1,0 +1,27 @@
+# Build artifacts
+target/
+frontRoomRent/dist/
+frontRoomRent/node_modules/
+
+# Development files
+.git/
+.gitignore
+node_modules/
+
+# IDE and OS files
+.idea/
+.vscode/
+.DS_Store
+*.iml
+
+# Docker files (not needed in build context)
+docker-compose*.yml
+nginx/
+
+# Secrets (never send to Docker daemon)
+.env
+*.env
+
+# Docs and non-build assets
+docs/
+README.md
