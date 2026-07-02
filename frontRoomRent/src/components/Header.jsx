@@ -115,12 +115,12 @@ export default function Header() {
                   </a>
                 ) : (
                   <RouterLink
-                    to="/arrendatario"
+                    to={user.authorities?.includes("ROLE_ARRENDADOR") ? "/arrendador" : "/arrendatario"}
                     className="text-xs font-semibold px-3 py-1.5 rounded-md
                                bg-amber-100 hover:bg-amber-200 text-amber-800
                                transition-colors duration-150"
                   >
-                    Mi Panel
+                    {user.authorities?.includes("ROLE_ARRENDADOR") ? "Panel Arrendador" : "Mi Panel"}
                   </RouterLink>
                 )}
                 <button onClick={handleLogout} className="btn-danger">Salir</button>
@@ -171,12 +171,12 @@ export default function Header() {
                     </a>
                   ) : (
                     <RouterLink
-                      to="/arrendatario"
+                      to={user.authorities?.includes("ROLE_ARRENDADOR") ? "/arrendador" : "/arrendatario"}
                       onClick={() => setMenuOpen(false)}
                       className="text-sm font-semibold px-3 py-2 rounded-md text-center
                                  bg-amber-100 hover:bg-amber-200 text-amber-800 transition-colors"
                     >
-                      Mi Panel
+                      {user.authorities?.includes("ROLE_ARRENDADOR") ? "Panel Arrendador" : "Mi Panel"}
                     </RouterLink>
                   )}
                   <button onClick={handleLogout} className="btn-danger w-full">Salir</button>
