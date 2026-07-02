@@ -36,21 +36,24 @@ FROM eclipse-temurin:21-jdk-alpine AS maven-build
 
 WORKDIR /build
 
-# Maven wrapper (must be executable)
-COPY mvnw .
-COPY .mvn/ .mvn/
-COPY pom.xml .
+# Alpine does not include bash. JHipster npm scripts (webapp:prod, clean-www)
+# invoke bash via '#!/usr/bin/env bash', so bash must be installed explicitly.
+RUN apk add --no-cache bash
+
+# Copy the full project. The .dockerignore excludes target/, node_modules/,
+# frontRoomRent/node_modules/, frontRoomRent/dist/, .git/, .env, and other
+# artifacts not needed for the build. This ensures frontend-maven-plugin finds
+# angular.json, package.json, tsconfig*.json, build-plugins/, checkstyle.xml,
+# sonar-project.properties, and all other JHipster config files it needs.
+COPY . .
 RUN chmod +x mvnw
 
-# Application source
-COPY src/ src/
-
-# Inject React portal dist into Spring Boot's static classpath.
+# Override portal/ with the freshly-built React dist from Stage 1.
 # Spring Boot maps classpath:/static/portal/ → URL /portal/
 COPY --from=react-build /app/dist/ src/main/resources/static/portal/
 
 # Build production JAR.
-# The Maven prod profile also runs Angular build via frontend-maven-plugin
+# The Maven prod profile runs the Angular build via frontend-maven-plugin
 # (downloads Node v24.16.0 and npm 11.15.0 automatically).
 RUN ./mvnw -Pprod package -DskipTests -B
 
