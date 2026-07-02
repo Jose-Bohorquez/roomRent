@@ -146,19 +146,17 @@ spring:
   output:
     ansi:
       console-available: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 25MB
 
 server:
   servlet:
     session:
       cookie:
         http-only: true
-
-spring:
-  servlet:
-    multipart:
-      enabled: true
-      max-file-size: 20MB
-      max-request-size: 25MB
 
 roomrent:
   upload:
