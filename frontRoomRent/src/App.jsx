@@ -14,6 +14,8 @@ import PropertiesPage from "./pages/PropertiesPage";
 import PropertyDetail from "./pages/PropertyDetail";
 import ArrendadorDashboard from "./pages/ArrendadorDashboard";
 import ArrendatarioDashboard from "./pages/ArrendatarioDashboard";
+import InmuebleFormPage from "./pages/arrendador/InmuebleFormPage";
+import MisInmueblesPage from "./pages/arrendador/MisInmueblesPage";
 
 const App = () => {
   return (
@@ -57,6 +59,32 @@ const App = () => {
         element={
           <ProtectedRoute requiredRole={["ROLE_ARRENDATARIO", "ROLE_USER"]}>
             <ArrendatarioDashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* RUTAS ARRENDADOR */}
+      <Route
+        path="/mis-inmuebles"
+        element={
+          <ProtectedRoute requiredRole={["ROLE_ARRENDADOR", "ROLE_ADMIN"]}>
+            <MisInmueblesPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/crear-inmueble"
+        element={
+          <ProtectedRoute requiredRole={["ROLE_ARRENDADOR", "ROLE_ADMIN"]}>
+            <InmuebleFormPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/editar-inmueble/:id"
+        element={
+          <ProtectedRoute requiredRole={["ROLE_ARRENDADOR", "ROLE_ADMIN"]}>
+            <InmuebleFormPage />
           </ProtectedRoute>
         }
       />
