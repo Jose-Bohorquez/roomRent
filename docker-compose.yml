@@ -42,6 +42,8 @@ services:
       SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH:              "${SPRING_MAIL_SMTP_AUTH:-true}"
       # JVM
       JAVA_OPTS: "-Xmx512m -Xms256m -XX:+UseContainerSupport"
+    volumes:
+      - roomrent-uploads:/app/uploads
     depends_on:
       mongo:
         condition: service_healthy
@@ -82,6 +84,8 @@ services:
 volumes:
   mongo-data:
     name: roomrent-mongo-data
+  roomrent-uploads:
+    name: roomrent-uploads-data
 
 networks:
   roomrent-net:
