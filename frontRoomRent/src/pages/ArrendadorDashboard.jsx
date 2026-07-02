@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import DashCard from "../components/DashCard";
 
 const cards = [
-  { title: "Mis inmuebles",   desc: "Gestiona las propiedades que tienes publicadas.",              href: "http://localhost:8080/inmueble",              icon: "🏠" },
-  { title: "Publicaciones",   desc: "Crea y edita publicaciones de tus inmuebles.",                 href: "http://localhost:8080/publicacion-inmueble",   icon: "📢" },
-  { title: "Contratos",       desc: "Revisa y administra los contratos de arriendo.",               href: "http://localhost:8080/contrato-arriendo",      icon: "📄" },
-  { title: "Ver propiedades", desc: "Explora todas las propiedades disponibles en la plataforma.",  href: "/properties",                                  icon: "🔍", internal: true },
+  { title: "Mis inmuebles",   desc: "Gestiona las propiedades que tienes publicadas.",              href: "/inmueble",              icon: "🏠" },
+  { title: "Publicaciones",   desc: "Crea y edita publicaciones de tus inmuebles.",                 href: "/publicacion-inmueble",  icon: "📢" },
+  { title: "Contratos",       desc: "Revisa y administra los contratos de arriendo.",               href: "/contrato-arriendo",     icon: "📄" },
+  { title: "Ver propiedades", desc: "Explora todas las propiedades disponibles en la plataforma.",  href: "/properties",            icon: "🔍", internal: true },
 ];
 
 export default function ArrendadorDashboard() {
