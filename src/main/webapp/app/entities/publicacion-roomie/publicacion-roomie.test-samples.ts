@@ -7,7 +7,7 @@ export const sampleWithRequiredData: IPublicacionRoomie = {
   titulo: 'so unlike trivial',
   nombreHabitacion: 'charm zowie or',
   valorMensual: 24593,
-  estado: 'FINALIZADO',
+  estado: 'FINALIZADA',
 };
 
 export const sampleWithPartialData: IPublicacionRoomie = {
@@ -15,7 +15,7 @@ export const sampleWithPartialData: IPublicacionRoomie = {
   titulo: 'gosh consequently er',
   nombreHabitacion: 'huzzah remorseful lazy',
   valorMensual: 29985,
-  estado: 'PAUSADO',
+  estado: 'ARCHIVADA',
 };
 
 export const sampleWithFullData: IPublicacionRoomie = {
@@ -27,14 +27,14 @@ export const sampleWithFullData: IPublicacionRoomie = {
   espaciosCompartidos: '../fake-data/blob/hipster.txt',
   generoPreferido: 'FEMENINO',
   fechaDisponible: dayjs('2026-06-17'),
-  estado: 'ARRENDADO',
+  estado: 'ARRENDADA',
 };
 
 export const sampleWithNewData: NewPublicacionRoomie = {
   titulo: 'solicit',
   nombreHabitacion: 'inure request sorrowful',
   valorMensual: 25669,
-  estado: 'PUBLICADO',
+  estado: 'PUBLICADA',
   id: null,
 };
 

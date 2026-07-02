@@ -57,7 +57,7 @@ class PublicacionInmuebleResourceIT {
     private static final LocalDate UPDATED_FECHA_DISPONIBLE = LocalDate.now(ZoneId.systemDefault());
 
     private static final EstadoPublicacion DEFAULT_ESTADO = EstadoPublicacion.BORRADOR;
-    private static final EstadoPublicacion UPDATED_ESTADO = EstadoPublicacion.PUBLICADO;
+    private static final EstadoPublicacion UPDATED_ESTADO = EstadoPublicacion.PUBLICADA;
 
     private static final Boolean DEFAULT_PERMITE_ROOMIES = false;
     private static final Boolean UPDATED_PERMITE_ROOMIES = true;

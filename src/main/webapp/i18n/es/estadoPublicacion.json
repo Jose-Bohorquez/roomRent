@@ -3,10 +3,14 @@
     "EstadoPublicacion": {
       "null": "",
       "BORRADOR": "Borrador",
-      "PUBLICADO": "Publicado",
-      "PAUSADO": "Pausado",
-      "ARRENDADO": "Arrendado",
-      "FINALIZADO": "Finalizado"
+      "PUBLICADA": "Publicada",
+      "VISITA_AGENDADA": "Visita agendada",
+      "POSTULANTE_SELECCIONADO": "Postulante seleccionado",
+      "RESERVADA": "Reservada",
+      "CONTRATO_EN_FIRMA": "Contrato en firma",
+      "ARRENDADA": "Arrendada",
+      "FINALIZADA": "Finalizada",
+      "ARCHIVADA": "Archivada"
     }
   }
 }

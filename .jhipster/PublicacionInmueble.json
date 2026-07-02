@@ -2,12 +2,16 @@
   "annotations": {
     "changelogDate": "20260618002301"
   },
-  "applications": ["room"],
+  "applications": [
+    "room"
+  ],
   "fields": [
     {
       "fieldName": "titulo",
       "fieldType": "String",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "descripcion",
@@ -16,7 +20,9 @@
     {
       "fieldName": "canonArriendo",
       "fieldType": "Long",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "deposito",
@@ -41,38 +47,52 @@
     {
       "fieldName": "estado",
       "fieldType": "EstadoPublicacion",
-      "fieldValidateRules": ["required"],
-      "fieldValues": "BORRADOR,PUBLICADO,PAUSADO,ARRENDADO,FINALIZADO"
+      "fieldValidateRules": [
+        "required"
+      ],
+      "fieldValues": "BORRADOR,PUBLICADA,VISITA_AGENDADA,POSTULANTE_SELECCIONADO,RESERVADA,CONTRATO_EN_FIRMA,ARRENDADA,FINALIZADA,ARCHIVADA"
     },
     {
       "fieldName": "permiteRoomies",
       "fieldType": "Boolean",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "aceptaMascotas",
       "fieldType": "Boolean",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "permiteFumadores",
       "fieldType": "Boolean",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "permiteNinos",
       "fieldType": "Boolean",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "permiteVisitas",
       "fieldType": "Boolean",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     },
     {
       "fieldName": "permiteParejas",
       "fieldType": "Boolean",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": [
+        "required"
+      ]
     }
   ],
   "name": "PublicacionInmueble",

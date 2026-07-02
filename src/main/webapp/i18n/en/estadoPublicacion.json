@@ -2,11 +2,15 @@
   "roomApp": {
     "EstadoPublicacion": {
       "null": "",
-      "BORRADOR": "BORRADOR",
-      "PUBLICADO": "PUBLICADO",
-      "PAUSADO": "PAUSADO",
-      "ARRENDADO": "ARRENDADO",
-      "FINALIZADO": "FINALIZADO"
+      "BORRADOR": "Draft",
+      "PUBLICADA": "Published",
+      "VISITA_AGENDADA": "Visit Scheduled",
+      "POSTULANTE_SELECCIONADO": "Applicant Selected",
+      "RESERVADA": "Reserved",
+      "CONTRATO_EN_FIRMA": "Contract Signing",
+      "ARRENDADA": "Rented",
+      "FINALIZADA": "Finished",
+      "ARCHIVADA": "Archived"
     }
   }
 }

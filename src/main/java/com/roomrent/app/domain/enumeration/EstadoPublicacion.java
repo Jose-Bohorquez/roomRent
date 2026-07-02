@@ -5,8 +5,12 @@ package com.roomrent.app.domain.enumeration;
  */
 public enum EstadoPublicacion {
     BORRADOR,
-    PUBLICADO,
-    PAUSADO,
-    ARRENDADO,
-    FINALIZADO,
+    PUBLICADA,
+    VISITA_AGENDADA,
+    POSTULANTE_SELECCIONADO,
+    RESERVADA,
+    CONTRATO_EN_FIRMA,
+    ARRENDADA,
+    FINALIZADA,
+    ARCHIVADA,
 }

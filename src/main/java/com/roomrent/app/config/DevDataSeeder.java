@@ -346,18 +346,18 @@ public class DevDataSeeder implements ApplicationRunner {
     private List<PublicacionInmueble> crearPublicacionesInmueble(List<Inmueble> inm) {
         // { título, descripción, canon, depósito, estado, disponible, roomies, mascotas }
         Object[][] datos = {
-            { "Cómodo apartamento en Chapinero Alto",           "Apartamento moderno con excelente iluminación natural, cocina integral y balcón. Cerca de restaurantes y transporte.",              1_500_000L, 3_000_000L, EstadoPublicacion.PUBLICADO,  LocalDate.now().plusDays(15),  true,  true  },
-            { "Hermosa casa en El Nogal — 3 hab.",              "Casa familiar en zona residencial exclusiva. Patio, garaje cubierto para dos vehículos, sala amplísima. Ideal para familia.",       3_200_000L, 6_400_000L, EstadoPublicacion.PUBLICADO,  LocalDate.now().plusDays(7),   false, false },
-            { "Apartamento moderno frente a Parque Chicó",      "Estudio amplio con cocina americana, baño de lujo y parqueadero. Edificio con portería 24 horas y zona de bbq.",                   2_800_000L, 5_600_000L, EstadoPublicacion.PAUSADO,    LocalDate.now().plusMonths(1), false, false },
-            { "Acogedor apartamento en Galerías",               "Apartamento bien distribuido en el corazón de Galerías. A 5 minutos de la Avenida Chile y centros comerciales.",                   1_100_000L, 2_200_000L, EstadoPublicacion.PUBLICADO,  LocalDate.now(),               true,  false },
+            { "Cómodo apartamento en Chapinero Alto",           "Apartamento moderno con excelente iluminación natural, cocina integral y balcón. Cerca de restaurantes y transporte.",              1_500_000L, 3_000_000L, EstadoPublicacion.PUBLICADA,  LocalDate.now().plusDays(15),  true,  true  },
+            { "Hermosa casa en El Nogal — 3 hab.",              "Casa familiar en zona residencial exclusiva. Patio, garaje cubierto para dos vehículos, sala amplísima. Ideal para familia.",       3_200_000L, 6_400_000L, EstadoPublicacion.PUBLICADA,  LocalDate.now().plusDays(7),   false, false },
+            { "Apartamento moderno frente a Parque Chicó",      "Estudio amplio con cocina americana, baño de lujo y parqueadero. Edificio con portería 24 horas y zona de bbq.",                   2_800_000L, 5_600_000L, EstadoPublicacion.ARCHIVADA,    LocalDate.now().plusMonths(1), false, false },
+            { "Acogedor apartamento en Galerías",               "Apartamento bien distribuido en el corazón de Galerías. A 5 minutos de la Avenida Chile y centros comerciales.",                   1_100_000L, 2_200_000L, EstadoPublicacion.PUBLICADA,  LocalDate.now(),               true,  false },
             { "Apartaestudio económico en Quinta Paredes",      "Apartaestudio amoblado disponible para estudiantes o profesionales. Incluye WiFi, agua y gas.",                                       900_000L, 1_800_000L, EstadoPublicacion.BORRADOR,   LocalDate.now().plusDays(30),  false, false },
-            { "Casa amplia para familia en Teusaquillo",        "Majestuosa casa colonial renovada con cuatro habitaciones, tres baños, sala-comedor, cocina gourmet y jardín trasero.",             4_500_000L, 9_000_000L, EstadoPublicacion.PUBLICADO,  LocalDate.now().plusDays(20),  false, true  },
-            { "Apartamento tranquilo en Kennedy Central",       "Apartamento funcional en conjunto cerrado con vigilancia 24 horas, zonas verdes y parqueadero comunal. Muy bien ubicado.",            950_000L, 1_900_000L, EstadoPublicacion.PUBLICADO,  LocalDate.now(),               true,  true  },
-            { "Habitación amoblada con baño privado",           "Habitación amplia con baño propio, closet y ventana al exterior. Zona de cocina compartida. Ideal para profesional soltero.",         700_000L,   700_000L, EstadoPublicacion.PUBLICADO,  LocalDate.now(),               false, false },
+            { "Casa amplia para familia en Teusaquillo",        "Majestuosa casa colonial renovada con cuatro habitaciones, tres baños, sala-comedor, cocina gourmet y jardín trasero.",             4_500_000L, 9_000_000L, EstadoPublicacion.PUBLICADA,  LocalDate.now().plusDays(20),  false, true  },
+            { "Apartamento tranquilo en Kennedy Central",       "Apartamento funcional en conjunto cerrado con vigilancia 24 horas, zonas verdes y parqueadero comunal. Muy bien ubicado.",            950_000L, 1_900_000L, EstadoPublicacion.PUBLICADA,  LocalDate.now(),               true,  true  },
+            { "Habitación amoblada con baño privado",           "Habitación amplia con baño propio, closet y ventana al exterior. Zona de cocina compartida. Ideal para profesional soltero.",         700_000L,   700_000L, EstadoPublicacion.PUBLICADA,  LocalDate.now(),               false, false },
             { "Apartamento familiar en Bosa Centro",            "Apartamento en segundo piso sin ascensor. Dos habitaciones, sala comedor, cocina independiente. Vecindario tranquilo.",               800_000L, 1_600_000L, EstadoPublicacion.BORRADOR,   LocalDate.now().plusDays(45),  true,  true  },
-            { "Exclusivo apartamento en La Cabrera",            "Apartamento de lujo con acabados de primera, vista panorámica de la ciudad, cocina de línea, baños mármol. Conserje 24 h.",         2_500_000L, 5_000_000L, EstadoPublicacion.PUBLICADO,  LocalDate.now().plusDays(10),  false, false },
-            { "Apartamento bien ubicado en Los Alcázares",      "Apartamento en piso 5 con ascensor. Cerca de Unicentro y colegios reconocidos. Amplio salón, dos habitaciones con closets.",        1_300_000L, 2_600_000L, EstadoPublicacion.PUBLICADO,  LocalDate.now(),               true,  false },
-            { "Habitación individual — Barrios Unidos",         "Habitación amoblada con escritorio, cama doble y acceso a baño compartido limpio. Incluye servicios. Zona universitaria.",            680_000L,   680_000L, EstadoPublicacion.ARRENDADO,  LocalDate.now().plusMonths(6), false, false },
+            { "Exclusivo apartamento en La Cabrera",            "Apartamento de lujo con acabados de primera, vista panorámica de la ciudad, cocina de línea, baños mármol. Conserje 24 h.",         2_500_000L, 5_000_000L, EstadoPublicacion.PUBLICADA,  LocalDate.now().plusDays(10),  false, false },
+            { "Apartamento bien ubicado en Los Alcázares",      "Apartamento en piso 5 con ascensor. Cerca de Unicentro y colegios reconocidos. Amplio salón, dos habitaciones con closets.",        1_300_000L, 2_600_000L, EstadoPublicacion.PUBLICADA,  LocalDate.now(),               true,  false },
+            { "Habitación individual — Barrios Unidos",         "Habitación amoblada con escritorio, cama doble y acceso a baño compartido limpio. Incluye servicios. Zona universitaria.",            680_000L,   680_000L, EstadoPublicacion.ARRENDADA,  LocalDate.now().plusMonths(6), false, false },
         };
 
         List<PublicacionInmueble> pubs = new ArrayList<>();
@@ -391,16 +391,16 @@ public class DevDataSeeder implements ApplicationRunner {
         // Los arrendadores ofrecen habitaciones en sus inmuebles a roomies
         // columns: [0]titulo [1]valorMensual [2]generoPreferido [3]fechaDisponible [4]estado [5]inmueble [6]arrendador
         Object[][] datos = {
-            { "Habitación en apto Chapinero — busco roomie tranquilo",   900_000L, Genero.PREFIERO_NO_DECIR, LocalDate.now().plusDays(10), EstadoPublicacion.PUBLICADO,  inmuebles.get(0),  arrendadores.get(0) },
-            { "Cuarto disponible en casa El Nogal",                    1_200_000L, Genero.PREFIERO_NO_DECIR, LocalDate.now(),              EstadoPublicacion.PUBLICADO,  inmuebles.get(1),  arrendadores.get(0) },
-            { "Habitación privada en Galerías",                          850_000L, Genero.FEMENINO,          LocalDate.now().plusDays(5),  EstadoPublicacion.PUBLICADO,  inmuebles.get(3),  arrendadores.get(1) },
-            { "Estudio compartido — Quinta Paredes",                     550_000L, Genero.MASCULINO,         LocalDate.now().plusDays(20), EstadoPublicacion.PUBLICADO,  inmuebles.get(4),  arrendadores.get(1) },
-            { "Casa Teusaquillo — habitación suite",                   1_400_000L, Genero.PREFIERO_NO_DECIR, LocalDate.now(),              EstadoPublicacion.PUBLICADO,  inmuebles.get(5),  arrendadores.get(1) },
+            { "Habitación en apto Chapinero — busco roomie tranquilo",   900_000L, Genero.PREFIERO_NO_DECIR, LocalDate.now().plusDays(10), EstadoPublicacion.PUBLICADA,  inmuebles.get(0),  arrendadores.get(0) },
+            { "Cuarto disponible en casa El Nogal",                    1_200_000L, Genero.PREFIERO_NO_DECIR, LocalDate.now(),              EstadoPublicacion.PUBLICADA,  inmuebles.get(1),  arrendadores.get(0) },
+            { "Habitación privada en Galerías",                          850_000L, Genero.FEMENINO,          LocalDate.now().plusDays(5),  EstadoPublicacion.PUBLICADA,  inmuebles.get(3),  arrendadores.get(1) },
+            { "Estudio compartido — Quinta Paredes",                     550_000L, Genero.MASCULINO,         LocalDate.now().plusDays(20), EstadoPublicacion.PUBLICADA,  inmuebles.get(4),  arrendadores.get(1) },
+            { "Casa Teusaquillo — habitación suite",                   1_400_000L, Genero.PREFIERO_NO_DECIR, LocalDate.now(),              EstadoPublicacion.PUBLICADA,  inmuebles.get(5),  arrendadores.get(1) },
             { "Cuarto amoblado en Kennedy",                              680_000L, Genero.MASCULINO,         LocalDate.now().plusDays(15), EstadoPublicacion.BORRADOR,   inmuebles.get(6),  arrendadores.get(2) },
-            { "Habitación económica Patio Bonito",                       620_000L, Genero.PREFIERO_NO_DECIR, LocalDate.now(),              EstadoPublicacion.PUBLICADO,  inmuebles.get(7),  arrendadores.get(2) },
+            { "Habitación económica Patio Bonito",                       620_000L, Genero.PREFIERO_NO_DECIR, LocalDate.now(),              EstadoPublicacion.PUBLICADA,  inmuebles.get(7),  arrendadores.get(2) },
             { "Apto La Cabrera — busco roomie profesional",            1_600_000L, Genero.FEMENINO,          LocalDate.now().plusDays(7),  EstadoPublicacion.BORRADOR,   inmuebles.get(9),  arrendadores.get(3) },
-            { "Apto Los Alcázares — habitación disponible",              800_000L, Genero.PREFIERO_NO_DECIR, LocalDate.now().plusDays(12), EstadoPublicacion.PUBLICADO,  inmuebles.get(10), arrendadores.get(3) },
-            { "Habitación zona universitaria — Barrios Unidos",          720_000L, Genero.PREFIERO_NO_DECIR, LocalDate.now(),              EstadoPublicacion.PAUSADO,    inmuebles.get(11), arrendadores.get(3) },
+            { "Apto Los Alcázares — habitación disponible",              800_000L, Genero.PREFIERO_NO_DECIR, LocalDate.now().plusDays(12), EstadoPublicacion.PUBLICADA,  inmuebles.get(10), arrendadores.get(3) },
+            { "Habitación zona universitaria — Barrios Unidos",          720_000L, Genero.PREFIERO_NO_DECIR, LocalDate.now(),              EstadoPublicacion.ARCHIVADA,    inmuebles.get(11), arrendadores.get(3) },
         };
 
         for (Object[] d : datos) {
@@ -424,7 +424,7 @@ public class DevDataSeeder implements ApplicationRunner {
     private List<SolicitudArriendo> crearSolicitudesArriendo(
             List<PublicacionInmueble> pubs, List<PerfilUsuario> arrendatarios) {
 
-        // Solo solicitar sobre publicaciones PUBLICADO (índices 0,1,3,6,7,9,10)
+        // Solo solicitar sobre publicaciones PUBLICADA (índices 0,1,3,6,7,9,10)
         int[] pubIdx = { 0, 0, 1, 3, 3, 6, 6, 7, 9, 10 };
         int[] arrIdx = { 0, 1, 1, 0, 2, 3, 4, 5, 2, 3 };
         EstadoSolicitud[] estados = {
