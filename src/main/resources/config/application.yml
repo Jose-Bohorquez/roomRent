@@ -153,6 +153,18 @@ server:
       cookie:
         http-only: true
 
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 25MB
+
+roomrent:
+  upload:
+    path: /app/uploads
+    base-url: ""
+
 springdoc:
   show-actuator: true
 

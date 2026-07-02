@@ -19,6 +19,9 @@ public class StaticResourcesWebConfiguration implements WebMvcConfigurer {
 
     private final JHipsterProperties jhipsterProperties;
 
+    @org.springframework.beans.factory.annotation.Value("${roomrent.upload.path:/app/uploads}")
+    private String uploadPath;
+
     public StaticResourcesWebConfiguration(JHipsterProperties jHipsterProperties) {
         this.jhipsterProperties = jHipsterProperties;
     }
@@ -27,6 +30,12 @@ public class StaticResourcesWebConfiguration implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         ResourceHandlerRegistration resourceHandlerRegistration = appendResourceHandler(registry);
         initializeResourceHandler(resourceHandlerRegistration);
+
+        registry.addResourceHandler("/uploads/**")
+            .addResourceLocations("file:" + uploadPath + "/")
+            .setCacheControl(
+                org.springframework.http.CacheControl.maxAge(30, java.util.concurrent.TimeUnit.DAYS).cachePublic()
+            );
     }
 
     protected ResourceHandlerRegistration appendResourceHandler(ResourceHandlerRegistry registry) {
