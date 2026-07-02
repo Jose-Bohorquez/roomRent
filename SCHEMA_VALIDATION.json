@@ -1,0 +1,469 @@
+{
+  "$comment": "RoomRent MongoDB Schema Validation — RC1 — 2026-07-02",
+  "$comment2": "Formato: MongoDB $jsonSchema compatible. Aplicable con db.runCommand({collMod: '<col>', validator: {$jsonSchema: <schema>}})",
+  "version": "0.0.1-RC1",
+  "collections": {
+
+    "jhi_user": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "title": "jhi_user",
+        "description": "Usuarios del sistema — credenciales y estado de autenticación",
+        "required": ["login", "password_hash", "activated"],
+        "properties": {
+          "_id":          { "bsonType": "string",  "description": "ObjectId generado por MongoDB" },
+          "login":        { "bsonType": "string",  "minLength": 1, "maxLength": 50, "pattern": "^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^(?>[a-zA-Z0-9!$&*+=?^_`{|}~.-]+)", "description": "Nombre de usuario único. Indexed (unique)" },
+          "password_hash":{ "bsonType": "string",  "minLength": 60, "maxLength": 60, "description": "BCrypt hash de 60 caracteres fijos. JsonIgnore en API" },
+          "first_name":   { "bsonType": "string",  "maxLength": 50, "description": "Primer nombre" },
+          "last_name":    { "bsonType": "string",  "maxLength": 50, "description": "Apellido" },
+          "email":        { "bsonType": "string",  "minLength": 5,  "maxLength": 254, "description": "Correo único. Indexed (unique)" },
+          "activated":    { "bsonType": "bool",    "description": "false hasta activar la cuenta por email" },
+          "lang_key":     { "bsonType": "string",  "minLength": 2, "maxLength": 10, "description": "Idioma: es, en" },
+          "image_url":    { "bsonType": "string",  "maxLength": 256, "description": "URL foto de perfil" },
+          "activation_key":{ "bsonType": "string", "maxLength": 20, "description": "Token de activación. JsonIgnore en API" },
+          "reset_key":    { "bsonType": "string",  "maxLength": 20, "description": "Token para reset de contraseña. JsonIgnore en API" },
+          "reset_date":   { "bsonType": ["date", "null"], "description": "Expiración del reset_key" },
+          "authorities":  { "bsonType": "array",   "items": { "bsonType": "string", "enum": ["ROLE_ADMIN","ROLE_USER","ROLE_ARRENDADOR","ROLE_ARRENDATARIO"] }, "description": "Roles del usuario" },
+          "created_by":       { "bsonType": "string" },
+          "created_date":     { "bsonType": "date" },
+          "last_modified_by": { "bsonType": "string" },
+          "last_modified_date":{ "bsonType": "date" }
+        },
+        "additionalProperties": true
+      }
+    },
+
+    "perfil_usuario": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "title": "perfil_usuario",
+        "description": "Perfil extendido del usuario — datos personales del arrendador o arrendatario",
+        "required": ["tipo_documento","numero_documento","primer_nombre","primer_apellido","fecha_nacimiento","telefono","ciudad","verificado","habilitado_roomie","estado"],
+        "properties": {
+          "_id":               { "bsonType": "string" },
+          "tipo_documento":    { "bsonType": "string", "enum": ["CC","CE","TI","PASSPORT","NIT","OTRO"], "description": "Tipo de documento de identidad" },
+          "numero_documento":  { "bsonType": "string", "description": "Número del documento" },
+          "primer_nombre":     { "bsonType": "string" },
+          "segundo_nombre":    { "bsonType": ["string","null"] },
+          "primer_apellido":   { "bsonType": "string" },
+          "segundo_apellido":  { "bsonType": ["string","null"] },
+          "fecha_nacimiento":  { "bsonType": "date",   "description": "LocalDate — fecha de nacimiento" },
+          "genero":            { "bsonType": ["string","null"], "enum": ["MASCULINO","FEMENINO","OTRO","PREFIERO_NO_DECIR", null] },
+          "telefono":          { "bsonType": "string" },
+          "direccion_actual":  { "bsonType": ["string","null"] },
+          "ciudad":            { "bsonType": "string" },
+          "barrio":            { "bsonType": ["string","null"] },
+          "profesion":         { "bsonType": ["string","null"] },
+          "ocupacion":         { "bsonType": ["string","null"] },
+          "empresa_trabajo":   { "bsonType": ["string","null"] },
+          "universidad":       { "bsonType": ["string","null"] },
+          "biografia":         { "bsonType": ["string","null"] },
+          "intereses":         { "bsonType": ["string","null"] },
+          "tiene_mascotas":    { "bsonType": ["bool","null"] },
+          "fumador":           { "bsonType": ["bool","null"] },
+          "verificado":        { "bsonType": "bool",   "description": "Verificado por administrador" },
+          "habilitado_roomie": { "bsonType": "bool" },
+          "estado":            { "bsonType": "string", "enum": ["PENDIENTE_VERIFICACION","ACTIVO","INACTIVO","SUSPENDIDO","BLOQUEADO","BANEADO"] },
+          "usuario":           { "bsonType": ["objectId","null"], "description": "@DBRef → jhi_user" },
+          "documentoses":      { "bsonType": "array",  "items": { "bsonType": "objectId" }, "description": "@DBRef → documento_usuario[]" },
+          "inmuebleses":       { "bsonType": "array",  "items": { "bsonType": "objectId" }, "description": "@DBRef → inmueble[]" },
+          "created_by":        { "bsonType": "string" },
+          "created_date":      { "bsonType": "date" },
+          "last_modified_by":  { "bsonType": "string" },
+          "last_modified_date":{ "bsonType": "date" }
+        },
+        "additionalProperties": true
+      }
+    },
+
+    "inmueble": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "title": "inmueble",
+        "description": "Inmuebles registrados en el sistema",
+        "required": ["nombre","direccion","ciudad","barrio","tipo_inmueble","numero_habitaciones","numero_banos"],
+        "properties": {
+          "_id":                   { "bsonType": "string" },
+          "nombre":                { "bsonType": "string" },
+          "direccion":             { "bsonType": "string" },
+          "ciudad":                { "bsonType": "string" },
+          "localidad":             { "bsonType": ["string","null"] },
+          "barrio":                { "bsonType": "string" },
+          "latitud":               { "bsonType": ["double","null"] },
+          "longitud":              { "bsonType": ["double","null"] },
+          "tipo_inmueble":         { "bsonType": "string", "enum": ["APARTAMENTO","CASA","HABITACION","APARTAESTUDIO","LOCAL","OFICINA","OTRO"] },
+          "area_metros_cuadrados": { "bsonType": ["double","null"] },
+          "numero_habitaciones":   { "bsonType": "int",    "minimum": 0 },
+          "numero_banos":          { "bsonType": "int",    "minimum": 0 },
+          "numero_parqueaderos":   { "bsonType": ["int","null"], "minimum": 0 },
+          "estrato":               { "bsonType": ["int","null"], "minimum": 1, "maximum": 6, "description": "@Min(1) @Max(6)" },
+          "publicaciones":         { "bsonType": "array",  "items": { "bsonType": "objectId" }, "description": "@DBRef → publicacion_inmueble[]" },
+          "multimedia":            { "bsonType": "array",  "items": { "bsonType": "objectId" }, "description": "@DBRef → multimedia_inmueble[]" },
+          "contratos":             { "bsonType": "array",  "items": { "bsonType": "objectId" }, "description": "@DBRef → contrato_arriendo[]" },
+          "propietario":           { "bsonType": ["objectId","null"], "description": "@DBRef → perfil_usuario" },
+          "created_by":            { "bsonType": "string", "description": "Login del arrendador creador" },
+          "created_date":          { "bsonType": "date" },
+          "last_modified_by":      { "bsonType": "string" },
+          "last_modified_date":    { "bsonType": "date" }
+        },
+        "additionalProperties": true
+      }
+    },
+
+    "publicacion_inmueble": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "title": "publicacion_inmueble",
+        "description": "Publicaciones de arrendamiento de inmuebles",
+        "required": ["titulo","canon_arriendo","estado","permite_roomies","acepta_mascotas","permite_fumadores","permite_ninos","permite_visitas","permite_parejas"],
+        "properties": {
+          "_id":                   { "bsonType": "string" },
+          "titulo":                { "bsonType": "string" },
+          "descripcion":           { "bsonType": ["string","null"] },
+          "canon_arriendo":        { "bsonType": "long",   "minimum": 0, "description": "Canon mensual en pesos COP" },
+          "deposito":              { "bsonType": ["long","null"] },
+          "requisitos":            { "bsonType": ["string","null"] },
+          "seguro_requerido":      { "bsonType": ["bool","null"] },
+          "datacredito_requerido": { "bsonType": ["bool","null"] },
+          "fecha_disponible":      { "bsonType": ["date","null"] },
+          "estado":                { "bsonType": "string", "enum": ["BORRADOR","PUBLICADA","VISITA_AGENDADA","POSTULANTE_SELECCIONADO","RESERVADA","CONTRATO_EN_FIRMA","ARRENDADA","FINALIZADA","ARCHIVADA"] },
+          "permite_roomies":       { "bsonType": "bool" },
+          "acepta_mascotas":       { "bsonType": "bool" },
+          "permite_fumadores":     { "bsonType": "bool" },
+          "permite_ninos":         { "bsonType": "bool" },
+          "permite_visitas":       { "bsonType": "bool" },
+          "permite_parejas":       { "bsonType": "bool" },
+          "solicitudes":           { "bsonType": "array",  "items": { "bsonType": "objectId" }, "description": "@DBRef → solicitud_arriendo[]" },
+          "inmueble":              { "bsonType": ["objectId","null"], "description": "@DBRef → inmueble" },
+          "created_by":            { "bsonType": "string" },
+          "created_date":          { "bsonType": "date" },
+          "last_modified_by":      { "bsonType": "string" },
+          "last_modified_date":    { "bsonType": "date" }
+        },
+        "additionalProperties": true
+      }
+    },
+
+    "multimedia_inmueble": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "title": "multimedia_inmueble",
+        "description": "Fotos y videos asociados a inmuebles",
+        "required": ["url_media","tipo_media","principal"],
+        "properties": {
+          "_id":       { "bsonType": "string" },
+          "url_media": { "bsonType": "string", "description": "Ruta relativa: /uploads/{uuid}.{ext}" },
+          "tipo_media":{ "bsonType": "string", "description": "MIME type: image/png, image/jpeg, video/mp4" },
+          "principal": { "bsonType": "bool",   "description": "true = foto principal del inmueble" },
+          "titulo":    { "bsonType": ["string","null"] },
+          "inmueble":  { "bsonType": ["objectId","null"], "description": "@DBRef → inmueble" },
+          "created_by":        { "bsonType": "string" },
+          "created_date":      { "bsonType": "date" },
+          "last_modified_by":  { "bsonType": "string" },
+          "last_modified_date":{ "bsonType": "date" }
+        },
+        "additionalProperties": true
+      }
+    },
+
+    "solicitud_arriendo": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "title": "solicitud_arriendo",
+        "description": "Solicitudes de arrendamiento enviadas por arrendatarios",
+        "required": ["acepta_terminos","estado","fecha_creacion"],
+        "properties": {
+          "_id":            { "bsonType": "string" },
+          "mensaje":        { "bsonType": ["string","null"] },
+          "acepta_terminos":{ "bsonType": "bool" },
+          "estado":         { "bsonType": "string", "enum": ["CREADA","EN_REVISION","APROBADA","RECHAZADA","CANCELADA"] },
+          "fecha_creacion": { "bsonType": "date",   "description": "Instant — timestamp UTC" },
+          "visitas":        { "bsonType": "array",  "items": { "bsonType": "objectId" }, "description": "@DBRef → visita_programada[]" },
+          "arrendatario":   { "bsonType": ["objectId","null"], "description": "@DBRef → perfil_usuario" },
+          "publicacion":    { "bsonType": ["objectId","null"], "description": "@DBRef → publicacion_inmueble" },
+          "created_by":        { "bsonType": "string" },
+          "created_date":      { "bsonType": "date" },
+          "last_modified_by":  { "bsonType": "string" },
+          "last_modified_date":{ "bsonType": "date" }
+        },
+        "additionalProperties": true
+      }
+    },
+
+    "visita_programada": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "title": "visita_programada",
+        "description": "Visitas programadas a inmuebles",
+        "required": ["fecha_solicitada","estado"],
+        "properties": {
+          "_id":              { "bsonType": "string" },
+          "fecha_solicitada": { "bsonType": "date", "description": "Instant — propuesta por el arrendatario" },
+          "fecha_confirmada": { "bsonType": ["date","null"], "description": "Instant — confirmada por el arrendador" },
+          "notas":            { "bsonType": ["string","null"] },
+          "estado":           { "bsonType": "string", "enum": ["SOLICITADA","CONFIRMADA","CANCELADA","FINALIZADA"] },
+          "visitante":        { "bsonType": ["objectId","null"], "description": "@DBRef → perfil_usuario" },
+          "solicitud":        { "bsonType": ["objectId","null"], "description": "@DBRef → solicitud_arriendo" },
+          "created_by":        { "bsonType": "string" },
+          "created_date":      { "bsonType": "date" },
+          "last_modified_by":  { "bsonType": "string" },
+          "last_modified_date":{ "bsonType": "date" }
+        },
+        "additionalProperties": true
+      }
+    },
+
+    "contrato_arriendo": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "title": "contrato_arriendo",
+        "description": "Contratos de arrendamiento entre arrendador y arrendatario",
+        "required": ["numero_contrato","fecha_inicio","fecha_fin","valor_mensual","estado"],
+        "properties": {
+          "_id":                  { "bsonType": "string" },
+          "numero_contrato":      { "bsonType": "string", "description": "Identificador único del contrato" },
+          "url_contrato_digital": { "bsonType": ["string","null"], "description": "URL del PDF firmado" },
+          "fecha_inicio":         { "bsonType": "date",   "description": "LocalDate — inicio del arriendo" },
+          "fecha_fin":            { "bsonType": "date",   "description": "LocalDate — fin del arriendo" },
+          "valor_mensual":        { "bsonType": "long",   "minimum": 0, "description": "Canon mensual acordado (COP)" },
+          "valor_deposito":       { "bsonType": ["long","null"] },
+          "estado":               { "bsonType": "string", "enum": ["BORRADOR","PENDIENTE_FIRMA","VIGENTE","FINALIZADO","CANCELADO"] },
+          "fecha_firma":          { "bsonType": ["date","null"], "description": "Instant — timestamp de firma" },
+          "arrendador":           { "bsonType": ["objectId","null"], "description": "@DBRef → perfil_usuario" },
+          "arrendatario":         { "bsonType": ["objectId","null"], "description": "@DBRef → perfil_usuario" },
+          "inmueble":             { "bsonType": ["objectId","null"], "description": "@DBRef → inmueble" },
+          "created_by":           { "bsonType": "string" },
+          "created_date":         { "bsonType": "date" },
+          "last_modified_by":     { "bsonType": "string" },
+          "last_modified_date":   { "bsonType": "date" }
+        },
+        "additionalProperties": true
+      }
+    },
+
+    "calificacion": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "title": "calificacion",
+        "description": "Calificaciones entre usuarios post-arriendo",
+        "required": ["tipo_calificacion","puntaje","fecha_creacion","visible"],
+        "properties": {
+          "_id":              { "bsonType": "string" },
+          "tipo_calificacion":{ "bsonType": "string", "enum": ["ARRENDADOR_A_ARRENDATARIO","ARRENDATARIO_A_ARRENDADOR","ARRENDATARIO_A_ROOMIE","ROOMIE_A_ARRENDATARIO"] },
+          "puntaje":          { "bsonType": "int",    "minimum": 1, "maximum": 5, "description": "@Min(1) @Max(5)" },
+          "comentario":       { "bsonType": ["string","null"] },
+          "fecha_creacion":   { "bsonType": "date" },
+          "visible":          { "bsonType": "bool" },
+          "autor":            { "bsonType": ["objectId","null"], "description": "@DBRef → perfil_usuario (quien califica)" },
+          "calificado":       { "bsonType": ["objectId","null"], "description": "@DBRef → perfil_usuario (quien recibe)" },
+          "contrato":         { "bsonType": ["objectId","null"], "description": "@DBRef → contrato_arriendo" },
+          "created_by":        { "bsonType": "string" },
+          "created_date":      { "bsonType": "date" },
+          "last_modified_by":  { "bsonType": "string" },
+          "last_modified_date":{ "bsonType": "date" }
+        },
+        "additionalProperties": true
+      }
+    },
+
+    "documento_usuario": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "title": "documento_usuario",
+        "description": "Documentos adjuntos del usuario (cédula, extractos, etc.)",
+        "required": ["tipo_documento","nombre_documento","url_archivo","fecha_carga"],
+        "properties": {
+          "_id":             { "bsonType": "string" },
+          "tipo_documento":  { "bsonType": "string", "enum": ["CC","CE","TI","PASSPORT","NIT","OTRO"] },
+          "nombre_documento":{ "bsonType": "string" },
+          "url_archivo":     { "bsonType": "string" },
+          "tipo_mime":       { "bsonType": ["string","null"] },
+          "tamano_archivo":  { "bsonType": ["long","null"], "minimum": 0, "description": "Tamaño en bytes" },
+          "fecha_carga":     { "bsonType": "date" },
+          "aprobado":        { "bsonType": ["bool","null"] },
+          "observaciones":   { "bsonType": ["string","null"] },
+          "perfilUsuario":   { "bsonType": ["objectId","null"], "description": "@DBRef → perfil_usuario" },
+          "created_by":        { "bsonType": "string" },
+          "created_date":      { "bsonType": "date" },
+          "last_modified_by":  { "bsonType": "string" },
+          "last_modified_date":{ "bsonType": "date" }
+        },
+        "additionalProperties": true
+      }
+    },
+
+    "publicacion_roomie": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "title": "publicacion_roomie",
+        "description": "Publicaciones de búsqueda de compañero de habitación",
+        "required": ["titulo","nombre_habitacion","valor_mensual","estado"],
+        "properties": {
+          "_id":                  { "bsonType": "string" },
+          "titulo":               { "bsonType": "string" },
+          "nombre_habitacion":    { "bsonType": "string" },
+          "valor_mensual":        { "bsonType": "long",   "minimum": 0 },
+          "servicios_incluidos":  { "bsonType": ["string","null"] },
+          "espacios_compartidos": { "bsonType": ["string","null"] },
+          "genero_preferido":     { "bsonType": ["string","null"], "enum": ["MASCULINO","FEMENINO","OTRO","PREFIERO_NO_DECIR", null] },
+          "fecha_disponible":     { "bsonType": ["date","null"] },
+          "estado":               { "bsonType": "string", "enum": ["BORRADOR","PUBLICADA","VISITA_AGENDADA","POSTULANTE_SELECCIONADO","RESERVADA","CONTRATO_EN_FIRMA","ARRENDADA","FINALIZADA","ARCHIVADA"] },
+          "solicitudes":          { "bsonType": "array",  "items": { "bsonType": "objectId" }, "description": "@DBRef → solicitud_roomie[]" },
+          "arrendatario":         { "bsonType": ["objectId","null"], "description": "@DBRef → perfil_usuario" },
+          "inmueble":             { "bsonType": ["objectId","null"], "description": "@DBRef → inmueble" },
+          "created_by":           { "bsonType": "string" },
+          "created_date":         { "bsonType": "date" },
+          "last_modified_by":     { "bsonType": "string" },
+          "last_modified_date":   { "bsonType": "date" }
+        },
+        "additionalProperties": true
+      }
+    },
+
+    "solicitud_roomie": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "title": "solicitud_roomie",
+        "description": "Postulaciones a publicaciones de roomie",
+        "required": ["estado","fecha_creacion"],
+        "properties": {
+          "_id":               { "bsonType": "string" },
+          "mensaje":           { "bsonType": ["string","null"] },
+          "referencias":       { "bsonType": ["string","null"] },
+          "estado":            { "bsonType": "string", "enum": ["CREADA","EN_REVISION","APROBADA","RECHAZADA","CANCELADA"] },
+          "fecha_creacion":    { "bsonType": "date" },
+          "postulante":        { "bsonType": ["objectId","null"], "description": "@DBRef → perfil_usuario" },
+          "publicacionRoomie": { "bsonType": ["objectId","null"], "description": "@DBRef → publicacion_roomie" },
+          "created_by":        { "bsonType": "string" },
+          "created_date":      { "bsonType": "date" },
+          "last_modified_by":  { "bsonType": "string" },
+          "last_modified_date":{ "bsonType": "date" }
+        },
+        "additionalProperties": true
+      }
+    },
+
+    "jhi_authority": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "title": "jhi_authority",
+        "description": "Roles disponibles en el sistema",
+        "required": ["_id"],
+        "properties": {
+          "_id": { "bsonType": "string", "enum": ["ROLE_ADMIN","ROLE_USER","ROLE_ARRENDADOR","ROLE_ARRENDATARIO"], "description": "Nombre del rol — actúa como PK" }
+        }
+      }
+    }
+
+  },
+
+  "enumerations": {
+    "TipoInmueble":     ["APARTAMENTO","CASA","HABITACION","APARTAESTUDIO","LOCAL","OFICINA","OTRO"],
+    "EstadoPublicacion":["BORRADOR","PUBLICADA","VISITA_AGENDADA","POSTULANTE_SELECCIONADO","RESERVADA","CONTRATO_EN_FIRMA","ARRENDADA","FINALIZADA","ARCHIVADA"],
+    "EstadoSolicitud":  ["CREADA","EN_REVISION","APROBADA","RECHAZADA","CANCELADA"],
+    "EstadoVisita":     ["SOLICITADA","CONFIRMADA","CANCELADA","FINALIZADA"],
+    "EstadoContrato":   ["BORRADOR","PENDIENTE_FIRMA","VIGENTE","FINALIZADO","CANCELADO"],
+    "EstadoUsuario":    ["PENDIENTE_VERIFICACION","ACTIVO","INACTIVO","SUSPENDIDO","BLOQUEADO","BANEADO"],
+    "TipoDocumento":    ["CC","CE","TI","PASSPORT","NIT","OTRO"],
+    "TipoCalificacion": ["ARRENDADOR_A_ARRENDATARIO","ARRENDATARIO_A_ARRENDADOR","ARRENDATARIO_A_ROOMIE","ROOMIE_A_ARRENDATARIO"],
+    "Genero":           ["MASCULINO","FEMENINO","OTRO","PREFIERO_NO_DECIR"]
+  },
+
+  "api_examples": {
+    "POST /api/authenticate": {
+      "description": "Login — devuelve JWT",
+      "request": { "username": "admin", "password": "admin", "rememberMe": false },
+      "response_200": { "id_token": "eyJhbGci..." }
+    },
+    "POST /api/inmuebles": {
+      "description": "Crear inmueble. Requiere ROLE_ARRENDADOR",
+      "request": {
+        "nombre": "Apartamento Chapinero",
+        "direccion": "Calle 53 #13-45 Apto 301",
+        "ciudad": "Bogotá",
+        "barrio": "Chapinero Alto",
+        "tipoInmueble": "APARTAMENTO",
+        "numeroHabitaciones": 2,
+        "numeroBanos": 1,
+        "estrato": 4,
+        "areaMetrosCuadrados": 65.0
+      }
+    },
+    "PATCH /api/inmuebles/{id}": {
+      "description": "Actualizar parcialmente. El campo id en body DEBE coincidir con el path",
+      "request": { "id": "<mismo_id_del_path>", "estrato": 3 }
+    },
+    "POST /api/publicacion-inmuebles": {
+      "description": "Publicar inmueble. Requiere ROLE_ARRENDADOR",
+      "request": {
+        "titulo": "Apto disponible inmediato",
+        "canonArriendo": 1800000,
+        "estado": "PUBLICADA",
+        "permiteRoomies": false,
+        "aceptaMascotas": false,
+        "permiteFumadores": false,
+        "permiteNinos": true,
+        "permiteVisitas": true,
+        "permiteParejas": true,
+        "inmueble": { "id": "<inmueble_id>" }
+      }
+    },
+    "POST /api/multimedia-inmuebles": {
+      "description": "Vincular archivo subido a un inmueble. Requiere ROLE_ARRENDADOR",
+      "request": {
+        "urlMedia": "/uploads/uuid.png",
+        "tipoMedia": "image/png",
+        "principal": true,
+        "inmueble": { "id": "<inmueble_id>" }
+      }
+    },
+    "POST /api/solicitud-arriendos": {
+      "description": "Solicitar arriendo. Requiere ROLE_ARRENDATARIO",
+      "request": {
+        "mensaje": "Estoy interesado en el apartamento",
+        "aceptaTerminos": true,
+        "estado": "CREADA",
+        "fechaCreacion": "2026-07-02T20:00:00Z",
+        "publicacion": { "id": "<publicacion_id>" }
+      }
+    },
+    "POST /api/visita-programadas": {
+      "description": "Agendar visita. Requiere ROLE_ARRENDATARIO",
+      "request": {
+        "fechaSolicitada": "2026-07-10T15:00:00Z",
+        "estado": "SOLICITADA",
+        "solicitud": { "id": "<solicitud_id>" }
+      }
+    },
+    "POST /api/contrato-arriendos": {
+      "description": "Crear contrato. Requiere ROLE_ARRENDADOR o ROLE_ADMIN",
+      "request": {
+        "numeroContrato": "RR-2026-001",
+        "fechaInicio": "2026-08-01",
+        "fechaFin": "2027-07-31",
+        "valorMensual": 1800000,
+        "estado": "BORRADOR",
+        "inmueble": { "id": "<inmueble_id>" },
+        "arrendatario": { "id": "<perfil_id>" }
+      }
+    }
+  },
+
+  "mongosh_apply_validators": {
+    "$comment": "Ejecutar en mongosh para aplicar validación nativa en MongoDB",
+    "usage": [
+      "use room",
+      "db.runCommand({ collMod: 'inmueble', validator: { $jsonSchema: <schema de esta colección> }, validationLevel: 'moderate', validationAction: 'warn' })"
+    ],
+    "validationLevel_options": {
+      "off":      "Sin validación",
+      "moderate": "Valida documentos nuevos y actualizados (no los existentes que violen el schema)",
+      "strict":   "Valida todos los writes — puede romper datos existentes"
+    },
+    "validationAction_options": {
+      "warn":  "Loguea un warning pero permite el write",
+      "error": "Rechaza el write si viola el schema"
+    },
+    "recommended": "validationLevel: moderate + validationAction: warn para producción"
+  }
+}
