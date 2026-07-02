@@ -36,7 +36,17 @@ spring:
       enabled: false
   mail:
     host: ${SPRING_MAIL_HOST:localhost}
-    port: ${SPRING_MAIL_PORT:25}
+    port: ${SPRING_MAIL_PORT:587}
+    username: ${SPRING_MAIL_USERNAME:}
+    password: ${SPRING_MAIL_PASSWORD:}
+    # Propiedades JavaMail para Gmail con STARTTLS (puerto 587).
+    # La notación con corchetes preserva los puntos en la clave YAML,
+    # que JavaMail necesita (mail.smtp.starttls.enable, no smtp_starttls_enable).
+    # El valor viene de la variable de entorno, con true como default seguro.
+    properties:
+      "[mail.smtp.starttls.enable]":   ${SPRING_MAIL_SMTP_STARTTLS_ENABLE:true}
+      "[mail.smtp.starttls.required]": ${SPRING_MAIL_SMTP_STARTTLS_REQUIRED:true}
+      "[mail.smtp.auth]":              ${SPRING_MAIL_SMTP_AUTH:true}
   mongodb:
     uri: ${SPRING_MONGODB_URI:mongodb://localhost:27017/room}
   thymeleaf:
