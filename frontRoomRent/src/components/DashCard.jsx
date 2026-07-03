@@ -1,14 +1,22 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function DashCard({ title, desc, href, icon, internal }) {
-  const Tag = internal ? Link : "a";
-  const props = internal
-    ? { to: href }
-    : { href, target: "_blank", rel: "noopener noreferrer" };
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (internal) {
+      navigate(href);
+    } else {
+      window.open(href, "_blank", "noopener,noreferrer");
+    }
+  };
 
   return (
-    <Tag
-      {...props}
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={handleClick}
+      onKeyDown={e => (e.key === "Enter" || e.key === " ") && handleClick()}
       className="card card-hover p-6 flex flex-col gap-4 cursor-pointer group"
     >
       <span className="text-2xl w-11 h-11 flex items-center justify-center
@@ -21,6 +29,6 @@ export default function DashCard({ title, desc, href, icon, internal }) {
         <h3 className="text-sm font-bold text-stone-900 dark:text-white mb-1">{title}</h3>
         <p className="text-xs text-stone-500 dark:text-zinc-400 leading-relaxed">{desc}</p>
       </div>
-    </Tag>
+    </div>
   );
 }
