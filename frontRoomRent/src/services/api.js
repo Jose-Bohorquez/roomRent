@@ -69,7 +69,9 @@ export async function apiFetch(path, options = {}) {
     throw new Error(err.detail || err.message || `Error ${res.status}`);
   }
 
-  return res.status === 204 ? null : res.json();
+  // 204 No Content y 201 Created void (ej. /api/register) no tienen body
+  const text = await res.text();
+  return text.length > 0 ? JSON.parse(text) : null;
 }
 
 /* ── Paginación — JHipster devuelve array con header X-Total-Count ──
