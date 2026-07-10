@@ -23,7 +23,7 @@ services:
     ports:
       - "127.0.0.1:8080:8080"
     environment:
-      SPRING_PROFILES_ACTIVE: prod
+      SPRING_PROFILES_ACTIVE: prod,api-docs
       # MongoDB — usa el nombre del servicio como host (red interna Docker)
       SPRING_MONGODB_URI: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/room"
       # JWT

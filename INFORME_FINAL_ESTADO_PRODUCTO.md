@@ -461,11 +461,11 @@ jakarta.mail.AuthenticationFailedException:
 1. User proporciona App Password
    └─ De: https://myaccount.google.com/apppasswords
 
-2. Claude configura .env y reinicia app
+2. Se configura .env y reinicia app
    └─ MAIL_PASSWORD={16-char-app-password}
    └─ ./run-dev.sh
 
-3. Claude ejecuta flujo real:
+3. Se ejecuta flujo real de validación:
    ├─ POST /api/register: crear usuario nuevo
    ├─ Esperar/capturar email en bandeja
    ├─ GET /api/activate?key=...: activar cuenta
@@ -473,7 +473,7 @@ jakarta.mail.AuthenticationFailedException:
    ├─ GET /api/account: verificar cuenta activa
    └─ GET /api/publicacion-inmuebles: explorar como usuario nuevo
 
-4. Claude entrega:
+4. Se entrega:
    ├─ Payloads exactos de cada API call
    ├─ Email capturado
    ├─ Links extraídos

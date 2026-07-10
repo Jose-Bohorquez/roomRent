@@ -295,6 +295,10 @@ docker compose -f src/main/docker/app.yml up -d
 
 ---
 
+## Despliegue
+
+Ver [DEPLOYMENT.md](DEPLOYMENT.md) para el detalle de la infraestructura de producción (room-rent.xyz), variables de entorno, perfiles Spring, CORS y Nginx.
+
 ## Referencias
 
 - [JHipster 9.1.0](https://www.jhipster.tech/documentation-archive/v9.1.0)
